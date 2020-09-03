@@ -1,4 +1,4 @@
-package com.bouncer77.springbootapp1;
+package com.bouncer77.springbootapp1.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
