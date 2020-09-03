@@ -9,18 +9,30 @@
     <a href="addPerson">Add Person</a>
     <br/><br/>
     <div>
-        <table border="1">
+        <table border="2">
             <tr>
-                <th>Email</th>
+                <th>Name</th>
+                <th>Surname</th>
                 <th>Login</th>
-                <th>Passord</th>
+                <th>Email</th>
+                <th>Password</th>
             </tr>
-            <tr th:each="person : ${persons}">
-                <td th:utext="${person.email}">...</td>
+            <tr th:each="person:${persons}">
+                <td th:utext="${person.name}">...</td>
+                <td th:utext="${person.surname}">...</td>
                 <td th:utext="${person.login}">...</td>
+                <td th:utext="${person.email}">...</td>
                 <td th:utext="${person.password}">...</td>
             </tr>
         </table>
     </div>
+
+    <!--<form method="post" action="filter">
+        <label>
+            <input type="text" name="filter">
+            <button type="submit">Найти</button>
+        </label>
+    </form>-->
+
 </body>
 </html>

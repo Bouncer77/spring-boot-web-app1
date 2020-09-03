@@ -7,10 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -44,7 +41,9 @@ public class PersonController {
 
     @GetMapping("/personList")
     public String showAllPersons(Model model) {
-        model.addAttribute("persons", personDao.findAll());
+        List<Person> persons = personDao.findAll();
+        persons.forEach(System.out::println);
+        model.addAttribute("persons", persons);
         return "personList";
     }
 
@@ -61,19 +60,29 @@ public class PersonController {
     public String savePerson(Model model,
                              @ModelAttribute("personForm") PersonForm personForm) {
 
+
+        String login = personForm.getLogin();
         String email = personForm.getEmail();
         String password = personForm.getPassword();
+        String name = personForm.getName();
+        String surname = personForm.getSurname();
 
         if (email != null && email.length() > 0 && email.matches("\\w+@\\w+\\.\\w+")//
                 && password != null && password.length() > 0) {
-            Person newPerson = new Person(email, password);
-            personDao.save(newPerson);
+            // Person newPerson = new Person(email, password);
+            Person person = new Person(login, email, password, name, surname);
+            personDao.save(person);
 
             return "redirect:/personList";
         }
 
         model.addAttribute("errorMessage", errorMessage);
         return "addPerson";
+    }
+
+    @PostMapping("filter")
+    public String filterByName(@RequestParam String filter, Model model) {
+        return "index";
     }
 
 }

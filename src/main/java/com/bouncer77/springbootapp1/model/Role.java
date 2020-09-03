@@ -22,6 +22,8 @@ public class Role {
 
     private String name;
 
+    public Role() {}
+
     /*@ManyToMany(mappedBy = "roles")
     private Set<Person> people;
 

@@ -28,8 +28,12 @@ public class SpringBootApp1Application implements CommandLineRunner {
 	public void run(String... args) {
 
 		// Person
-		Person anna = new Person("annaEmail@google.com", "123456");
-		Person dima = new Person("dimaEmail@google.com", "654321");
+		Person anna = new Person("AnnaLogin", "annaEmail@google.com", "123",
+				"Анна", "Гончарова" );
+
+		Person dima = new Person("DImaLogin", "dimaEmail@google.com", "654321",
+				"Дима", "Иванов");
+
 		List<Person> people = Arrays.asList(anna, dima);
 		personDao.saveAll(people);
 		System.out.println("<<<<<<<<<" + personDao.findAll());
