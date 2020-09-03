@@ -22,7 +22,7 @@ public class Role {
 
     private String name;
 
-    @ManyToMany(mappedBy = "roles")
+    /*@ManyToMany(mappedBy = "roles")
     private Set<Person> people;
 
     public Role() {}
@@ -58,5 +58,5 @@ public class Role {
                 ", name='" + name + '\'' +
                 ", userSet=" + people +
                 '}';
-    }
+    }*/
 }
