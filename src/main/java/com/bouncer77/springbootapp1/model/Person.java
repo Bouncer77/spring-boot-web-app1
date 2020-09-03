@@ -24,10 +24,33 @@ public class Person {
     @Column(name = "password")
     private String password;
 
-    /*@Transient
-    private String confirmPassword;
+    private boolean active;
 
-    @ManyToMany
+    @ElementCollection(targetClass = Role.class, fetch = FetchType.EAGER)
+    @CollectionTable(name = "person_roles", joinColumns = @JoinColumn(name = "person_id"))
+    @Enumerated(EnumType.STRING)
+    private Set<Role> roles;
+
+    public boolean isActive() {
+        return active;
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
+    }
+
+    public Set<Role> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(Set<Role> roles) {
+        this.roles = roles;
+    }
+
+    /*@Transient
+    private String confirmPassword;*/
+
+    /*@ManyToMany
     @JoinTable(name = "person_role",
             joinColumns = @JoinColumn(name = "person_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id"))
@@ -99,23 +122,13 @@ public class Person {
         this.name = name;
     }
 
-    /*public Set<Role> getRoles() {
-        return roles;
+    public String getPhone() {
+        return phone;
     }
 
-    public void setRoles(Set<Role> roles) {
-        this.roles = roles;
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
-
-    public String getConfirmPassword() {
-        return confirmPassword;
-    }
-
-    public void setConfirmPassword(String confirmPassword) {
-        this.confirmPassword = confirmPassword;
-    }*/
-
-
 
     @Override
     public String toString() {
