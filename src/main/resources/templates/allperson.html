@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>All Persons</title>
+</head>
+<body>
+    <h1>Person List</h1>
+    <br/><br/>
+    <div>
+        <table border="1">
+            <tr>
+                <th>Email</th>
+                <th>Login</th>
+                <th>Passord</th>
+            </tr>
+            <tr th:each="person : ${persons}">
+                <td th:utext="${person.email}">...</td>
+                <td th:utext="${person.login}">...</td>
+                <td th:utext="${person.password}">...</td>
+            </tr>
+        </table>
+    </div>
+</body>
+</html>
