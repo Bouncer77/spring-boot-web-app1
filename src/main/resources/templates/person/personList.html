@@ -5,6 +5,12 @@
     <title>All Persons</title>
 </head>
 <body>
+
+    <h1 th:inline="text">Hello [[${#httpServletRequest.remoteUser}]]!</h1>
+    <form th:action="@{/logout}" method="post">
+        <input type="submit" value="Sign Out"/>
+    </form>
+
     <h1>Person List</h1>
     <a href="addPerson">Add Person</a>
     <br/><br/>
@@ -31,6 +37,7 @@
         <label>
             <input type="text" name="filter">
             <button type="submit">Найти по имени</button>
+            <input type="hidden" name="_csrf" value="${_csrf.token}"/>
         </label>
     </form>
 
