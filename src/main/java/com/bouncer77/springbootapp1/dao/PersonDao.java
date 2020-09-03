@@ -14,6 +14,8 @@ import java.util.List;
 public interface PersonDao extends JpaRepository<Person, Integer> {
     Person findByLogin(String login);
 
+    List<Person> findByName(String name);
+
     @Query("select p from Person p order by p.name")
     List<Person> findAllOrderedByFirstName();
 }

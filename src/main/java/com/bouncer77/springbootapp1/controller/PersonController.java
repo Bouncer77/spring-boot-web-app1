@@ -79,9 +79,19 @@ public class PersonController {
         return "/person/addPerson";
     }
 
-    /*@PostMapping("filter")
+    @PostMapping("filter")
     public String filterByName(@RequestParam String filter, Model model) {
-        return "person/index";
-    }*/
+
+        Iterable<Person> persons;
+        if (filter != null && !filter.isEmpty()) {
+            persons = personDao.findByName(filter);
+        } else {
+            persons = personDao.findAll();
+        }
+
+        model.addAttribute("persons", persons);
+
+        return "/person/personList";
+    }
 
 }
