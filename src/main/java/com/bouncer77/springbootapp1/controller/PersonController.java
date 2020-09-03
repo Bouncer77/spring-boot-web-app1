@@ -9,7 +9,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -44,7 +43,7 @@ public class PersonController {
         List<Person> persons = personDao.findAll();
         persons.forEach(System.out::println);
         model.addAttribute("persons", persons);
-        return "personList";
+        return "/person/personList";
     }
 
     @GetMapping("/addPerson")
@@ -53,7 +52,7 @@ public class PersonController {
         PersonForm personForm = new PersonForm();
         model.addAttribute("personForm", personForm);
 
-        return "addPerson";
+        return "/person/addPerson";
     }
 
     @PostMapping("/addPerson")
@@ -69,7 +68,7 @@ public class PersonController {
 
         if (email != null && email.length() > 0 && email.matches("\\w+@\\w+\\.\\w+")//
                 && password != null && password.length() > 0) {
-            // Person newPerson = new Person(email, password);
+
             Person person = new Person(login, email, password, name, surname);
             personDao.save(person);
 
@@ -77,12 +76,12 @@ public class PersonController {
         }
 
         model.addAttribute("errorMessage", errorMessage);
-        return "addPerson";
+        return "/person/addPerson";
     }
 
-    @PostMapping("filter")
+    /*@PostMapping("filter")
     public String filterByName(@RequestParam String filter, Model model) {
-        return "index";
-    }
+        return "person/index";
+    }*/
 
 }
