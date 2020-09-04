@@ -13,13 +13,13 @@ import java.util.Collections;
 import java.util.List;
 
 @SpringBootApplication
-public class SpringBootApp1Application implements CommandLineRunner {
+public class SpringBootApp1Application {//implements CommandLineRunner {
 
 	public static void main(String[] args) {
 		SpringApplication.run(SpringBootApp1Application.class, args);
 	}
 
-	@Autowired
+/*	@Autowired
 	PersonDao personDao;
 
 	@Override
@@ -39,6 +39,6 @@ public class SpringBootApp1Application implements CommandLineRunner {
 		List<Person> people = Arrays.asList(anna, dima);
 		personDao.saveAll(people);
 		System.out.println("<<<<<<<<<" + personDao.findAll());
-	}
+	}*/
 
 }

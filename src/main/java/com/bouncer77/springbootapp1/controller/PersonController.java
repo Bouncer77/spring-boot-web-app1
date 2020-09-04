@@ -42,7 +42,8 @@ public class PersonController {
 
         model.addAttribute("message", message);
 
-        return "index";
+        //return "index";
+        return "main";
     }
 
     @GetMapping("/personList")
