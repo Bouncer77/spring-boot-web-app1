@@ -17,7 +17,7 @@
     <a href="addPerson">Add Person</a>
     <br/><br/>
     <div>
-        <table border="1">
+        <table border="5">
             <tr>
                 <th>Name</th>
                 <th>Surname</th>
@@ -35,7 +35,7 @@
         </table>
     </div>
 
-    <form method="post" action="filter">
+    <form method="get" action="/personList">
         <label>
             <input type="text" name="filter">
             <button type="submit">Найти по имени</button>

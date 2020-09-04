@@ -46,8 +46,19 @@ public class PersonController {
     }
 
     @GetMapping("/personList")
-    public String showAllPersons(Model model) {
-        List<Person> persons = personDao.findAll();
+    public String showAllPersons(@RequestParam(required = false) String filter,
+            Model model) {
+        // List<Person> persons = personDao.findAll();
+
+
+        Iterable<Person> persons;
+        if (filter != null && !filter.isEmpty()) {
+            persons = personDao.findByName(filter);
+        } else {
+            persons = personDao.findAll();
+        }
+
+
         // persons.forEach(System.out::println);
         model.addAttribute("persons", persons);
         return "/person/personList";
@@ -93,7 +104,7 @@ public class PersonController {
         return "/person/addPerson";
     }
 
-    @PostMapping("filter")
+/*    @PostMapping("filter")
     public String filterByName(@RequestParam String filter, Model model) {
 
         Iterable<Person> persons;
@@ -106,5 +117,5 @@ public class PersonController {
         model.addAttribute("persons", persons);
 
         return "/person/personList";
-    }
+    }*/
 }
