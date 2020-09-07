@@ -30,7 +30,7 @@ public class Person {
     private Passport passport;
 
     @Column(unique=true)
-    private String login;
+    private String login; //
 
     @Column(name = "password")
     private String password;
