@@ -1,19 +1,17 @@
 package com.bouncer77.springbootapp1;
 
-import com.bouncer77.springbootapp1.entity.Passport;
-import com.bouncer77.springbootapp1.entity.Phone;
+import com.bouncer77.springbootapp1.entity.*;
+import com.bouncer77.springbootapp1.repository.AuthorRepository;
+import com.bouncer77.springbootapp1.repository.BookRepository;
 import com.bouncer77.springbootapp1.repository.PersonRepository;
-import com.bouncer77.springbootapp1.entity.Person;
-import com.bouncer77.springbootapp1.entity.Role;
+import com.bouncer77.springbootapp1.repository.TagRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
@@ -27,19 +25,19 @@ public class SpringBootApp1Application {
         SpringApplication.run(SpringBootApp1Application.class, args);
     }
 
-    /*@Autowired
-    PersonRepository personRepository;*/
-
     /**
-    * Метод возвращает CommandLineRunnerкомпонент , который автоматически запускает код при запуске приложения.
-    * */
+     * Метод возвращает CommandLineRunnerкомпонент , который автоматически запускает код при запуске приложения.
+     */
     @Bean
-    public CommandLineRunner demo(PersonRepository personRepository) {
+    public CommandLineRunner demo(PersonRepository personRepository,
+                                  AuthorRepository authorRepository,
+                                  BookRepository bookRepository,
+                                  TagRepository tagRepository) {
         return (args) -> {
-            // save a few persons
+            /*// save a few persons
             // anna = person 1
             Person anna = new Person("AnnaLogin", "annaEmail@google.com", "123",
-                    "Anna", "Goncharova" );
+                    "Anna", "Goncharova");
             anna.setActive(true);
             anna.setRoles(Collections.singleton(Role.STUDENT));
             Passport passportAnna = new Passport("111", "456789");
@@ -75,7 +73,28 @@ public class SpringBootApp1Application {
             for (Person person : personRepository.findAll()) {
                 log.info(person.toString());
             }
-            log.info("");
+            log.info("");*/
+
+            Author dostoevsky = new Author("Федор",  "Достоевский");
+            Author bulgakov = new Author("Михаил",  "Булгаков");
+            Author tolstoy = new Author("Лев",  "Толстой");
+            Author pushkin = new Author("Александр",  "Пушкин");
+            Author gogol = new Author("Николай",  "Гоголь");
+            Author schildt = new Author("Герберт",  "Шилдт");
+            List<Author> authorList = Arrays.asList(dostoevsky, bulgakov, tolstoy, pushkin, gogol, schildt);
+            authorRepository.saveAll(authorList);
+
+
+            Tag classicLiteratureTag = new Tag("Классическая литература");
+            Tag javaTag = new Tag("Java");
+            List<Tag> tagList = Arrays.asList(classicLiteratureTag, javaTag);
+            tagRepository.saveAll(tagList);
+
+            Book completeGuideJava = new Book("Java 8. Полное руководство.", 1377);
+            Book warAndPeace = new Book("Война и мир", 1300);
+            Book turbineDays = new Book("Дни Трубиных", 224);
+            List<Book> bookList = Arrays.asList(completeGuideJava, warAndPeace, turbineDays);
+            bookRepository.saveAll(bookList);
         };
     }
 }

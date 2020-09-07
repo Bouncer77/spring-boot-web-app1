@@ -1,7 +1,7 @@
 package com.bouncer77.springbootapp1.entity;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
+import lombok.NonNull;
 
 import javax.persistence.*;
 import java.util.Set;
@@ -13,15 +13,17 @@ import java.util.Set;
 
 @Entity
 @Table(name = "book")
-@Getter
-@Setter
+@Data
 public class Book {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @NonNull
     private String name;
+
+    @NonNull
     private Integer lastPage;
 
     @ManyToMany
@@ -30,6 +32,13 @@ public class Book {
             joinColumns = @JoinColumn(name = "book_id"),
             inverseJoinColumns = @JoinColumn(name = "author_id"))
     private Set<Author> authors;
+
+    @ManyToMany
+    @JoinTable(
+            name = "tag_book",
+            joinColumns = @JoinColumn(name = "book_id"),
+            inverseJoinColumns = @JoinColumn(name = "tag_id"))
+    private Set<Author> tags;
 
     protected Book() {
     }

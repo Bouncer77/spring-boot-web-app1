@@ -1,9 +1,7 @@
 package com.bouncer77.springbootapp1.entity;
 
 import lombok.Data;
-import lombok.Getter;
 import lombok.NonNull;
-import lombok.Setter;
 
 import javax.persistence.*;
 import java.util.Set;
@@ -14,9 +12,9 @@ import java.util.Set;
  */
 
 @Entity
-@Table(name = "author")
+@Table(name = "tag")
 @Data
-public class Author {
+public class Tag {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -25,17 +23,12 @@ public class Author {
     @NonNull
     private String name;
 
-    @NonNull
-    private String surname;
-
-    @ManyToMany(mappedBy = "authors")
+    @ManyToMany(mappedBy = "tags")
     private Set<Book> books;
 
-    protected Author() {
-    }
+    protected Tag() {}
 
-    public Author(String name, String surname) {
+    public Tag(String name) {
         this.name = name;
-        this.surname = surname;
     }
 }
