@@ -79,7 +79,10 @@ public class SpringBootApp1Application {
             Author pushkin = new Author("Александр",  "Пушкин");
             Author gogol = new Author("Николай",  "Гоголь");
             Author schildt = new Author("Герберт",  "Шилдт");
-            List<Author> authorList = Arrays.asList(dostoevsky, bulgakov, tolstoy, pushkin, gogol, schildt);
+
+            Author bates = new Author("Берт",  "Бэйтс");
+            Author sierra = new Author("Кэти",  "Сьерра");
+            List<Author> authorList = Arrays.asList(dostoevsky, bulgakov, tolstoy, pushkin, gogol, schildt, bates, sierra);
             authorRepository.saveAll(authorList);
 
             Tag classicLiteratureTag = new Tag("Классическая литература");
@@ -88,15 +91,13 @@ public class SpringBootApp1Application {
             tagRepository.saveAll(tagList);
 
             Book completeGuideJava = new Book("Java 8. Полное руководство.", 1377, schildt);
-            completeGuideJava.getAuthors().add(schildt);
-            //System.out.println(authorRepository.findBySurname("Шилдт").toString());
-            //log.info(authorRepository.findBySurname("Шилдт").toString());
-
-            //completeGuideJava.getAuthors().add(authorRepository.findBySurname("Шилдт"));
-
             Book warAndPeace = new Book("Война и мир", 1300, dostoevsky);
             Book turbineDays = new Book("Дни Трубиных", 224, bulgakov);
-            List<Book> bookList = Arrays.asList(completeGuideJava, warAndPeace, turbineDays);
+
+            Set<Author> authorSet = new HashSet<>(Arrays.asList(bates, sierra));
+            Book superBook = new Book("Изучаем Java", 690, authorSet);
+
+            List<Book> bookList = Arrays.asList(completeGuideJava, warAndPeace, turbineDays, superBook);
             bookRepository.saveAll(bookList);
         };
     }

@@ -1,7 +1,9 @@
 package com.bouncer77.springbootapp1.entity;
 
 import lombok.Data;
+import lombok.Getter;
 import lombok.NonNull;
+import lombok.Setter;
 
 import javax.persistence.*;
 import java.util.HashSet;
@@ -14,13 +16,16 @@ import java.util.Set;
 
 @Entity
 @Table(name = "book")
-@Data
+// @Data
+@Getter
+@Setter
 public class Book {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(unique = true)
     @NonNull
     private String name;
 

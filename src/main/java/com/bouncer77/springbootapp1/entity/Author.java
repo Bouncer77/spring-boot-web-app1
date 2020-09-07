@@ -16,7 +16,9 @@ import java.util.Set;
 
 @Entity
 @Table(name = "author")
-@Data
+//@Data
+@Getter
+@Setter
 public class Author {
 
     @Id
@@ -26,8 +28,8 @@ public class Author {
     @NonNull
     private String name;
 
-    @NonNull
     @Column(unique = true)
+    @NonNull
     private String surname;
 
     @ManyToMany(mappedBy = "authors")
