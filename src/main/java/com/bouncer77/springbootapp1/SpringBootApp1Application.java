@@ -12,9 +12,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 @SpringBootApplication
 public class SpringBootApp1Application {
@@ -84,15 +82,20 @@ public class SpringBootApp1Application {
             List<Author> authorList = Arrays.asList(dostoevsky, bulgakov, tolstoy, pushkin, gogol, schildt);
             authorRepository.saveAll(authorList);
 
-
             Tag classicLiteratureTag = new Tag("Классическая литература");
             Tag javaTag = new Tag("Java");
             List<Tag> tagList = Arrays.asList(classicLiteratureTag, javaTag);
             tagRepository.saveAll(tagList);
 
-            Book completeGuideJava = new Book("Java 8. Полное руководство.", 1377);
-            Book warAndPeace = new Book("Война и мир", 1300);
-            Book turbineDays = new Book("Дни Трубиных", 224);
+            Book completeGuideJava = new Book("Java 8. Полное руководство.", 1377, schildt);
+            completeGuideJava.getAuthors().add(schildt);
+            //System.out.println(authorRepository.findBySurname("Шилдт").toString());
+            //log.info(authorRepository.findBySurname("Шилдт").toString());
+
+            //completeGuideJava.getAuthors().add(authorRepository.findBySurname("Шилдт"));
+
+            Book warAndPeace = new Book("Война и мир", 1300, dostoevsky);
+            Book turbineDays = new Book("Дни Трубиных", 224, bulgakov);
             List<Book> bookList = Arrays.asList(completeGuideJava, warAndPeace, turbineDays);
             bookRepository.saveAll(bookList);
         };

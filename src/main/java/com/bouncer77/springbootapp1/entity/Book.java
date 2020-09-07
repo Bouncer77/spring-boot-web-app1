@@ -4,6 +4,7 @@ import lombok.Data;
 import lombok.NonNull;
 
 import javax.persistence.*;
+import java.util.HashSet;
 import java.util.Set;
 
 /**
@@ -31,21 +32,29 @@ public class Book {
             name = "author_book",
             joinColumns = @JoinColumn(name = "book_id"),
             inverseJoinColumns = @JoinColumn(name = "author_id"))
-    private Set<Author> authors;
+    private Set<Author> authors = new HashSet<>();
 
     @ManyToMany
     @JoinTable(
             name = "tag_book",
             joinColumns = @JoinColumn(name = "book_id"),
             inverseJoinColumns = @JoinColumn(name = "tag_id"))
-    private Set<Author> tags;
+    @NonNull
+    private Set<Author> tags = new HashSet<>();
 
     protected Book() {
     }
 
-    public Book(String name, Integer lastPage) {
+    public Book(String name, Integer lastPage, Set<Author> authors) {
         this.name = name;
         this.lastPage = lastPage;
+        this.authors = authors;
+    }
+
+    public Book(String name, Integer lastPage, Author author) {
+        this.name = name;
+        this.lastPage = lastPage;
+        this.authors.add(author);
     }
 
 }
