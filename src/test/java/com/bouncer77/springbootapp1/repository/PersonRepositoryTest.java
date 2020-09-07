@@ -1,6 +1,6 @@
-package com.bouncer77.springbootapp1.dao;
+package com.bouncer77.springbootapp1.repository;
 
-import com.bouncer77.springbootapp1.model.Person;
+import com.bouncer77.springbootapp1.entity.Person;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,14 +13,14 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @ExtendWith(SpringExtension.class)
 @SpringBootTest
-class PersonDaoTest {
+class PersonRepositoryTest {
 
     @Autowired
-    PersonDao personDao;
+    PersonRepository personRepository;
 
     @Test
     void findByName() {
-        List<Person> personList = personDao.findByName("Anna");
+        List<Person> personList = personRepository.findByName("Anna");
 
         assertThat(personList).hasSize(1);
         assertThat(personList.get(0).getName()).isEqualTo("Anna");
@@ -29,7 +29,7 @@ class PersonDaoTest {
 
     @Test
     void findAllOrderedByFirstName() {
-        List<Person> personList = personDao.findAllOrderedByFirstName();
+        List<Person> personList = personRepository.findAllOrderedByFirstName();
         assertThat(personList).hasSize(3);
         assertThat(personList.get(2).getSurname()).isEqualTo("Ivanov");
     }

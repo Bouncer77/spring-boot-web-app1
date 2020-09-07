@@ -1,18 +1,16 @@
 package com.bouncer77.springbootapp1.controller;
 
-import com.bouncer77.springbootapp1.dao.PersonDao;
+import com.bouncer77.springbootapp1.repository.PersonRepository;
 import com.bouncer77.springbootapp1.form.PersonForm;
-import com.bouncer77.springbootapp1.model.Person;
-import com.bouncer77.springbootapp1.model.Role;
+import com.bouncer77.springbootapp1.entity.Person;
+import com.bouncer77.springbootapp1.entity.Role;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Collection;
 import java.util.Collections;
-import java.util.List;
 import java.util.Objects;
 
 /**
@@ -25,7 +23,7 @@ import java.util.Objects;
 public class PersonController {
 
     @Autowired
-    private PersonDao personDao;
+    private PersonRepository personRepository;
 
     // Вводится (inject) из application.properties.
     @Value("${welcome.message}")
@@ -54,9 +52,9 @@ public class PersonController {
 
         Iterable<Person> persons;
         if (filter != null && !filter.isEmpty()) {
-            persons = personDao.findByName(filter);
+            persons = personRepository.findByName(filter);
         } else {
-            persons = personDao.findAll();
+            persons = personRepository.findAll();
         }
 
 
@@ -84,7 +82,7 @@ public class PersonController {
         String name = personForm.getName();
         String surname = personForm.getSurname();
 
-        Person personDb = personDao.findByLogin(login);
+        Person personDb = personRepository.findByLogin(login);
         if (Objects.nonNull(personDb)) {
             model.addAttribute("errorMessage", personExists);
             return "/person/addPerson";
@@ -96,7 +94,7 @@ public class PersonController {
             Person person = new Person(login, email, password, name, surname);
             person.setActive(true);
             person.setRoles(Collections.singleton(Role.STUDENT));
-            personDao.save(person);
+            personRepository.save(person);
 
             return "redirect:/personList";
         }
@@ -104,19 +102,4 @@ public class PersonController {
         model.addAttribute("errorMessage", errorMessage);
         return "/person/addPerson";
     }
-
-/*    @PostMapping("filter")
-    public String filterByName(@RequestParam String filter, Model model) {
-
-        Iterable<Person> persons;
-        if (filter != null && !filter.isEmpty()) {
-            persons = personDao.findByName(filter);
-        } else {
-            persons = personDao.findAll();
-        }
-
-        model.addAttribute("persons", persons);
-
-        return "/person/personList";
-    }*/
 }

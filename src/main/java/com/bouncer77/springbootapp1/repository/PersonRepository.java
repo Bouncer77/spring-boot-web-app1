@@ -1,6 +1,6 @@
-package com.bouncer77.springbootapp1.dao;
+package com.bouncer77.springbootapp1.repository;
 
-import com.bouncer77.springbootapp1.model.Person;
+import com.bouncer77.springbootapp1.entity.Person;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
@@ -11,7 +11,7 @@ import java.util.List;
  * Created by Kosenkov Ivan on 03.09.2020
  */
 
-public interface PersonDao extends JpaRepository<Person, Integer> {
+public interface PersonRepository extends JpaRepository<Person, Integer> {
     Person findByLogin(String login);
 
     List<Person> findByName(String name);

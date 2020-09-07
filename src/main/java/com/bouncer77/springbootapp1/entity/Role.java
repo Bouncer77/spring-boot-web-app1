@@ -1,4 +1,4 @@
-package com.bouncer77.springbootapp1.model;
+package com.bouncer77.springbootapp1.entity;
 
 /**
  * @author Kosenkov Ivan
@@ -6,5 +6,5 @@ package com.bouncer77.springbootapp1.model;
  */
 
 public enum Role {
-    STUDENT;
+    STUDENT
 }

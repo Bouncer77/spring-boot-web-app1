@@ -1,4 +1,4 @@
-package com.bouncer77.springbootapp1.model;
+package com.bouncer77.springbootapp1.entity;
 
 import javax.persistence.*;
 import java.util.Set;
