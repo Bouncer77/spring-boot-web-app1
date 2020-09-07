@@ -53,13 +53,19 @@ public class Person {
      * Person status
      * */
     @Column(name = "active", nullable = false)
-    private boolean active;
+    private boolean active = true;
 
+    /**
+     * Roles of current person
+     * */
     @ElementCollection(targetClass = Role.class, fetch = FetchType.EAGER)
     @CollectionTable(name = "person_roles", joinColumns = @JoinColumn(name = "person_id"))
     @Enumerated(EnumType.STRING)
     private Set<Role> roles;
 
+    /**
+     * Registration for the course
+     * */
     @ManyToMany
     @JoinTable(name = "icourse_person",
             joinColumns = @JoinColumn(name = "person_id"),
@@ -67,6 +73,9 @@ public class Person {
     )
     private Set<InstanceCourse> instanceCourses = new HashSet<>();
 
+    /**
+     * Knowledge of subjects
+     * */
     @ManyToMany
     @JoinTable(name = "tag_person",
             joinColumns = @JoinColumn(name = "person_id"),
@@ -78,12 +87,15 @@ public class Person {
      * Date and Time of registration person
      * */
     @Column(name = "regdatetime")
-    private LocalDateTime regDateTime;
+    private LocalDateTime regDateTime = LocalDateTime.now();
 
     @Column(unique=true)
     private String email;
 
+    @Column(name = "surname", nullable = false)
     private String surname;
+
+    @Column(name = "name", nullable = false)
     private String name;
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
