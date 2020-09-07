@@ -1,10 +1,6 @@
 package com.bouncer77.springbootapp1.entity;
 
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
-import org.springframework.jmx.export.annotation.ManagedAttribute;
+import lombok.*;
 
 import javax.persistence.*;
 
@@ -15,15 +11,15 @@ import javax.persistence.*;
 
 @SuppressWarnings("PMD")
 @Entity
-@Table(name = "progress_book")
+@Table(name = "book_step")
 @Getter
 @Setter
 @EqualsAndHashCode
 @ToString
-public class ProgressBook {
+public class BookStep {
 
     @EmbeddedId
-    private ProgressBookKey id;
+    private BookStepPk id;
 
     @ManyToOne
     @MapsId("personId")
@@ -35,5 +31,8 @@ public class ProgressBook {
     @JoinColumn(name = "book_id")
     private Book book;
 
-    // int page;
+    @NonNull
+    private int page;
+
+    private String comment;
 }

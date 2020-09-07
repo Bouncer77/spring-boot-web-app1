@@ -48,7 +48,7 @@ public class Book {
     Set<ReadingCourse> readingCourses = new HashSet<>();
 
     @OneToMany(mappedBy = "book")
-    Set<ProgressBook> progressBooks;
+    Set<BookStep> bookSteps;
 
     @Column(name = "description", length = 120)
     private String description;

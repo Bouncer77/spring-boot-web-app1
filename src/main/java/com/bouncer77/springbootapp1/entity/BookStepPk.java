@@ -18,7 +18,7 @@ import java.time.LocalDate;
 @Getter
 @Setter
 @EqualsAndHashCode
-public class ProgressBookKey implements Serializable {
+public class BookStepPk implements Serializable {
 
     @Column(name = "person_id")
     private Long personId;
@@ -29,6 +29,6 @@ public class ProgressBookKey implements Serializable {
     @Column(name = "reg_date")
     private LocalDate regDate = LocalDate.now();
 
-    protected ProgressBookKey() {
+    protected BookStepPk() {
     }
 }

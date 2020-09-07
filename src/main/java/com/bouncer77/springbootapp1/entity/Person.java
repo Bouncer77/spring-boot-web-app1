@@ -6,7 +6,6 @@ import lombok.Setter;
 import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 /**
@@ -92,7 +91,7 @@ public class Person {
     private Set<Phone> phones;
 
     @OneToMany(mappedBy = "person")
-    Set<ProgressBook> progressBooks;
+    Set<BookStep> bookSteps;
 
     protected Person() {}
 
@@ -126,10 +125,8 @@ public class Person {
         return "\nUser{" +
                 "id=" + id +
                 ", login='" + login + '\'' +
-                //", passport='" + passport + '\'' +
                 ", password='" + password + '\'' +
                 ", email='" + email + '\'' +
-                //", passport='" + passport + '\'' +
                 ", phones='" + phones + '\'' +
                 '}';
     }
