@@ -1,5 +1,8 @@
 package com.bouncer77.springbootapp1.entity;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import javax.persistence.*;
 
 /**
@@ -8,11 +11,15 @@ import javax.persistence.*;
  */
 
 @Entity
+@Table(name = "phones")
+@Getter
+@Setter
 public class Phone {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    @Column(name = "id")
+    private Long id;
 
     @Column(unique = true, nullable = false)
     private String number;
@@ -21,22 +28,6 @@ public class Phone {
     }
 
     public Phone(String number) {
-        this.number = number;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public String getNumber() {
-        return number;
-    }
-
-    public void setNumber(String number) {
         this.number = number;
     }
 
