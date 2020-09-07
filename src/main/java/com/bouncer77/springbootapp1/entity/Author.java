@@ -16,7 +16,6 @@ import java.util.Set;
 
 @Entity
 @Table(name = "author")
-//@Data
 @Getter
 @Setter
 public class Author {

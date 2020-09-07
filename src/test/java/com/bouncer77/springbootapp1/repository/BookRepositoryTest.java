@@ -2,6 +2,7 @@ package com.bouncer77.springbootapp1.repository;
 
 import com.bouncer77.springbootapp1.entity.Author;
 import com.bouncer77.springbootapp1.entity.Book;
+import com.bouncer77.springbootapp1.entity.Tag;
 import org.hibernate.LazyInitializationException;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -24,9 +25,12 @@ class BookRepositoryTest {
     @Autowired
     BookRepository bookRepository;
 
+    @Autowired
+    TagRepository tagRepository;
+
     @Test
     @Transactional
-    public void autorBookOneAutorTest() {
+    public void bookOneAutorTest() {
 
         Book book = bookRepository.findByName("Война и мир");
         Author author = authorRepository.findBySurname("Достоевский");
@@ -34,7 +38,7 @@ class BookRepositoryTest {
     }
 
     @Test
-    public void lazyLoadingException() {
+    public void bookAutorsLazyLoadingException() {
         Book book = bookRepository.findByName("Изучаем Java");
         //session closed
         Assertions.assertThrows(LazyInitializationException.class, () -> System.out.println(book.getAuthors()));
@@ -42,7 +46,7 @@ class BookRepositoryTest {
 
     @Test
     @Transactional
-    public void autorBookFewAutorTest() {
+    public void bookFewAutorsTest() {
 
         Book book = bookRepository.findByName("Изучаем Java");
         assertThat(book.getAuthors()).hasSize(2);
@@ -51,6 +55,19 @@ class BookRepositoryTest {
         Author author2 = authorRepository.findBySurname("Бэйтс");
         assertThat(book.getAuthors().contains(author1)).isTrue();
         assertThat(book.getAuthors().contains(author2)).isTrue();
+    }
+
+    @Test
+    @Transactional
+    public void bookFewTagsTest() {
+
+        Book book = bookRepository.findByName("Изучаем Java");
+        assertThat(book.getTags()).hasSize(2);
+
+        Tag tag1 = tagRepository.findByName("Java");
+        Tag tag2 = tagRepository.findByName("Программирование");
+        assertThat(book.getTags().contains(tag1)).isTrue();
+        assertThat(book.getTags().contains(tag2)).isTrue();
     }
 
 }

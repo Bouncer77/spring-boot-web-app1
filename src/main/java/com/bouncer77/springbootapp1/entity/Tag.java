@@ -16,7 +16,6 @@ import java.util.Set;
 
 @Entity
 @Table(name = "tag")
-//@Data
 @Getter
 @Setter
 public class Tag {
@@ -25,6 +24,7 @@ public class Tag {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(unique = true)
     @NonNull
     private String name;
 

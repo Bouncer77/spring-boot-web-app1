@@ -12,6 +12,7 @@ import java.util.List;
  */
 
 public interface PersonRepository extends JpaRepository<Person, Integer> {
+
     Person findByLogin(String login);
 
     List<Person> findByName(String name);

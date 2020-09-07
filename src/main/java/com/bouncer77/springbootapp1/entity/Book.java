@@ -16,7 +16,6 @@ import java.util.Set;
 
 @Entity
 @Table(name = "book")
-// @Data
 @Getter
 @Setter
 public class Book {
@@ -44,22 +43,35 @@ public class Book {
             name = "tag_book",
             joinColumns = @JoinColumn(name = "book_id"),
             inverseJoinColumns = @JoinColumn(name = "tag_id"))
-    @NonNull
-    private Set<Author> tags = new HashSet<>();
+    private Set<Tag> tags = new HashSet<>();
 
     protected Book() {
     }
 
-    public Book(String name, Integer lastPage, Set<Author> authors) {
+
+    /*public Book(String name, Integer lastPage, Set<Author> authors) {
         this.name = name;
         this.lastPage = lastPage;
         this.authors = authors;
-    }
+    }*/
 
-    public Book(String name, Integer lastPage, Author author) {
+    /*public Book(String name, Integer lastPage, Author author) {
         this.name = name;
         this.lastPage = lastPage;
         this.authors.add(author);
+    }*/
+
+    public Book(String name, Integer lastPage, Author author, Tag tag) {
+        this.name = name;
+        this.lastPage = lastPage;
+        this.authors.add(author);
+        this.tags.add(tag);
     }
 
+    public Book(String name, Integer lastPage, Set<Author> authors, Set<Tag> tags) {
+        this.name = name;
+        this.lastPage = lastPage;
+        this.authors = authors;
+        this.tags = tags;
+    }
 }

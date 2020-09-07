@@ -87,17 +87,19 @@ public class SpringBootApp1Application {
 
             Tag classicLiteratureTag = new Tag("Классическая литература");
             Tag javaTag = new Tag("Java");
-            List<Tag> tagList = Arrays.asList(classicLiteratureTag, javaTag);
+            Tag progTag = new Tag("Программирование");
+            List<Tag> tagList = Arrays.asList(classicLiteratureTag, javaTag, progTag);
             tagRepository.saveAll(tagList);
 
-            Book completeGuideJava = new Book("Java 8. Полное руководство.", 1377, schildt);
-            Book warAndPeace = new Book("Война и мир", 1300, dostoevsky);
-            Book turbineDays = new Book("Дни Трубиных", 224, bulgakov);
+            Book completeGuideJava = new Book("Java 8. Полное руководство.", 1377, schildt, javaTag);
+            Book warAndPeace = new Book("Война и мир", 1300, dostoevsky, classicLiteratureTag);
+            Book turbineDays = new Book("Дни Трубиных", 224, bulgakov, classicLiteratureTag);
 
             Set<Author> authorSet = new HashSet<>(Arrays.asList(bates, sierra));
-            Book superBook = new Book("Изучаем Java", 690, authorSet);
+            Set<Tag> tagSet = new HashSet<>(Arrays.asList(progTag, javaTag));
+            Book headFirstJava = new Book("Изучаем Java", 690, authorSet, tagSet);
 
-            List<Book> bookList = Arrays.asList(completeGuideJava, warAndPeace, turbineDays, superBook);
+            List<Book> bookList = Arrays.asList(completeGuideJava, warAndPeace, turbineDays, headFirstJava);
             bookRepository.saveAll(bookList);
         };
     }
