@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.Set;
 
 /**
  * @author Kosenkov Ivan
@@ -23,7 +24,19 @@ public class Book {
     private String name;
     private Integer lastPage;
 
+    @ManyToMany
+    @JoinTable(
+            name = "author_book",
+            joinColumns = @JoinColumn(name = "book_id"),
+            inverseJoinColumns = @JoinColumn(name = "author_id"))
+    private Set<Author> authors;
+
     protected Book() {
+    }
+
+    public Book(String name, Integer lastPage) {
+        this.name = name;
+        this.lastPage = lastPage;
     }
 
 }

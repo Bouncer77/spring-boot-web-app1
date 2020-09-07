@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.Set;
 
 /**
  * @author Kosenkov Ivan
@@ -23,6 +24,14 @@ public class Author {
     private String name;
     private String surname;
 
+    @ManyToMany(mappedBy = "authors")
+    private Set<Book> books;
+
     protected Author() {
+    }
+
+    public Author(String name, String surname) {
+        this.name = name;
+        this.surname = surname;
     }
 }
