@@ -32,7 +32,7 @@ public class SpringBootApp1Application {
                                   BookRepository bookRepository,
                                   TagRepository tagRepository) {
         return (args) -> {
-            /*// save a few persons
+            // save a few persons
             // anna = person 1
             Person anna = new Person("AnnaLogin", "annaEmail@google.com", "123",
                     "Anna", "Goncharova");
@@ -42,7 +42,8 @@ public class SpringBootApp1Application {
             anna.setPassport(passportAnna);
             Phone phoneAnna1 = new Phone("89681110101");
             Phone phoneAnna2 = new Phone("89681110102");
-            anna.setPhones(Arrays.asList(phoneAnna1, phoneAnna2));
+            Set<Phone> phoneSetAnna = new HashSet<>(Arrays.asList(phoneAnna1, phoneAnna2));
+            anna.setPhones(phoneSetAnna);
             // dima = person 2
             Person dima = new Person("DimaLogin", "dimaEmail@google.com", "654321",
                     "Dima", "Ivanov");
@@ -51,7 +52,8 @@ public class SpringBootApp1Application {
             Passport passportDima = new Passport("222", "456555");
             dima.setPassport(passportDima);
             Phone phoneDima1 = new Phone("89681110201");
-            dima.setPhones(Collections.singletonList(phoneDima1));
+            Set<Phone> phoneSetDima= new HashSet<>(Collections.singletonList(phoneDima1));
+            anna.setPhones(phoneSetDima);
 
             // alex = person 3
             Person alex = new Person("AlexLogin", "alexEmail@gmail.com", "321", "Alex", "Andreev");
@@ -60,7 +62,8 @@ public class SpringBootApp1Application {
             Passport passportAlex = new Passport("111", "456000");
             alex.setPassport(passportAlex);
             Phone phoneAlex1 = new Phone("89681110301");
-            alex.setPhones(Collections.singletonList(phoneAlex1));
+            Set<Phone> phoneSetAlex = new HashSet<>(Collections.singletonList(phoneAlex1));
+            anna.setPhones(phoneSetAlex);
 
             List<Person> people = Arrays.asList(anna, dima, alex);
             personRepository.saveAll(people);
@@ -71,7 +74,7 @@ public class SpringBootApp1Application {
             for (Person person : personRepository.findAll()) {
                 log.info(person.toString());
             }
-            log.info("");*/
+            log.info("");
 
             Author dostoevsky = new Author("Федор",  "Достоевский");
             Author bulgakov = new Author("Михаил",  "Булгаков");

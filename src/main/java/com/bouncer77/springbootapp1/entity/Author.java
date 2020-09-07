@@ -1,6 +1,5 @@
 package com.bouncer77.springbootapp1.entity;
 
-import lombok.Data;
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.Setter;
