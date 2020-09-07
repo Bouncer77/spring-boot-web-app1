@@ -13,13 +13,13 @@ import java.util.Collections;
 import java.util.List;
 
 @SpringBootApplication
-public class SpringBootApp1Application {//implements CommandLineRunner {
+public class SpringBootApp1Application implements CommandLineRunner {
 
 	public static void main(String[] args) {
 		SpringApplication.run(SpringBootApp1Application.class, args);
 	}
 
-/*	@Autowired
+	@Autowired
 	PersonDao personDao;
 
 	@Override
@@ -27,18 +27,22 @@ public class SpringBootApp1Application {//implements CommandLineRunner {
 
 		// Person
 		Person anna = new Person("AnnaLogin", "annaEmail@google.com", "123",
-				"Анна", "Гончарова" );
+				"Anna", "Goncharova" );
 		anna.setActive(true);
 		anna.setRoles(Collections.singleton(Role.STUDENT));
 
-		Person dima = new Person("DImaLogin", "dimaEmail@google.com", "654321",
-				"Дима", "Иванов");
+		Person dima = new Person("DimaLogin", "dimaEmail@google.com", "654321",
+				"Dima", "Ivanov");
 		dima.setActive(true);
 		dima.setRoles(Collections.singleton(Role.STUDENT));
 
-		List<Person> people = Arrays.asList(anna, dima);
+		Person alex = new Person("AlexLogin", "alexEmail@gmail.com", "321", "Alex", "Andreev");
+		alex.setActive(true);
+		alex.setRoles(Collections.singleton(Role.STUDENT));
+
+		List<Person> people = Arrays.asList(anna, dima, alex);
 		personDao.saveAll(people);
 		System.out.println("<<<<<<<<<" + personDao.findAll());
-	}*/
+	}
 
 }
