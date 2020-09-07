@@ -6,7 +6,6 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 /**
@@ -15,30 +14,32 @@ import java.util.Set;
  */
 
 @Entity
-@Table(name = "tag")
+@Table(name = "course")
 @Getter
 @Setter
-public class Tag {
+public class Course {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(unique = true)
     @NonNull
     private String name;
 
-    @ManyToMany(mappedBy = "tags")
-    private Set<Book> books = new HashSet<>();
+    @ManyToMany
+    @JoinTable(name = "rcourse_course",
+            joinColumns = @JoinColumn(name = "course_id"),
+            inverseJoinColumns = @JoinColumn(name = "rcourse_id")
+    )
+    private Set<ReadingCourse> readingCourses = new HashSet<>();
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JoinColumn(name = "tags")
-    private Set<Person> persons;
+    /*@ManyToMany(mappedBy = "courses")
+    Set<InstanceCourse> instanceCourses = new HashSet<>();*/
 
-    protected Tag() {
+    protected Course() {
     }
 
-    public Tag(String name) {
+    public Course(String name) {
         this.name = name;
     }
 }

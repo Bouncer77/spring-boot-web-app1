@@ -1,6 +1,5 @@
 package com.bouncer77.springbootapp1.entity;
 
-import lombok.Data;
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.Setter;
@@ -45,21 +44,11 @@ public class Book {
             inverseJoinColumns = @JoinColumn(name = "tag_id"))
     private Set<Tag> tags = new HashSet<>();
 
+    @ManyToMany(mappedBy = "books")
+    Set<ReadingCourse> readingCourses = new HashSet<>();
+
     protected Book() {
     }
-
-
-    /*public Book(String name, Integer lastPage, Set<Author> authors) {
-        this.name = name;
-        this.lastPage = lastPage;
-        this.authors = authors;
-    }*/
-
-    /*public Book(String name, Integer lastPage, Author author) {
-        this.name = name;
-        this.lastPage = lastPage;
-        this.authors.add(author);
-    }*/
 
     public Book(String name, Integer lastPage, Author author, Tag tag) {
         this.name = name;

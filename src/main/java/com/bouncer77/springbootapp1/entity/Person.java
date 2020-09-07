@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -42,6 +43,20 @@ public class Person {
     @Enumerated(EnumType.STRING)
     private Set<Role> roles;
 
+    @ManyToMany
+    @JoinTable(name = "icourse_person",
+            joinColumns = @JoinColumn(name = "person_id"),
+            inverseJoinColumns = @JoinColumn(name = "icourse_id")
+    )
+    private Set<InstanceCourse> instanceCourses = new HashSet<>();
+
+    @ManyToMany
+    @JoinTable(name = "tag_person",
+            joinColumns = @JoinColumn(name = "person_id"),
+            inverseJoinColumns = @JoinColumn(name = "tag_id")
+    )
+    private Set<Tag> tags = new HashSet<>();
+
     public boolean isActive() {
         return active;
     }
@@ -66,7 +81,7 @@ public class Person {
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "person_id")
-    private List<Phone> phones;
+    private Set<Phone> phones;
 
     protected Person() {}
 
