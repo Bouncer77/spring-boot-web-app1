@@ -2,6 +2,8 @@ package com.bouncer77.springbootapp1.repository;
 
 import com.bouncer77.springbootapp1.entity.Author;
 import com.bouncer77.springbootapp1.entity.Book;
+import org.hibernate.LazyInitializationException;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,6 +31,13 @@ class BookRepositoryTest {
         Book book = bookRepository.findByName("Война и мир");
         Author author = authorRepository.findBySurname("Достоевский");
         assertThat(book.getAuthors().contains(author)).isTrue();
+    }
+
+    @Test
+    public void lazyLoadingException() {
+        Book book = bookRepository.findByName("Изучаем Java");
+        //session closed
+        Assertions.assertThrows(LazyInitializationException.class, () -> System.out.println(book.getAuthors()));
     }
 
     @Test
