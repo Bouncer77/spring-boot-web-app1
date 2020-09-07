@@ -1,6 +1,7 @@
 package com.bouncer77.springbootapp1.entity;
 
 import javax.persistence.*;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -62,9 +63,15 @@ public class Person {
     private String surname;
     private String name;
 
-    private String phone;
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinColumn(name = "person_id")
+    private List<Phone> phones;
 
-    public Person() {}
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinColumn(name = "passport_id")
+    private Passport passport;
+
+    protected Person() {}
 
     public Person(String login, String email, String password, String name, String surname) {
         this.login = login;
@@ -72,6 +79,14 @@ public class Person {
         this.password = password;
         this.name = name;
         this.surname = surname;
+    }
+
+    public Passport getPassport() {
+        return passport;
+    }
+
+    public void setPassport(Passport passport) {
+        this.passport = passport;
     }
 
     public int getId() {
@@ -122,12 +137,12 @@ public class Person {
         this.name = name;
     }
 
-    public String getPhone() {
-        return phone;
+    public List<Phone> getPhones() {
+        return phones;
     }
 
-    public void setPhone(String phone) {
-        this.phone = phone;
+    public void setPhones(List<Phone> phone) {
+        this.phones = phone;
     }
 
     @Override
@@ -135,8 +150,27 @@ public class Person {
         return "\nUser{" +
                 "id=" + id +
                 ", login='" + login + '\'' +
+                //", passport='" + passport + '\'' +
                 ", password='" + password + '\'' +
                 ", email='" + email + '\'' +
+                //", passport='" + passport + '\'' +
+                ", phones='" + phones + '\'' +
                 '}';
     }
+
+/*    @Override
+    public String toString() {
+        return "\nPerson{" +
+                "id=" + id +
+                ", login='" + login + '\'' +
+                ", password='" + password + '\'' +
+                ", active=" + active +
+                ", roles=" + roles +
+                ", email='" + email + '\'' +
+                ", surname='" + surname + '\'' +
+                ", name='" + name + '\'' +
+                ", phone='" + phone + '\'' +
+                ", passport=" + passport +
+                '}';
+    }*/
 }
