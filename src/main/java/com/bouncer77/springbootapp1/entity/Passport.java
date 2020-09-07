@@ -1,9 +1,11 @@
 package com.bouncer77.springbootapp1.entity;
 
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 /**
  * @author Kosenkov Ivan
@@ -12,13 +14,14 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "passports")
+@EqualsAndHashCode
 @Getter
 @Setter
-public class Passport {
+public class Passport implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
+    @Column(name = "id", nullable = false, updatable = false)
     private Long id;
 
 

@@ -47,6 +47,12 @@ public class Book {
     @ManyToMany(mappedBy = "books")
     Set<ReadingCourse> readingCourses = new HashSet<>();
 
+    @OneToMany(mappedBy = "book")
+    Set<ProgressBook> progressBooks;
+
+    @Column(name = "description", length = 120)
+    private String description;
+
     protected Book() {
     }
 

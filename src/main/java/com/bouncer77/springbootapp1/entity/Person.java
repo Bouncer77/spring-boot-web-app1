@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -21,21 +22,38 @@ import java.util.Set;
 @Setter
 public class Person {
 
+    /**
+     * Person Id
+     * */
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
+    @Column(name = "id", nullable = false, updatable = false)
     private Long id;
 
+    /**
+     * Passport
+     * */
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "passport_id", referencedColumnName = "id")
     private Passport passport;
 
-    @Column(unique=true)
-    private String login; //
 
-    @Column(name = "password")
+    /**
+     * Login
+     * */
+    @Column(unique=true, nullable = false)
+    private String login;
+
+    /**
+     * Password
+     * */
+    @Column(name = "password", nullable = false)
     private String password;
 
+    /**
+     * Person status
+     * */
+    @Column(name = "active", nullable = false)
     private boolean active;
 
     @ElementCollection(targetClass = Role.class, fetch = FetchType.EAGER)
@@ -57,6 +75,36 @@ public class Person {
     )
     private Set<Tag> tags = new HashSet<>();
 
+    /**
+     * Date and Time of registration person
+     * */
+    @Column(name = "regdatetime")
+    private LocalDateTime regDateTime;
+
+    @Column(unique=true)
+    private String email;
+
+    private String surname;
+    private String name;
+
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinColumn(name = "person_id")
+    private Set<Phone> phones;
+
+    @OneToMany(mappedBy = "person")
+    Set<ProgressBook> progressBooks;
+
+    protected Person() {}
+
+    public Person(String login, String email, String password, String name, String surname) {
+        this.login = login;
+        this.email = email;
+        this.password = password;
+        this.name = name;
+        this.surname = surname;
+        this.regDateTime = LocalDateTime.now();
+    }
+
     public boolean isActive() {
         return active;
     }
@@ -71,26 +119,6 @@ public class Person {
 
     public void setRoles(Set<Role> roles) {
         this.roles = roles;
-    }
-
-    @Column(unique=true)
-    private String email;
-
-    private String surname;
-    private String name;
-
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JoinColumn(name = "person_id")
-    private Set<Phone> phones;
-
-    protected Person() {}
-
-    public Person(String login, String email, String password, String name, String surname) {
-        this.login = login;
-        this.email = email;
-        this.password = password;
-        this.name = name;
-        this.surname = surname;
     }
 
     @Override

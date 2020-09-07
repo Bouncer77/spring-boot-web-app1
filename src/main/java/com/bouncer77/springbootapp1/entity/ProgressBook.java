@@ -1,26 +1,39 @@
 package com.bouncer77.springbootapp1.entity;
 
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
-import lombok.NonNull;
 import lombok.Setter;
+import lombok.ToString;
+import org.springframework.jmx.export.annotation.ManagedAttribute;
 
 import javax.persistence.*;
-import java.util.HashSet;
-import java.util.Set;
 
 /**
  * @author Kosenkov Ivan
  * Created by Kosenkov Ivan on 07.09.2020
  */
 
-/*@Entity
-@Table(name = "author")
+@SuppressWarnings("PMD")
+@Entity
+@Table(name = "progress_book")
 @Getter
-@Setter*/
+@Setter
+@EqualsAndHashCode
+@ToString
 public class ProgressBook {
 
-    /*@Id
-    private Long id;*/
+    @EmbeddedId
+    private ProgressBookKey id;
 
+    @ManyToOne
+    @MapsId("personId")
+    @JoinColumn(name = "person_id")
+    private Person person;
 
+    @ManyToOne
+    @MapsId("bookId")
+    @JoinColumn(name = "book_id")
+    private Book book;
+
+    // int page;
 }
