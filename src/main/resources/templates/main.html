@@ -3,13 +3,36 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <title>Thymeleaf Test</title>
-    <link th:href="@{main.css}" rel="stylesheet" />
+    <link th:href="@{main.css}" rel="stylesheet" type="text/css"/>
 </head>
 <body>
 <h1>Привет H1</h1>
 <h2>Привет H2</h2>
 <strong>Strong</strong>
-<a th:href="@{/personList}">Person List</a>
+<a th:href="@{/personList}">Person List</a>!<br>
+<a id="my_link2" th:href="@{/personList}">Person List</a>!<br>
+<a id="test_link" th:href="@{/personList}">Person List</a>!<br>
+<div>Тут есть DIV =)</div>
 <!--<p th:text="'Привет, ' + ${name} + '!'"></p>-->
+
+<div>
+    <a href="#" class="human">Человек1</a>
+    <a href="#" class="human">Человек2</a>
+    <a href="#" class="animal lion">Животное1</a>
+    <a href="#" class="animal monkey">Животное2</a>
+    <a href="#" class="animal fish">Животное3</a>
+</div>
+
+<div class="message">Все файлы удалены!</div>
+<div class="message success">Все файлы восстановлены!</div>
+
+<!--css 3-->
+<div id="test_css3" class="opacitynow">Привет Мир!!!</div><br>
+<a href="/personList" class="message supermsg">Текст</a><br><br><br>
+
+<!--<video controls="" width="300" height="300">
+    <source src="video.gif" type="video/gif">
+</video>-->
+
 </body>
 </html>

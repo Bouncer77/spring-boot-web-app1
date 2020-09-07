@@ -20,3 +20,127 @@ strong {
 p {
     font-family: sans-serif;
 }
+
+
+/*селектор {
+    свойство1: значение1;
+    свойство2: значение2;
+    ...
+    свойствоN: значениеN;
+}*/
+
+a {
+    font-size: 24px; /*16px стандартный размер шрифта*/
+    color: red;
+}
+
+/*
+* Селектор по имени тэга
+*/
+div {
+    color: #19bce0; /* color: red, #FF0000, rgb(255, 0, 0, 0.1) // альфа-канал - прозрачность*/
+
+}
+
+/*
+* Селектор по id идентификатора
+*/
+#my_link2 {
+    color: lime;
+}
+
+#test_link {
+    color: rebeccapurple;
+
+}
+
+/*
+* Селектор по классу
+*/
+.human {
+    color: darkblue;
+}
+
+.animal {
+    color: orange;
+}
+
+.line {
+    color: orangered;
+}
+
+.monkey {
+    color: darkcyan;
+}
+
+.fish {
+    color: #19bce0;
+}
+
+.message {
+    color: red;
+    background-color: darkcyan;
+    border: 1px solid #FF00FF;
+    font-size: large;
+    margin: 10px; /* внешние отступы */
+    padding: 5px; /* внутренние отступы */
+    opacity: 0.8; /* полупрозрачный элемент */
+    box-shadow: 20px 20px 5px crimson; /* сдвиг по оси x (-> +), y (вниз), размытие, цвет*/
+    width: 20%; /* процент от ширины родитеского элемента */
+    height: 50px;
+}
+
+.supermsg {
+    color: white;
+    display: block; /* виден элемент или нет - по умолчанию block*/
+    text-align: center; /* выравнивание текста (по умолчанию left) */
+    /*font-size: 24px;
+    font-weight: bold; !* жирность цвета *!*/
+    transform: rotate(-45deg) scale(0.5);
+}
+
+.supermsg:hover {
+    transform: rotate(45deg) scale(1.5);
+    transition: 0.5s transform;
+    background-color: red;
+
+}
+
+.success {
+    color: white;
+    background-color: lime;
+}
+
+/*
+* Событийный селектор (например при наведении)
+*/
+.message:hover {
+    border: 10px solid #323232;
+    opacity: 1;
+}
+
+/*
+* css 3
+*/
+#test_css3 {
+    background-color: coral;
+    color: #FF00FF;
+    padding: 15px;
+    margin: 15px;
+    border: 7px solid chocolate;
+    border-radius: 20px;
+    opacity: 1; /* полупрозрачный элемент */
+}
+
+body {
+    background-image: url("images/assassin.jpg"); /* путь относительно css файла */
+    background-color: #323232;
+}
+
+.opacitynow:hover {
+    opacity: 0.1;
+}
+
+.gifman {
+    background-image: url("gif/Corse.gif");
+}
