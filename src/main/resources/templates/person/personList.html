@@ -1,17 +1,19 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 <head>
-    <meta charset="UTF-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <title>All Persons</title>
+    <link th:href="@{personList.css}" rel="stylesheet" type="text/css"/>
 </head>
 <body>
 
     <h1 th:inline="text">Hello [[${#httpServletRequest.remoteUser}]]!</h1>
 
-    <!--<form th:action="@{/logout}" method="post">
+    <form th:action="@{/logout}" method="post">
         <input type="hidden" name="_csrf" value="${_csrf.token}"/>
         <input type="submit" value="Sign Out"/>
-    </form>-->
+    </form>
 
     <h1>Person List</h1>
 
