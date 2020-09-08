@@ -5,77 +5,36 @@
     <title>Thymeleaf Test</title>
     <link th:href="@{main.css}" rel="stylesheet" type="text/css"/>
 </head>
+
 <body>
-<!-- Side navigation -->
-<div class="sidenav">
 
-        <div class="heading_of_sidenav">Course Progress Maestro</div>
-        <a th:href="@{/addPerson}">Registration</a>
-        <a th:href="@{/personList}">All Users</a>
-        <a th:href="@{/about_cpm}">About</a>
-        <div class="heading_of_sidenav">See also</div>
-        <a th:href="@{/contact}">Contact</a>
-        <a th:href="@{/applications}">Applications</a>
+    <!-- Side navigation -->
+    <div class="sidenav">
 
-        <!-- Load font awesome icons -->
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+            <div class="heading_of_sidenav">Course Progress Maestro</div>
+            <a th:href="@{/addPerson}">Registration</a>
+            <a th:href="@{/personList}">All Users</a>
+            <a th:href="@{/about_cpm}">About</a>
+            <div class="heading_of_sidenav">See also</div>
+            <a th:href="@{/contact}">Contact</a>
+            <a th:href="@{/applications}">Applications</a>
+            <a th:href="@{/thymeleaf/}">Thymeleaf Examples</a>
 
-        <!-- The social media icon bar -->
-        <div class="icon-bar">
-            <a href="https://www.facebook.com/groups/bouncer77/" class="facebook"><i class="fa fa-facebook"></i></a>
-            <!--<a href="#" class="twitter"><i class="fa fa-twitter"></i></a>
-            <a href="#" class="google"><i class="fa fa-google"></i></a>
-            <a href="#" class="linkedin"><i class="fa fa-linkedin"></i></a>-->
-            <a href="https://vk.com/bouncer77" class="vk"><i class="fa fa-vk"></i></a>
-            <a href="https://www.youtube.com/channel/UCTHo8pFVImyox0OGWXiutBg/featured?view_as=subscriber" class="youtube"><i class="fa fa-youtube"></i></a>
-        </div>
-</div>
+            <!-- Load font awesome icons -->
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
+            <!-- The social media icon bar -->
+            <div class="icon-bar">
+                <a href="https://www.facebook.com/groups/bouncer77/" class="facebook"><i class="fa fa-facebook"></i></a>
+                <a href="https://vk.com/bouncer77" class="vk"><i class="fa fa-vk"></i></a>
+                <a href="https://www.youtube.com/channel/UCTHo8pFVImyox0OGWXiutBg/featured?view_as=subscriber" class="youtube"><i class="fa fa-youtube"></i></a>
+            </div>
+    </div>
 
-
-<!-- Page content -->
-<div class="main cpm_top_center">
-    <div class="supermsg">CourseProgressMaestro</div>
-</div>
-
-<!--<div class="main content">
-    <h3>Sticky Social Bar</h3>
-    <p>The sticky social bar will stick to the screen when you scroll.</p>
-    <p>Some text to enable scrolling.. Lorem ipsum dolor sit amet, illum definitiones no quo, maluisset concludaturque et eum, altera fabulas ut quo. Atqui causae gloriatur ius te, id agam omnis evertitur eum. Affert laboramus repudiandae nec et. Inciderint efficiantur his ad. Eum no molestiae voluptatibus.</p>
-    <p>Some text to enable scrolling.. Lorem ipsum dolor sit amet, illum definitiones no quo, maluisset concludaturque et eum, altera fabulas ut quo. Atqui causae gloriatur ius te, id agam omnis evertitur eum. Affert laboramus repudiandae nec et. Inciderint efficiantur his ad. Eum no molestiae voluptatibus.</p>
-    <p>Some text to enable scrolling.. Lorem ipsum dolor sit amet, illum definitiones no quo, maluisset concludaturque et eum, altera fabulas ut quo. Atqui causae gloriatur ius te, id agam omnis evertitur eum. Affert laboramus repudiandae nec et. Inciderint efficiantur his ad. Eum no molestiae voluptatibus.</p>
-    <p>Some text to enable scrolling.. Lorem ipsum dolor sit amet, illum definitiones no quo, maluisset concludaturque et eum, altera fabulas ut quo. Atqui causae gloriatur ius te, id agam omnis evertitur eum. Affert laboramus repudiandae nec et. Inciderint efficiantur his ad. Eum no molestiae voluptatibus.</p>
-    <p>Some text to enable scrolling.. Lorem ipsum dolor sit amet, illum definitiones no quo, maluisset concludaturque et eum, altera fabulas ut quo. Atqui causae gloriatur ius te, id agam omnis evertitur eum. Affert laboramus repudiandae nec et. Inciderint efficiantur his ad. Eum no molestiae voluptatibus.</p>
-    <p>Some text to enable scrolling.. Lorem ipsum dolor sit amet, illum definitiones no quo, maluisset concludaturque et eum, altera fabulas ut quo. Atqui causae gloriatur ius te, id agam omnis evertitur eum. Affert laboramus repudiandae nec et. Inciderint efficiantur his ad. Eum no molestiae voluptatibus.</p>
-    <p>Some text to enable scrolling.. Lorem ipsum dolor sit amet, illum definitiones no quo, maluisset concludaturque et eum, altera fabulas ut quo. Atqui causae gloriatur ius te, id agam omnis evertitur eum. Affert laboramus repudiandae nec et. Inciderint efficiantur his ad. Eum no molestiae voluptatibus.</p>
-</div>-->
-
-
-
-
-<!--<h1>Привет H1</h1>
-<h2>Привет H2</h2>
-<strong>Strong</strong>-->
-
-<!--<a id="my_link2" th:href="@{/personList}">Person List</a>!<br>
-<a id="test_link" th:href="@{/personList}">Person List</a>!<br>
-<div>Тут есть DIV =)</div>-->
-<!--<p th:text="'Привет, ' + ${name} + '!'"></p>-->
-
-<!--<div>
-    <a href="#" class="human">Человек1</a>
-    <a href="#" class="human">Человек2</a>
-    <a href="#" class="animal lion">Животное1</a>
-    <a href="#" class="animal monkey">Животное2</a>
-    <a href="#" class="animal fish">Животное3</a>
-</div>
-
-<div class="message">Все файлы удалены!</div>
-<div class="message success">Все файлы восстановлены!</div>
-
-&lt;!&ndash;css 3&ndash;&gt;
-<div id="test_css3" class="opacitynow">Привет Мир!!!</div><br>
-<a href="/personList" class="message supermsg">Текст</a><br><br><br>-->
+    <!-- Page content -->
+    <div class="main cpm_top_center">
+        <div class="supermsg">CourseProgressMaestro</div>
+    </div>
 
 </body>
 </html>
