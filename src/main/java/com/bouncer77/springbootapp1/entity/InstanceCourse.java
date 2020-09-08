@@ -33,8 +33,11 @@ public class InstanceCourse {
     )
     private Set<Course> courses = new HashSet<>();
 
-    @ManyToMany(mappedBy = "instanceCourses")
-    Set<Person> persons = new HashSet<>();
+    @ManyToMany(mappedBy = "instanceCoursesStudent")
+    Set<Person> students = new HashSet<>();
+
+    @ManyToMany(mappedBy = "instanceCoursesTeacher")
+    Set<Person> teachers = new HashSet<>();
 
     protected InstanceCourse() {
     }

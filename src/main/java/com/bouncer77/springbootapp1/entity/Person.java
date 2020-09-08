@@ -67,11 +67,11 @@ public class Person {
      * Registration for the course
      * */
     @ManyToMany
-    @JoinTable(name = "icourse_person",
+    @JoinTable(name = "icourse_student",
             joinColumns = @JoinColumn(name = "person_id"),
             inverseJoinColumns = @JoinColumn(name = "icourse_id")
     )
-    private Set<InstanceCourse> instanceCourses = new HashSet<>();
+    private Set<InstanceCourse> instanceCoursesStudent = new HashSet<>();
 
     /**
      * Knowledge of subjects
@@ -82,6 +82,13 @@ public class Person {
             inverseJoinColumns = @JoinColumn(name = "tag_id")
     )
     private Set<Tag> tags = new HashSet<>();
+
+    @ManyToMany
+    @JoinTable(name = "icourse_teacher",
+            joinColumns = @JoinColumn(name = "person_id"),
+            inverseJoinColumns = @JoinColumn(name = "icourse_id")
+    )
+    private Set<InstanceCourse> instanceCoursesTeacher = new HashSet<>();
 
     /**
      * Date and Time of registration person
