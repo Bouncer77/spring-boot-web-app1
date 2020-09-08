@@ -102,4 +102,19 @@ public class PersonController {
         model.addAttribute("errorMessage", errorMessage);
         return "/person/addPerson";
     }
+
+    @GetMapping("/about_cpm")
+    public String showAboutCPM() {
+        return "/about_cpm";
+    }
+
+    @GetMapping("/contact")
+    public String showContact() {
+        return "/contact";
+    }
+
+    @GetMapping("/applications")
+    public String showApplications() {
+        return "/applications";
+    }
 }
