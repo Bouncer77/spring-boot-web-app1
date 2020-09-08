@@ -1,5 +1,6 @@
 package com.bouncer77.springbootapp1.config;
 
+import com.bouncer77.springbootapp1.service.PersonService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -27,8 +28,11 @@ import javax.sql.DataSource;
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
+    /*@Autowired
+    private DataSource dataSource;*/
+
     @Autowired
-    private DataSource dataSource;
+    private PersonService personService;
 
     /*@Override
     public void configure(WebSecurity web) throws Exception {
@@ -55,7 +59,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                     .permitAll();
     }
 
-    @Bean
+    /*@Bean
     @Override
     public UserDetailsService userDetailsService() {
         UserDetails user =
@@ -66,7 +70,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                         .build();
 
         return new InMemoryUserDetailsManager(user);
-    }
+    }*/
 
     /*@Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
@@ -76,4 +80,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .usersByUsernameQuery("select login, password, active from jpa.person where login=?")
                 .authoritiesByUsernameQuery("select p.login, pr.roles from jpa.person p inner join jpa.person_roles pr on p.id = pr.person_id where p.login=?");
     }*/
+
+    @Override
+    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+        auth.userDetailsService(personService)
+                .passwordEncoder(NoOpPasswordEncoder.getInstance());
+    }
 }
