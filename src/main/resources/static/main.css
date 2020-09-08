@@ -21,6 +21,10 @@ p {
     font-family: sans-serif;
 }
 
+table {
+    border: #19bce0;
+}
+
 
 /*селектор {
     свойство1: значение1;

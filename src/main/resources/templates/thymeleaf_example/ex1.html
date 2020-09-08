@@ -1,14 +1,14 @@
 <!DOCTYPE html>
-<html lang="ru" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <title>ex1</title>
+    <title>Good Thymes Virtual Grocery</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" type="text/css" media="all"
+          href="../../static/thymeleaf_example/ex1.css" th:href="@{static/thymeleaf_example/ex1.css}" />
 </head>
 
+<!--3.1 Мультиязычное «Добро пожаловать»-->
 <body>
-    EX1
-    <label>
-        <input th:type="text"/>
-    </label>
+    <p th:text="#{home.welcome}">Welcome to our grocery store!</p>
 </body>
 </html>
