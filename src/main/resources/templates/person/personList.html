@@ -16,11 +16,14 @@
     </form>
 
     <div th:if="${opDelete}">
-        You have been deleted person<br>
+        Person deleted successfully<br>
         <div th:utext="${deletedPerson}">Информация о пользователе</div>
         <div th:utext="${deletedPersonRequest}">Ответ Restfull контроллера</div>
     </div>
 
+    <div th:if="${isError}">
+        <div th:utext="${errorMsg}">Сообщение об ошибке</div>
+    </div>
 
     <h1>Person List</h1>
 
@@ -37,6 +40,7 @@
                 <th>Roles</th>
                 <th>Profile</th>
                 <th>Delete</th>
+                <th>Edit</th>
             </tr>
             <tr th:each="person:${persons}">
                 <td th:utext="${person.name}">...</td>
@@ -47,6 +51,7 @@
                 <td th:utext="${person.roles}">...</td>
                 <td> <a th:href="@{'/persons/'+ ${person.id}}">show</a> </td>
                 <td> <a th:href="@{'/deletePerson'(id=${person.id})}">delete</a> </td>
+                <td> <a th:href="@{'/editPerson'(id=${person.id})}">edit</a> </td>
         </table>
     </div>
 

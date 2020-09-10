@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>Edit Person</title>
+</head>
+<body>
+<h1>Edit Person</h1>
+
+    <form th:action="@{'/editPerson'(id=${id})}"
+          th:object="${personForm}" method="post">
+        Login:
+        <input type="text" th:field="*{login}" th:value="${personForm.login}"/>
+        <br/>
+        Email:
+        <input type="text" th:field="*{email}" th:value="${personForm.email}"/>
+        <br/>
+        <br/>
+        Password:
+        <input type="password" th:field="*{password}"/>
+        <br/>
+        Confirm Password:
+        <input type="password" th:field="*{confirmPassword}"/>
+        <br/>
+        Name:
+        <input type="text" th:field="*{name}" th:value="${personForm.name}"/>
+        <br/>
+        Surname:
+        <input type="text" th:field="*{surname}" th:value="${personForm.surname}"/>
+        <br/>
+        <input type="hidden" name="_csrf" value="${_csrf.token}"/>
+        <input type="submit" value="Update"/>
+    </form>
+
+    <!-- Check if errorMessage is not null and not empty -->
+    <div th:if="${errorMessage}" th:utext="${errorMessage}" style="color:red;font-style:italic;">...</div>
+</body>
+</html>

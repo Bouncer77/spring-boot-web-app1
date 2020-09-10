@@ -1,5 +1,6 @@
 package com.bouncer77.springbootapp1.entity;
 
+import com.bouncer77.springbootapp1.form.PersonForm;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.security.core.GrantedAuthority;
@@ -177,6 +178,14 @@ public class Person implements UserDetails {
                 ", name='" + name + '\'' +
                 ", roles=" + roles +
                 '}';
+    }
+
+    public void setParams(PersonForm personForm) {
+        this.name = personForm.getName();
+        this.surname = personForm.getSurname();
+        this.email = personForm.getEmail();
+        this.password = personForm.getPassword();
+        this.login = personForm.getLogin();
     }
 
     @Override

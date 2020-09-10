@@ -42,9 +42,10 @@ public class PersonServiceImpl implements PersonService {
         Optional<Person> personRepOptional = personRepository.findById(id);
         if (personRepOptional.isPresent()) {
             Person person = personRepOptional.get();
-            // Меняет только имя и фамилию
+            /*// Меняет только имя и фамилию
             person.setName(personForm.getName());
-            person.setSurname(personForm.getSurname());
+            person.setSurname(personForm.getSurname());*/
+            person.setParams(personForm);
             personRepository.save(person);
             return true;
         }

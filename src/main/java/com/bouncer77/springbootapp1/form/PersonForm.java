@@ -18,4 +18,13 @@ public class PersonForm {
     private String confirmPassword;
     private String name;
     private String surname;
+
+    public PersonForm() {}
+
+    public PersonForm(String login, String email, String name, String surname) {
+        this.login = login;
+        this.email = email;
+        this.name = name;
+        this.surname = surname;
+    }
 }

@@ -51,7 +51,7 @@ public class WebsiteController {
     }
 
     @GetMapping("/deletePerson")
-    public String deletePerson(@RequestParam(name = "id", required = true) long id,
+    public String deletePerson(@RequestParam(name = "id") long id,
                                Model model) {
 
         Optional<Person> optionalPerson = personRepository.findById(id);
@@ -61,6 +61,48 @@ public class WebsiteController {
             model.addAttribute("deletedPersonRequest", personController.delete(id));
         } else {
             model.addAttribute("opDelete", false);
+        }
+
+        return showAllPersons("", model);
+    }
+
+    // /editPerson?id={}
+    @GetMapping("/editPerson")
+    public String editPersonGet(@RequestParam(name = "id") long id,
+                             Model model) {
+
+        Optional<Person> optionalPerson = personRepository.findById(id);
+        if (!optionalPerson.isPresent()) {
+            model.addAttribute("isError", true);
+            model.addAttribute("errorMsg", "Пользователь с указанным id не найден!");
+            return showAllPersons("", model);
+        }
+
+        Person person = optionalPerson.get();
+        PersonForm personForm = new PersonForm(person.getLogin(), person.getEmail(), person.getName(), person.getSurname());
+        model.addAttribute("personForm", personForm);
+        model.addAttribute("id", id);
+
+        return "/person/editPerson";
+    }
+
+    @PostMapping("/editPerson")
+    public String editPersonPut(@RequestParam(name = "id") long id, Model model,
+                                @ModelAttribute("personForm") PersonForm personForm) {
+
+        // Если пароли не совпали
+        if (!personForm.getPassword().equals(personForm.getConfirmPassword())) {
+            model.addAttribute("errorMessage", errorMessage);
+            return "/person/editPerson";
+        }
+
+        // Шифрование пароля
+        personForm.setPassword(bCryptPasswordEncoder.encode(personForm.getPassword()));
+
+        Optional<Person> optionalPerson = personRepository.findById(id);
+        if (optionalPerson.isPresent()) {
+            Person person = optionalPerson.get();
+            personController.update(id, personForm);
         }
 
         return showAllPersons("", model);
