@@ -31,7 +31,7 @@ public class AuthorServiceImpl implements AuthorService {
     }
 
     @Override
-    public Author read(Long id) {
+    public Author read(long id) {
         Optional<Author> authorRepOptional = authorRepository.findById(id);
         return authorRepOptional.orElse(null);
     }
@@ -52,7 +52,7 @@ public class AuthorServiceImpl implements AuthorService {
     }
 
     @Override
-    public boolean delete(Long id) {
+    public boolean delete(long id) {
 
         Optional<Author> authorRepOptional = authorRepository.findById(id);
         if (authorRepOptional.isPresent()) {

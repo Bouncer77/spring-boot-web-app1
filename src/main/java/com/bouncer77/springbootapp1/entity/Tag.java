@@ -28,17 +28,24 @@ public class Tag {
     @NonNull
     private String name;
 
-    @ManyToMany(mappedBy = "tags")
+    private String description;
+
+    /*@ManyToMany(mappedBy = "tags")
     private Set<Book> books = new HashSet<>();
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "tags")
-    private Set<Person> persons;
+    private Set<Person> persons;*/
 
     protected Tag() {
     }
 
     public Tag(String name) {
         this.name = name;
+    }
+
+    public Tag(String name, String description) {
+        this.name = name;
+        this.description = description;
     }
 }

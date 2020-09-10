@@ -1,8 +1,8 @@
 package com.bouncer77.springbootapp1.controller;
 
-import com.bouncer77.springbootapp1.entity.Author;
-import com.bouncer77.springbootapp1.form.AuthorForm;
-import com.bouncer77.springbootapp1.service.AuthorService;
+import com.bouncer77.springbootapp1.entity.Tag;
+import com.bouncer77.springbootapp1.form.TagForm;
+import com.bouncer77.springbootapp1.service.TagService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,24 +16,24 @@ import java.util.List;
  */
 
 @RestController
-@RequestMapping("/authors")
-public class AuthorController {
+@RequestMapping("/tags")
+public class TagController {
 
     @Autowired
-    AuthorService authorService;
+    TagService tagService;
 
     @PostMapping
-    public ResponseEntity<?> create(@RequestBody AuthorForm authorForm) {
+    public ResponseEntity<?> create(@RequestBody TagForm tagForm) {
 
-        Author author = new Author(authorForm.getName(), authorForm.getSurname());
-        authorService.create(author);
+        Tag tag = new Tag(tagForm.getName(), tagForm.getDescription());
+        tagService.create(tag);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
     @GetMapping
-    public ResponseEntity<List<Author>> read() {
+    public ResponseEntity<List<Tag>> read() {
 
-        final List<Author> authors = authorService.readAll();
+        final List<Tag> authors = tagService.readAll();
 
         return authors != null && !authors.isEmpty()
                 ? new ResponseEntity<>(authors, HttpStatus.OK) // 200 OK
@@ -41,19 +41,19 @@ public class AuthorController {
     }
 
     @GetMapping(value = "/{id}")
-    public ResponseEntity<Author> read(@PathVariable(name = "id") long id) {
+    public ResponseEntity<Tag> read(@PathVariable(name = "id") long id) {
 
-        final Author author = authorService.read(id);
+        final Tag tag = tagService.read(id);
 
-        return author != null
-                ? new ResponseEntity<>(author, HttpStatus.OK) // 200 OK
+        return tag != null
+                ? new ResponseEntity<>(tag, HttpStatus.OK) // 200 OK
                 : new ResponseEntity<>(HttpStatus.NOT_FOUND); // 404 Not Found
     }
 
     @PutMapping(value = "/{id}")
-    public ResponseEntity<?> update(@PathVariable(name = "id") long id, @RequestBody AuthorForm authorForm) {
+    public ResponseEntity<?> update(@PathVariable(name = "id") long id, @RequestBody TagForm tagForm) {
 
-        final boolean updated = authorService.update(id, authorForm);
+        final boolean updated = tagService.update(id, tagForm);
 
         return updated
                 ? new ResponseEntity<>(HttpStatus.OK)
@@ -63,7 +63,7 @@ public class AuthorController {
     @DeleteMapping(value = "/{id}")
     public ResponseEntity<?> delete(@PathVariable(name = "id") long id) {
 
-        final boolean deleted = authorService.delete(id);
+        final boolean deleted = tagService.delete(id);
 
         return deleted
                 ? new ResponseEntity<>(HttpStatus.OK)

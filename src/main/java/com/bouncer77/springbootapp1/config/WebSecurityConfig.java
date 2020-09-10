@@ -1,6 +1,6 @@
 package com.bouncer77.springbootapp1.config;
 
-import com.bouncer77.springbootapp1.service.PersonService;
+import com.bouncer77.springbootapp1.service.PersonServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -19,18 +19,18 @@ import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
-    private PersonService personService;
+    private PersonServiceImpl personServiceImpl;
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
                     .authorizeRequests()
 
-                    // Сайт
+                    // Сайт с авторизацией
                     /*.antMatchers("/", "/login", "/addPerson", "/authors/**").permitAll()
                     .antMatchers("/*.css", "/images/bouncer77.png").permitAll()*/
 
-                    // Postman (без авторизации)
+                    // Postman (без авторизации) + сайт без авторизации
                     .antMatchers("/**").permitAll()
 
                     //.antMatchers("/*.css", "/images/bouncer77.png").hasRole("STUDENT")
@@ -54,7 +54,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(personService)
+        auth.userDetailsService(personServiceImpl)
                 .passwordEncoder(NoOpPasswordEncoder.getInstance());
     }
 }
