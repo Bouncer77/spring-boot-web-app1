@@ -26,18 +26,18 @@
                 <th>Surname</th>
                 <th>Login</th>
                 <th>Email</th>
-                <th>Password</th>
+                <!--<th>Password</th>-->
                 <th>Roles</th>
-                <!--<th>User</th>-->
+                <th>Profile</th>
             </tr>
             <tr th:each="person:${persons}">
                 <td th:utext="${person.name}">...</td>
                 <td th:utext="${person.surname}">...</td>
                 <td th:utext="${person.login}">...</td>
                 <td th:utext="${person.email}">...</td>
-                <td th:utext="${person.password}">...</td>
+                <!--<td th:utext="${person.password}">...</td>-->
                 <td th:utext="${person.roles}">...</td>
-                <!--<td> <a href="${persons/${person.id}">...</a> </td>-->
+                <td> <a th:href="@{'/persons/'+ ${person.id}}">show</a> </td>
         </table>
     </div>
 
