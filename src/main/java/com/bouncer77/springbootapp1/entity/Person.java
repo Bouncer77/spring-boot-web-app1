@@ -2,8 +2,8 @@ package com.bouncer77.springbootapp1.entity;
 
 import lombok.Getter;
 import lombok.Setter;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
+/*import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;*/
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -22,7 +22,8 @@ import java.util.Set;
 @Table(name = "persons")
 @Getter
 @Setter
-public class Person implements UserDetails {
+//public class Person implements UserDetails {
+public class Person {
 
     /**
      * Person Id
@@ -153,7 +154,7 @@ public class Person implements UserDetails {
                 '}';
     }
 
-    @Override
+    /*@Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return getRoles();
     }
@@ -181,5 +182,5 @@ public class Person implements UserDetails {
     @Override
     public boolean isEnabled() {
         return isActive();
-    }
+    }*/
 }

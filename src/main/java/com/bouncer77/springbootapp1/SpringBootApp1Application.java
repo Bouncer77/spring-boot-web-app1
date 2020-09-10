@@ -83,9 +83,12 @@ public class SpringBootApp1Application {
             Author gogol = new Author("Николай",  "Гоголь");
             Author schildt = new Author("Герберт",  "Шилдт");
 
+            // Для тестирования на удаление
+            Author deleteTestAuthor = new Author("Иван",  "Удалятович");
+
             Author bates = new Author("Берт",  "Бэйтс");
             Author sierra = new Author("Кэти",  "Сьерра");
-            List<Author> authorList = Arrays.asList(dostoevsky, bulgakov, tolstoy, pushkin, gogol, schildt, bates, sierra);
+            List<Author> authorList = Arrays.asList(dostoevsky, bulgakov, tolstoy, pushkin, gogol, schildt, bates, sierra, deleteTestAuthor);
             authorRepository.saveAll(authorList);
 
             Tag classicLiteratureTag = new Tag("Классическая литература");
