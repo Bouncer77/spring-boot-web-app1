@@ -2,9 +2,9 @@ package com.bouncer77.springbootapp1.service;
 
 import com.bouncer77.springbootapp1.repository.PersonRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-/*import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;*/
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 /**
@@ -13,14 +13,13 @@ import org.springframework.stereotype.Service;
  */
 
 @Service
-//public class PersonService implements UserDetailsService {
-public class PersonService {
+public class PersonService implements UserDetailsService {
 
     @Autowired
     private PersonRepository personRepository;
 
-    /*@Override
+    @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         return personRepository.findByLogin(username);
-    }*/
+    }
 }

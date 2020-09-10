@@ -1,5 +1,5 @@
 package com.bouncer77.springbootapp1.config;
-/*
+
 import com.bouncer77.springbootapp1.service.PersonService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
@@ -9,10 +9,10 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 
-*//**
+/**
  * @author Kosenkov Ivan
  * Created by Kosenkov Ivan on 03.09.2020
- *//*
+ */
 
 @Configuration
 @EnableWebSecurity
@@ -25,9 +25,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
-                //.antMatchers("/", "/login", "/addPerson").permitAll()
-                //.antMatchers("/*.css", "/images/bouncer77.png").permitAll()
-                .antMatchers("/**").permitAll()
+                .antMatchers("/", "/login", "/addPerson").permitAll()
+                .antMatchers("/*.css", "/images/bouncer77.png").permitAll()
+                //.antMatchers("/**").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()
@@ -43,4 +43,5 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         auth.userDetailsService(personService)
                 .passwordEncoder(NoOpPasswordEncoder.getInstance());
     }
-}*/
+}
+
