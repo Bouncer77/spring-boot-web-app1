@@ -11,8 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Collections;
-import java.util.Objects;
+import java.util.*;
 
 /**
  * @author Kosenkov Ivan
@@ -54,13 +53,12 @@ public class WebsiteController {
         // List<Person> persons = personDao.findAll();
 
 
-        Iterable<Person> persons;
+        List<Person> persons;
         if (filter != null && !filter.isEmpty()) {
             persons = personRepository.findByName(filter);
         } else {
             persons = personRepository.findAll();
         }
-
 
         // persons.forEach(System.out::println);
         model.addAttribute("persons", persons);

@@ -27,6 +27,7 @@
                 <th>Login</th>
                 <th>Email</th>
                 <th>Password</th>
+                <th>Roles</th>
             </tr>
             <tr th:each="person:${persons}">
                 <td th:utext="${person.name}">...</td>
@@ -34,7 +35,7 @@
                 <td th:utext="${person.login}">...</td>
                 <td th:utext="${person.email}">...</td>
                 <td th:utext="${person.password}">...</td>
-            </tr>
+                <td th:utext="${person.roles}">...</td>
         </table>
     </div>
 
