@@ -31,14 +31,6 @@ public class Person implements UserDetails {
     private Long id;
 
     /**
-     * Passport
-     */
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JoinColumn(name = "passport_id", referencedColumnName = "id")
-    private Passport passport;
-
-
-    /**
      * Login
      */
     @Column(unique = true, nullable = false)
@@ -57,41 +49,6 @@ public class Person implements UserDetails {
     private boolean active = true;
 
     /**
-     * Roles of current person
-     */
-    @ElementCollection(targetClass = Role.class, fetch = FetchType.EAGER)
-    @CollectionTable(name = "person_roles", joinColumns = @JoinColumn(name = "person_id"))
-    @Enumerated(EnumType.STRING)
-    private Set<Role> roles;
-
-    /**
-     * Registration for the course
-     */
-    @ManyToMany
-    @JoinTable(name = "icourse_student",
-            joinColumns = @JoinColumn(name = "person_id"),
-            inverseJoinColumns = @JoinColumn(name = "icourse_id")
-    )
-    private Set<InstanceCourse> instanceCoursesStudent = new HashSet<>();
-
-    /**
-     * Knowledge of subjects
-     */
-    @ManyToMany
-    @JoinTable(name = "tag_person",
-            joinColumns = @JoinColumn(name = "person_id"),
-            inverseJoinColumns = @JoinColumn(name = "tag_id")
-    )
-    private Set<Tag> tags = new HashSet<>();
-
-    @ManyToMany
-    @JoinTable(name = "icourse_teacher",
-            joinColumns = @JoinColumn(name = "person_id"),
-            inverseJoinColumns = @JoinColumn(name = "icourse_id")
-    )
-    private Set<InstanceCourse> instanceCoursesTeacher = new HashSet<>();
-
-    /**
      * Date and Time of registration person
      */
     @Column(name = "regdatetime")
@@ -106,10 +63,58 @@ public class Person implements UserDetails {
     @Column(name = "name", nullable = false)
     private String name;
 
+    /**
+     * Passport
+     */
+    //@Transient
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinColumn(name = "passport_id", referencedColumnName = "id")
+    private Passport passport;
+
+    /**
+     * Roles of current person
+     */
+    //@Transient
+    @ElementCollection(targetClass = Role.class, fetch = FetchType.EAGER)
+    @CollectionTable(name = "person_roles", joinColumns = @JoinColumn(name = "person_id"))
+    @Enumerated(EnumType.STRING)
+    private Set<Role> roles;
+
+    /**
+     * Registration for the course
+     */
+    //@Transient
+    @ManyToMany
+    @JoinTable(name = "icourse_student",
+            joinColumns = @JoinColumn(name = "person_id"),
+            inverseJoinColumns = @JoinColumn(name = "icourse_id")
+    )
+    private Set<InstanceCourse> instanceCoursesStudent = new HashSet<>();
+
+    /**
+     * Knowledge of subjects
+     */
+    //@Transient
+    @ManyToMany
+    @JoinTable(name = "tag_person",
+            joinColumns = @JoinColumn(name = "person_id"),
+            inverseJoinColumns = @JoinColumn(name = "tag_id")
+    )
+    private Set<Tag> tags = new HashSet<>();
+
+    //@Transient
+    @ManyToMany
+    @JoinTable(name = "icourse_teacher",
+            joinColumns = @JoinColumn(name = "person_id"),
+            inverseJoinColumns = @JoinColumn(name = "icourse_id")
+    )
+    private Set<InstanceCourse> instanceCoursesTeacher = new HashSet<>();
+    //@Transient
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "person_id")
     private Set<Phone> phones;
 
+    //@Transient
     @OneToMany(mappedBy = "person")
     Set<BookStep> bookSteps;
 
@@ -123,6 +128,27 @@ public class Person implements UserDetails {
         this.name = name;
         this.surname = surname;
         this.regDateTime = LocalDateTime.now();
+    }
+
+    // Копирующий конструктор
+    public Person(Person person) {
+        this.id = person.getId();
+        this.login = person.getLogin();
+        this.email = person.getEmail();
+        this.password = person.getPassword();
+        this.name = person.getName();
+        this.surname = person.getSurname();
+        this.roles = new HashSet<>(person.getRoles());
+        this.active = person.isActive();
+        this.regDateTime = person.getRegDateTime();
+
+        // TODO Дописать
+        this.tags = null;
+        this.phones = null;
+        this.passport = null;
+        this.instanceCoursesStudent = null;
+        this.instanceCoursesTeacher = null;
+        this.bookSteps = null;
     }
 
     public boolean isActive() {

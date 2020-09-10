@@ -9,7 +9,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 /**
@@ -38,7 +37,9 @@ public class AuthorController {
         final List<Author> authors = authorService.readAll();
 
         List<Author> authorsCopy = new ArrayList<>(authors);
-        authorsCopy.forEach(author -> {author.setBooks(null);});
+        /*authorsCopy.forEach(author -> {
+            author.setBooks(null);
+        });*/
 
         return !authorsCopy.isEmpty()
                 ? new ResponseEntity<>(authors, HttpStatus.OK) // 200 OK

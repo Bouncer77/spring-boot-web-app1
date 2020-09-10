@@ -30,12 +30,14 @@ public class Tag {
 
     private String description;
 
-    /*@ManyToMany(mappedBy = "tags")
+    @Transient
+    @ManyToMany(mappedBy = "tags")
     private Set<Book> books = new HashSet<>();
 
+    @Transient
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "tags")
-    private Set<Person> persons;*/
+    private Set<Person> persons;
 
     protected Tag() {
     }
