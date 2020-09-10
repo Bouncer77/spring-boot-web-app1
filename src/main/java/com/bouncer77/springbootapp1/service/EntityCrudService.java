@@ -1,33 +1,30 @@
 package com.bouncer77.springbootapp1.service;
 
-import com.bouncer77.springbootapp1.entity.Author;
-import com.bouncer77.springbootapp1.form.AuthorForm;
-
 import java.util.List;
 
 /**
  * @author Kosenkov Ivan
  * Created by Kosenkov Ivan on 10.09.2020
  *
- * E - Entity
- * F - Entity Form
+ * T - Entity
+ * S - Entity Form
  */
 
-public interface EntityCrudService<E, F> {
+public interface EntityCrudService<T, S> {
 
     /**
      * Создает новый экземпляр сущности типа T
      *
      * @param entity - сущность для создания
      */
-    void create(E entity);
+    void create(T entity);
 
     /**
      * Возвращает список всех имеющихся экземпляров сущности типа T
      *
      * @return список экземпляров сущностей
      */
-    List<E> readAll();
+    List<T> readAll();
 
     /**
      * Возвращает экземпляр сущности по её ID
@@ -35,7 +32,7 @@ public interface EntityCrudService<E, F> {
      * @param id - ID экземпляра сущности
      * @return - объект сущности с заданным ID
      */
-    E read(long id);
+    T read(long id);
 
     /**
      * Обновляет экземпляр сущности с заданным ID,
@@ -44,7 +41,7 @@ public interface EntityCrudService<E, F> {
      * @param entityForm - заполненная форма для изменения существующего экземпляра сущности
      * @return - true если данные были обновлены, иначе false
      */
-    boolean update(long id, F entityForm);
+    boolean update(long id, S entityForm);
 
     /**
      * Удаляет автора с заданным ID
