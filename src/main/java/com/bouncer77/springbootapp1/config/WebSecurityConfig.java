@@ -24,18 +24,32 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
-                .authorizeRequests()
-                .antMatchers("/", "/login", "/addPerson").permitAll()
-                .antMatchers("/*.css", "/images/bouncer77.png").permitAll()
-                //.antMatchers("/**").permitAll()
-                .anyRequest().authenticated()
+                    .authorizeRequests()
+
+                    // Сайт
+                    /*.antMatchers("/", "/login", "/addPerson", "/authors/**").permitAll()
+                    .antMatchers("/*.css", "/images/bouncer77.png").permitAll()*/
+
+                    // Postman (без авторизации)
+                    .antMatchers("/**").permitAll()
+
+                    //.antMatchers("/*.css", "/images/bouncer77.png").hasRole("STUDENT")
+                    //.antMatchers("/**").hasRole("ADMIN")
+                    //.antMatchers("/**").permitAll()
+                    .anyRequest().authenticated()
                 .and()
-                .formLogin()
-                .loginPage("/login")
-                .permitAll()
+                    .formLogin()
+                    .loginPage("/login")
+                    .permitAll()
                 .and()
-                .logout()
-                .permitAll();
+                    .logout()
+                    .permitAll()//; // Сайт с авторизацией
+
+                // Postman (без авторизации)
+                // Для работы POSTMAN-а, при этом отваливается авторизация на сайте
+                .and()
+                    .csrf().disable()//; // содержит уязвимости
+                    .formLogin().disable(); // отключает форму авторизации по умолчанию
     }
 
     @Override

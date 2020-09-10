@@ -37,7 +37,9 @@ public class SpringBootApp1Application {
             Person anna = new Person("AnnaLogin", "annaEmail@google.com", "123",
                     "Anna", "Goncharova");
             anna.setActive(true);
-            anna.setRoles(Collections.singleton(Role.STUDENT));
+            //anna.setRoles(Collections.singleton(Role.STUDENT));
+            Set<Role> annaRoleSet = new HashSet<>(Arrays.asList(Role.STUDENT, Role.TEACHER, Role.ADMIN));
+            anna.setRoles(annaRoleSet);
             Passport passportAnna = new Passport("111", "456789");
             anna.setPassport(passportAnna);
             Phone phoneAnna1 = new Phone("89681110101");
