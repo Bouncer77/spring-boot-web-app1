@@ -1,6 +1,7 @@
 package com.bouncer77.springbootapp1.service;
 
 import com.bouncer77.springbootapp1.entity.Author;
+import com.bouncer77.springbootapp1.form.AuthorForm;
 import com.bouncer77.springbootapp1.repository.AuthorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,7 +20,6 @@ public class AuthorServiceImpl implements AuthorService {
     @Autowired
     AuthorRepository authorRepository;
 
-
     @Override
     public void create(Author author) {
         authorRepository.save(author);
@@ -37,12 +37,17 @@ public class AuthorServiceImpl implements AuthorService {
     }
 
     @Override
-    public boolean update(Author author) {
+    public boolean update(long id, AuthorForm authorForm) {
 
-        Optional<Author> authorRepOptional = authorRepository.findById(author.getId());
+        Optional<Author> authorRepOptional = authorRepository.findById(id);
         if (authorRepOptional.isPresent()) {
+            Author author = authorRepOptional.get();
+            author.setName(authorForm.getName());
+            author.setSurname(authorForm.getSurname());
             authorRepository.save(author);
+            return true;
         }
+
         return false;
     }
 
@@ -50,8 +55,11 @@ public class AuthorServiceImpl implements AuthorService {
     public boolean delete(Long id) {
 
         Optional<Author> authorRepOptional = authorRepository.findById(id);
-        System.out.println(authorRepOptional.get().getSurname());
-        authorRepOptional.ifPresent(author -> authorRepository.delete(author));
-        return true;
+        if (authorRepOptional.isPresent()) {
+            authorRepository.delete(authorRepOptional.get());
+            return true;
+        }
+
+        return false;
     }
 }

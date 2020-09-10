@@ -10,7 +10,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class AuthorCreateForm {
+public class AuthorForm {
 
     private String name;
     private String surname;

@@ -1,7 +1,7 @@
 package com.bouncer77.springbootapp1.controller;
 
 import com.bouncer77.springbootapp1.entity.Author;
-import com.bouncer77.springbootapp1.form.AuthorCreateForm;
+import com.bouncer77.springbootapp1.form.AuthorForm;
 import com.bouncer77.springbootapp1.service.AuthorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Objects;
 
 /**
  * @author Kosenkov Ivan
@@ -23,10 +24,9 @@ public class AuthorController {
     AuthorService authorService;
 
     @PostMapping
-    public ResponseEntity<?> create(@RequestBody AuthorCreateForm authorCreateForm) {
+    public ResponseEntity<?> create(@RequestBody AuthorForm authorForm) {
 
-        System.out.println("CREATE LOG");
-        Author author = new Author(authorCreateForm.getName(), authorCreateForm.getSurname());
+        Author author = new Author(authorForm.getName(), authorForm.getSurname());
         authorService.create(author);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
@@ -53,13 +53,9 @@ public class AuthorController {
 
     // TODO не передавать id отдельно, а брать через authot.getId()
     @PutMapping(value = "/{id}")
-    public ResponseEntity<?> update(@PathVariable(name = "id") long id, @RequestBody Author author) {
+    public ResponseEntity<?> update(@PathVariable(name = "id") long id, @RequestBody AuthorForm authorForm) {
 
-        if (id != author.getId()) {
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-        }
-
-        final boolean updated = authorService.update(author);
+        final boolean updated = authorService.update(id, authorForm);
 
         return updated
                 ? new ResponseEntity<>(HttpStatus.OK)

@@ -1,6 +1,7 @@
 package com.bouncer77.springbootapp1.service;
 
 import com.bouncer77.springbootapp1.entity.Author;
+import com.bouncer77.springbootapp1.form.AuthorForm;
 
 import java.util.List;
 import java.util.Optional;
@@ -34,10 +35,10 @@ public interface AuthorService {
     /**
      * Обновляет автора с заданным ID,
      * в соответствии с переданным автором
-     * @param author - автор, в соответсвии с которым нужно обновить данные
+     * @param authorForm - автор, в соответсвии с которым нужно обновить данные
      * @return - true если данные были обновлены, иначе false
      */
-    boolean update(Author author);
+    boolean update(long id, AuthorForm authorForm);
 
     /**
      * Удаляет автора с заданным ID
