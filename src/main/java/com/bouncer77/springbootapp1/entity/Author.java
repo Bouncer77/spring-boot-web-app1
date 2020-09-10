@@ -26,12 +26,12 @@ public class Author {
     @NonNull
     private String name;
 
-    @Column(unique = true)
+    //@Column(unique = true)
     @NonNull
     private String surname;
 
-    @ManyToMany(mappedBy = "authors")
-    private Set<Book> books = new HashSet<>();
+    /*@ManyToMany(mappedBy = "authors")
+    private Set<Book> books = new HashSet<>();*/
 
     protected Author() {
     }
