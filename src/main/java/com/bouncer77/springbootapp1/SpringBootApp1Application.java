@@ -7,10 +7,12 @@ import com.bouncer77.springbootapp1.repository.PersonRepository;
 import com.bouncer77.springbootapp1.repository.TagRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import java.util.*;
 
@@ -23,6 +25,9 @@ public class SpringBootApp1Application {
         SpringApplication.run(SpringBootApp1Application.class, args);
     }
 
+    @Autowired
+    BCryptPasswordEncoder bCryptPasswordEncoder;
+
     /**
      * Метод возвращает CommandLineRunnerкомпонент , который автоматически запускает код при запуске приложения.
      */
@@ -34,7 +39,12 @@ public class SpringBootApp1Application {
         return (args) -> {
             // save a few persons
             // anna = person 1
-            Person anna = new Person("AnnaLogin", "annaEmail@google.com", "123",
+
+            String annaPassword = "123";
+            // Шифрование
+            annaPassword = bCryptPasswordEncoder.encode(annaPassword);
+
+            Person anna = new Person("AnnaLogin", "annaEmail@google.com", annaPassword,
                     "Anna", "Goncharova");
             anna.setActive(true);
             //anna.setRoles(Collections.singleton(Role.STUDENT));
@@ -47,7 +57,12 @@ public class SpringBootApp1Application {
             Set<Phone> phoneSetAnna = new HashSet<>(Arrays.asList(phoneAnna1, phoneAnna2));
             anna.setPhones(phoneSetAnna);
             // dima = person 2
-            Person dima = new Person("DimaLogin", "dimaEmail@google.com", "654321",
+
+            String dimaPassword = "654321";
+            // Шифрование
+            dimaPassword = bCryptPasswordEncoder.encode(dimaPassword);
+
+            Person dima = new Person("DimaLogin", "dimaEmail@google.com", dimaPassword,
                     "Dima", "Ivanov");
             dima.setActive(true);
             dima.setRoles(Collections.singleton(Role.STUDENT));
@@ -58,7 +73,12 @@ public class SpringBootApp1Application {
             anna.setPhones(phoneSetDima);
 
             // alex = person 3
-            Person alex = new Person("AlexLogin", "alexEmail@gmail.com", "321", "Alex", "Andreev");
+
+            String alexPassword = "321";
+            // Шифрование
+            alexPassword = bCryptPasswordEncoder.encode(alexPassword);
+
+            Person alex = new Person("AlexLogin", "alexEmail@gmail.com", alexPassword, "Alex", "Andreev");
             alex.setActive(true);
             alex.setRoles(Collections.singleton(Role.STUDENT));
             Passport passportAlex = new Passport("111", "456000");

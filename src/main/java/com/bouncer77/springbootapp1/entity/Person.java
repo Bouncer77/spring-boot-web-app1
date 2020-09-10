@@ -26,7 +26,7 @@ public class Person implements UserDetails {
 
     /**
      * Person Id
-     * */
+     */
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false, updatable = false)
@@ -34,7 +34,7 @@ public class Person implements UserDetails {
 
     /**
      * Passport
-     * */
+     */
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "passport_id", referencedColumnName = "id")
     private Passport passport;
@@ -42,25 +42,25 @@ public class Person implements UserDetails {
 
     /**
      * Login
-     * */
-    @Column(unique=true, nullable = false)
+     */
+    @Column(unique = true, nullable = false)
     private String login;
 
     /**
      * Password
-     * */
+     */
     @Column(name = "password", nullable = false)
     private String password;
 
     /**
      * Person status
-     * */
+     */
     @Column(name = "active", nullable = false)
     private boolean active = true;
 
     /**
      * Roles of current person
-     * */
+     */
     @ElementCollection(targetClass = Role.class, fetch = FetchType.EAGER)
     @CollectionTable(name = "person_roles", joinColumns = @JoinColumn(name = "person_id"))
     @Enumerated(EnumType.STRING)
@@ -68,7 +68,7 @@ public class Person implements UserDetails {
 
     /**
      * Registration for the course
-     * */
+     */
     @ManyToMany
     @JoinTable(name = "icourse_student",
             joinColumns = @JoinColumn(name = "person_id"),
@@ -78,7 +78,7 @@ public class Person implements UserDetails {
 
     /**
      * Knowledge of subjects
-     * */
+     */
     @ManyToMany
     @JoinTable(name = "tag_person",
             joinColumns = @JoinColumn(name = "person_id"),
@@ -95,11 +95,11 @@ public class Person implements UserDetails {
 
     /**
      * Date and Time of registration person
-     * */
+     */
     @Column(name = "regdatetime")
     private LocalDateTime regDateTime = LocalDateTime.now();
 
-    @Column(unique=true)
+    @Column(unique = true)
     private String email;
 
     @Column(name = "surname", nullable = false)
@@ -115,7 +115,8 @@ public class Person implements UserDetails {
     @OneToMany(mappedBy = "person")
     Set<BookStep> bookSteps;
 
-    protected Person() {}
+    protected Person() {
+    }
 
     public Person(String login, String email, String password, String name, String surname) {
         this.login = login;

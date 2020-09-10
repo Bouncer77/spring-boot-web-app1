@@ -13,7 +13,7 @@ import org.springframework.stereotype.Service;
  */
 
 @Service
-public class PersonServiceImpl implements UserDetailsService {
+public class WebsitePersonServiceImpl implements UserDetailsService, WebsitePersonService {
 
     @Autowired
     private PersonRepository personRepository;

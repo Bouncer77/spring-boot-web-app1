@@ -8,6 +8,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -35,7 +37,10 @@ public class AuthorController {
 
         final List<Author> authors = authorService.readAll();
 
-        return authors != null && !authors.isEmpty()
+        List<Author> authorsCopy = new ArrayList<>(authors);
+        authorsCopy.forEach(author -> {author.setBooks(null);});
+
+        return !authorsCopy.isEmpty()
                 ? new ResponseEntity<>(authors, HttpStatus.OK) // 200 OK
                 : new ResponseEntity<>(HttpStatus.NOT_FOUND); // 404 Not Found
     }

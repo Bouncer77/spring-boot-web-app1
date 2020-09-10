@@ -30,8 +30,9 @@ public class Author {
     @NonNull
     private String surname;
 
-    /*@ManyToMany(mappedBy = "authors")
-    private Set<Book> books = new HashSet<>();*/
+    @Transient
+    @ManyToMany(mappedBy = "authors")
+    private Set<Book> books = new HashSet<>();
 
     protected Author() {
     }

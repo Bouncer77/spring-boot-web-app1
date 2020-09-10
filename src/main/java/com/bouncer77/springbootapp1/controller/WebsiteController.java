@@ -6,6 +6,7 @@ import com.bouncer77.springbootapp1.entity.Person;
 import com.bouncer77.springbootapp1.entity.Role;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -24,6 +25,9 @@ public class WebsiteController {
 
     @Autowired
     private PersonRepository personRepository;
+
+    @Autowired
+    BCryptPasswordEncoder bCryptPasswordEncoder;
 
     // Вводится (inject) из application.properties.
     @Value("${welcome.message}")
@@ -94,6 +98,10 @@ public class WebsiteController {
             Person person = new Person(login, email, password, name, surname);
             person.setActive(true);
             person.setRoles(Collections.singleton(Role.STUDENT));
+
+            // Шифрование пароля
+            person.setPassword(bCryptPasswordEncoder.encode(person.getPassword()));
+
             personRepository.save(person);
 
             return "redirect:/personList";
