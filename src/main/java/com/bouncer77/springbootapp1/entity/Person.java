@@ -118,7 +118,7 @@ public class Person implements UserDetails {
     @OneToMany(mappedBy = "person")
     Set<BookStep> bookSteps;
 
-    protected Person() {
+    public Person() {
     }
 
     public Person(String login, String email, String password, String name, String surname) {
@@ -169,12 +169,13 @@ public class Person implements UserDetails {
 
     @Override
     public String toString() {
-        return "\nUser{" +
+        return "Person{" +
                 "id=" + id +
                 ", login='" + login + '\'' +
-                ", password='" + password + '\'' +
                 ", email='" + email + '\'' +
-                ", phones='" + phones + '\'' +
+                ", surname='" + surname + '\'' +
+                ", name='" + name + '\'' +
+                ", roles=" + roles +
                 '}';
     }
 

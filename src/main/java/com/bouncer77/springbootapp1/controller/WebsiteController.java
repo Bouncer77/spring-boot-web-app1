@@ -23,6 +23,9 @@ import java.util.*;
 public class WebsiteController {
 
     @Autowired
+    private PersonController personController;
+
+    @Autowired
     private PersonRepository personRepository;
 
     @Autowired
@@ -45,6 +48,22 @@ public class WebsiteController {
 
         //return "index";
         return "main";
+    }
+
+    @GetMapping("/deletePerson")
+    public String deletePerson(@RequestParam(name = "id", required = true) long id,
+                               Model model) {
+
+        Optional<Person> optionalPerson = personRepository.findById(id);
+        if (optionalPerson.isPresent()) {
+            model.addAttribute("opDelete", true);
+            model.addAttribute("deletedPerson", optionalPerson.get());
+            model.addAttribute("deletedPersonRequest", personController.delete(id));
+        } else {
+            model.addAttribute("opDelete", false);
+        }
+
+        return showAllPersons("", model);
     }
 
     @GetMapping("/personList")

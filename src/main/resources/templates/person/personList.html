@@ -15,6 +15,13 @@
         <input type="submit" value="Sign Out"/>
     </form>
 
+    <div th:if="${opDelete}">
+        You have been deleted person<br>
+        <div th:utext="${deletedPerson}">Информация о пользователе</div>
+        <div th:utext="${deletedPersonRequest}">Ответ Restfull контроллера</div>
+    </div>
+
+
     <h1>Person List</h1>
 
     <a href="addPerson">Add Person</a>
@@ -29,6 +36,7 @@
                 <!--<th>Password</th>-->
                 <th>Roles</th>
                 <th>Profile</th>
+                <th>Delete</th>
             </tr>
             <tr th:each="person:${persons}">
                 <td th:utext="${person.name}">...</td>
@@ -38,6 +46,7 @@
                 <!--<td th:utext="${person.password}">...</td>-->
                 <td th:utext="${person.roles}">...</td>
                 <td> <a th:href="@{'/persons/'+ ${person.id}}">show</a> </td>
+                <td> <a th:href="@{'/deletePerson'(id=${person.id})}">delete</a> </td>
         </table>
     </div>
 
