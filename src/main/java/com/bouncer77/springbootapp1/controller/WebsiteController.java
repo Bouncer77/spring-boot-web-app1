@@ -1,6 +1,6 @@
 package com.bouncer77.springbootapp1.controller;
 
-import com.bouncer77.springbootapp1.repository.PersonRepository;
+import com.bouncer77.springbootapp1.repository.PersonRepositoryOld;
 import com.bouncer77.springbootapp1.form.PersonForm;
 import com.bouncer77.springbootapp1.entity.Person;
 import com.bouncer77.springbootapp1.entity.Role;
@@ -23,10 +23,10 @@ import java.util.*;
 public class WebsiteController {
 
     @Autowired
-    private PersonController personController;
+    private PersonControllerOld personControllerOld;
 
     @Autowired
-    private PersonRepository personRepository;
+    private PersonRepositoryOld personRepositoryOld;
 
     @Autowired
     BCryptPasswordEncoder bCryptPasswordEncoder;
@@ -54,11 +54,11 @@ public class WebsiteController {
     public String deletePerson(@RequestParam(name = "id") long id,
                                Model model) {
 
-        Optional<Person> optionalPerson = personRepository.findById(id);
+        Optional<Person> optionalPerson = personRepositoryOld.findById(id);
         if (optionalPerson.isPresent()) {
             model.addAttribute("opDelete", true);
             model.addAttribute("deletedPerson", optionalPerson.get());
-            model.addAttribute("deletedPersonRequest", personController.delete(id));
+            model.addAttribute("deletedPersonRequest", personControllerOld.delete(id));
         } else {
             model.addAttribute("opDelete", false);
         }
@@ -71,7 +71,7 @@ public class WebsiteController {
     public String editPersonGet(@RequestParam(name = "id") long id,
                              Model model) {
 
-        Optional<Person> optionalPerson = personRepository.findById(id);
+        Optional<Person> optionalPerson = personRepositoryOld.findById(id);
         if (!optionalPerson.isPresent()) {
             model.addAttribute("isError", true);
             model.addAttribute("errorMsg", "Пользователь с указанным id не найден!");
@@ -100,13 +100,13 @@ public class WebsiteController {
         // Шифрование пароля
         personForm.setPassword(bCryptPasswordEncoder.encode(personForm.getPassword()));
 
-        Optional<Person> optionalPerson = personRepository.findById(id);
+        Optional<Person> optionalPerson = personRepositoryOld.findById(id);
         if (optionalPerson.isPresent()) {
             Person person = optionalPerson.get();
 
             System.out.println(personForm);
 
-            personController.update(id, personForm);
+            personControllerOld.update(id, personForm);
         }
 
         return showAllPersons("", model);
@@ -120,9 +120,9 @@ public class WebsiteController {
 
         List<Person> persons;
         if (filter != null && !filter.isEmpty()) {
-            persons = personRepository.findByName(filter);
+            persons = personRepositoryOld.findByName(filter);
         } else {
-            persons = personRepository.findAll();
+            persons = personRepositoryOld.findAll();
         }
 
         // persons.forEach(System.out::println);
@@ -149,7 +149,7 @@ public class WebsiteController {
         String name = personForm.getName();
         String surname = personForm.getSurname();
 
-        Person personDb = personRepository.findByLogin(login);
+        Person personDb = personRepositoryOld.findByLogin(login);
         if (Objects.nonNull(personDb)) {
             model.addAttribute("errorMessage", personExists);
             return "/person/addPerson";
@@ -165,7 +165,7 @@ public class WebsiteController {
             // Шифрование пароля
             person.setPassword(bCryptPasswordEncoder.encode(person.getPassword()));
 
-            personRepository.save(person);
+            personRepositoryOld.save(person);
 
             return "redirect:/personList";
         }

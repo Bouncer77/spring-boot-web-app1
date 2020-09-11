@@ -17,7 +17,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 class PassportRepositoryTest {
 
     @Autowired
-    PersonRepository personRepository;
+    PersonRepositoryOld personRepositoryOld;
 
     @Autowired
     PassportRepository passportRepository;
@@ -28,7 +28,7 @@ class PassportRepositoryTest {
         passportRepository.delete(passport);
 
 
-        List<Person> personList = personRepository.findAll();
+        List<Person> personList = personRepositoryOld.findAll();
 
         assertThat(personList).hasSize(2);
     }

@@ -2,7 +2,7 @@ package com.bouncer77.springbootapp1.service;
 
 import com.bouncer77.springbootapp1.entity.Person;
 import com.bouncer77.springbootapp1.form.PersonForm;
-import com.bouncer77.springbootapp1.repository.PersonRepository;
+import com.bouncer77.springbootapp1.repository.PersonRepositoryOld;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,38 +15,38 @@ import java.util.Optional;
  */
 
 @Service
-public class PersonServiceImpl implements PersonService {
+public class PersonServiceOldImpl implements PersonServiceOld {
 
     @Autowired
-    PersonRepository personRepository;
+    PersonRepositoryOld personRepositoryOld;
 
     @Override
     public void create(Person person) {
-        personRepository.save(person);
+        personRepositoryOld.save(person);
     }
 
     @Override
     public List<Person> readAll() {
-        return personRepository.findAll();
+        return personRepositoryOld.findAll();
     }
 
     @Override
     public Person read(long id) {
-        Optional<Person> personRepOptional = personRepository.findById(id);
+        Optional<Person> personRepOptional = personRepositoryOld.findById(id);
         return personRepOptional.orElse(null);
     }
 
     @Override
     public boolean update(long id, PersonForm personForm) {
 
-        Optional<Person> personRepOptional = personRepository.findById(id);
+        Optional<Person> personRepOptional = personRepositoryOld.findById(id);
         if (personRepOptional.isPresent()) {
             Person person = personRepOptional.get();
             /*// Меняет только имя и фамилию
             person.setName(personForm.getName());
             person.setSurname(personForm.getSurname());*/
             person.setParams(personForm);
-            personRepository.save(person);
+            personRepositoryOld.save(person);
             return true;
         }
 
@@ -56,9 +56,9 @@ public class PersonServiceImpl implements PersonService {
     @Override
     public boolean delete(long id) {
 
-        Optional<Person> personRepOptional = personRepository.findById(id);
+        Optional<Person> personRepOptional = personRepositoryOld.findById(id);
         if (personRepOptional.isPresent()) {
-            personRepository.delete(personRepOptional.get());
+            personRepositoryOld.delete(personRepOptional.get());
             return true;
         }
 

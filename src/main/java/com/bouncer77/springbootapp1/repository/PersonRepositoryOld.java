@@ -11,7 +11,7 @@ import java.util.List;
  * Created by Kosenkov Ivan on 03.09.2020
  */
 
-public interface PersonRepository extends JpaRepository<Person, Long> {
+public interface PersonRepositoryOld extends JpaRepository<Person, Long> {
 
     Person findByLogin(String login);
 

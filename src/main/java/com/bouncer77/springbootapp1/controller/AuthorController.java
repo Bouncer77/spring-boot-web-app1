@@ -2,7 +2,7 @@ package com.bouncer77.springbootapp1.controller;
 
 import com.bouncer77.springbootapp1.entity.Author;
 import com.bouncer77.springbootapp1.form.AuthorForm;
-import com.bouncer77.springbootapp1.service.AuthorService;
+import com.bouncer77.springbootapp1.service.AuthorServiceOld;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -21,20 +21,20 @@ import java.util.List;
 public class AuthorController {
 
     @Autowired
-    AuthorService authorService;
+    AuthorServiceOld authorServiceOld;
 
     @PostMapping
     public ResponseEntity<?> create(@RequestBody AuthorForm authorForm) {
 
         Author author = new Author(authorForm.getName(), authorForm.getSurname());
-        authorService.create(author);
+        authorServiceOld.create(author);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
     @GetMapping
     public ResponseEntity<List<Author>> read() {
 
-        final List<Author> authors = authorService.readAll();
+        final List<Author> authors = authorServiceOld.readAll();
 
         List<Author> authorsCopy = new ArrayList<>(authors);
         /*authorsCopy.forEach(author -> {
@@ -49,7 +49,7 @@ public class AuthorController {
     @GetMapping(value = "/{id}")
     public ResponseEntity<Author> read(@PathVariable(name = "id") long id) {
 
-        final Author author = authorService.read(id);
+        final Author author = authorServiceOld.read(id);
 
         return author != null
                 ? new ResponseEntity<>(author, HttpStatus.OK) // 200 OK
@@ -59,7 +59,7 @@ public class AuthorController {
     @PutMapping(value = "/{id}")
     public ResponseEntity<?> update(@PathVariable(name = "id") long id, @RequestBody AuthorForm authorForm) {
 
-        final boolean updated = authorService.update(id, authorForm);
+        final boolean updated = authorServiceOld.update(id, authorForm);
 
         return updated
                 ? new ResponseEntity<>(HttpStatus.OK)
@@ -69,7 +69,7 @@ public class AuthorController {
     @DeleteMapping(value = "/{id}")
     public ResponseEntity<?> delete(@PathVariable(name = "id") long id) {
 
-        final boolean deleted = authorService.delete(id);
+        final boolean deleted = authorServiceOld.delete(id);
 
         return deleted
                 ? new ResponseEntity<>(HttpStatus.OK)

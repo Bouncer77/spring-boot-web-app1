@@ -13,14 +13,14 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @ExtendWith(SpringExtension.class)
 @SpringBootTest
-class PersonRepositoryTest {
+class PersonRepositoryOldTest {
 
     @Autowired
-    PersonRepository personRepository;
+    PersonRepositoryOld personRepositoryOld;
 
     @Test
     void findByName() {
-        List<Person> personList = personRepository.findByName("Anna");
+        List<Person> personList = personRepositoryOld.findByName("Anna");
 
         assertThat(personList).hasSize(1);
         assertThat(personList.get(0).getName()).isEqualTo("Anna");
@@ -29,7 +29,7 @@ class PersonRepositoryTest {
 
     @Test
     void findAllOrderedByFirstName() {
-        List<Person> personList = personRepository.findAllOrderedByFirstName();
+        List<Person> personList = personRepositoryOld.findAllOrderedByFirstName();
         assertThat(personList).hasSize(3);
         assertThat(personList.get(2).getSurname()).isEqualTo("Ivanov");
     }

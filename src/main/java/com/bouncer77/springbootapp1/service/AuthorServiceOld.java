@@ -8,5 +8,5 @@ import com.bouncer77.springbootapp1.form.AuthorForm;
  * Created by Kosenkov Ivan on 10.09.2020
  */
 
-public interface AuthorService extends EntityCrudService<Author, AuthorForm> {
+public interface AuthorServiceOld extends EntityCrudService<Author, AuthorForm> {
 }

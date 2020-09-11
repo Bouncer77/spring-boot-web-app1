@@ -17,11 +17,11 @@ import java.util.Set;
 @Table(name = "author")
 @Getter
 @Setter
-public class Author {
+public class Author extends AbstractEntity {
 
-    @Id
+    /*@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long id;*/
 
     @NonNull
     private String name;

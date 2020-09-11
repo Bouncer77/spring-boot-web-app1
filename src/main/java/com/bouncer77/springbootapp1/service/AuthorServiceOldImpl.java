@@ -15,7 +15,7 @@ import java.util.Optional;
  */
 
 @Service
-public class AuthorServiceImpl implements AuthorService {
+public class AuthorServiceOldImpl implements AuthorServiceOld {
 
     @Autowired
     AuthorRepository authorRepository;

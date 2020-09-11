@@ -3,7 +3,7 @@ package com.bouncer77.springbootapp1;
 import com.bouncer77.springbootapp1.entity.*;
 import com.bouncer77.springbootapp1.repository.AuthorRepository;
 import com.bouncer77.springbootapp1.repository.BookRepository;
-import com.bouncer77.springbootapp1.repository.PersonRepository;
+import com.bouncer77.springbootapp1.repository.PersonRepositoryOld;
 import com.bouncer77.springbootapp1.repository.TagRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -32,7 +32,7 @@ public class SpringBootApp1Application {
      * Метод возвращает CommandLineRunnerкомпонент , который автоматически запускает код при запуске приложения.
      */
     @Bean
-    public CommandLineRunner demo(PersonRepository personRepository,
+    public CommandLineRunner demo(PersonRepositoryOld personRepositoryOld,
                                   AuthorRepository authorRepository,
                                   BookRepository bookRepository,
                                   TagRepository tagRepository) {
@@ -88,12 +88,12 @@ public class SpringBootApp1Application {
             anna.setPhones(phoneSetAlex);
 
             List<Person> people = Arrays.asList(anna, dima, alex);
-            personRepository.saveAll(people);
+            personRepositoryOld.saveAll(people);
 
             // fetch all persons
             log.info("Persons found with findAll():");
             log.info("-------------------------------");
-            for (Person person : personRepository.findAll()) {
+            for (Person person : personRepositoryOld.findAll()) {
                 log.info(person.toString());
             }
             log.info("");

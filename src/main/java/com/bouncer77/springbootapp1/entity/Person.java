@@ -22,15 +22,15 @@ import java.util.*;
 @Table(name = "persons")
 @Getter
 @Setter
-public class Person implements UserDetails {
+public class Person extends AbstractEntity implements UserDetails {
 
-    /**
+    /*
      * Person Id
      */
-    @Id
+    /*@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false, updatable = false)
-    private Long id;
+    private Long id;*/
 
     /**
      * Login
@@ -134,7 +134,7 @@ public class Person implements UserDetails {
 
     // Копирующий конструктор
     public Person(Person person) {
-        this.id = person.getId();
+        this.setId(person.getId());
         this.login = person.getLogin();
         this.email = person.getEmail();
         this.password = person.getPassword();
@@ -172,7 +172,7 @@ public class Person implements UserDetails {
     @Override
     public String toString() {
         return "Person{" +
-                "id=" + id +
+                "id=" + this.getId() +
                 ", login='" + login + '\'' +
                 ", email='" + email + '\'' +
                 ", surname='" + surname + '\'' +
