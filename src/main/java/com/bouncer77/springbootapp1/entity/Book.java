@@ -54,7 +54,7 @@ public class Book {
     Set<BookStep> bookSteps = new HashSet<>();
 
 
-    protected Book() {
+    public Book() {
     }
 
     public Book(String name, String description, int lastPage) {

@@ -2,6 +2,7 @@ package com.bouncer77.springbootapp1.controller;
 
 import com.bouncer77.springbootapp1.entity.Book;
 import com.bouncer77.springbootapp1.form.BookForm;
+import com.bouncer77.springbootapp1.form.ListBookForm;
 import com.bouncer77.springbootapp1.service.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -22,6 +23,14 @@ public class BookController {
 
     @Autowired
     BookService bookService;
+
+    public ResponseEntity<?> create(@RequestBody ListBookForm listBookForm) {
+
+        for (Book book : listBookForm.getBooks()) {
+            bookService.create(book);
+        }
+        return new ResponseEntity<>(HttpStatus.CREATED);
+    }
 
     @PostMapping
     public ResponseEntity<?> create(@RequestBody BookForm bookForm) {

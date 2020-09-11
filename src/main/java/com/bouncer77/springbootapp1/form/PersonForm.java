@@ -1,5 +1,6 @@
 package com.bouncer77.springbootapp1.form;
 
+import com.bouncer77.springbootapp1.entity.Role;
 import com.bouncer77.springbootapp1.util.Colour;
 import lombok.Getter;
 import lombok.Setter;
@@ -23,6 +24,7 @@ public class PersonForm {
     private String name;
     private String surname;
     private List<String> roles = new ArrayList<>();
+    //private List<Role> roles = new ArrayList<>();
 
     public PersonForm() {}
 
@@ -32,6 +34,10 @@ public class PersonForm {
         this.name = name;
         this.surname = surname;
     }
+
+    /*public void addPersonRole(Role role) {
+        this.roles.add(role);
+    }*/
 
     @Override
     public String toString() {
