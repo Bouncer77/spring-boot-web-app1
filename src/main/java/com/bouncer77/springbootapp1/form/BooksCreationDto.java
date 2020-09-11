@@ -14,13 +14,13 @@ import java.util.List;
 
 @Getter
 @Setter
-public class ListBookForm {
+public class BooksCreationDto {
 
     private List<Book> books = new ArrayList<>();
 
-    public ListBookForm() {}
+    public BooksCreationDto() {}
 
-    public ListBookForm(List<Book> books) {
+    public BooksCreationDto(List<Book> books) {
         this.books = books;
     }
 

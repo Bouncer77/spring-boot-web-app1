@@ -32,6 +32,7 @@
                 <tr>
                     <th> Name </th>
                     <th> Description </th>
+                    <th> LastPage </th>
                 </tr>
                 </thead>
                 <tbody>
@@ -41,14 +42,15 @@
                 <tr th:each="book : ${books}">
                     <td><span th:text="${book.name}"> name </span></td>
                     <td><span th:text="${book.description}"> description </span></td>
+                    <td><span th:text="${book.lastPage}"> lastPage </span></td>
                 </tr>
                 </tbody>
             </table>
         </div>
 
         <div class="col-md-6">
-            <a class="btn btn-success" href="#" th:href="@{web/books/add}"> Add Books </a>
-            <a class="btn btn-primary" href="#" th:href="@{/books/edit}" th:classappend="${books.isEmpty()} ? 'disabled' : ''"> Edit Books </a>
+            <a class="btn btn-success" href="#" th:href="@{books/add}"> Add Books </a>
+            <a class="btn btn-primary" href="#" th:href="@{books/edit}" th:classappend="${books.isEmpty()} ? 'disabled' : ''"> Edit Books </a>
         </div>
 
     </div>
