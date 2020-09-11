@@ -7,6 +7,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
+import java.lang.annotation.RetentionPolicy;
 import java.time.LocalDateTime;
 import java.util.*;
 
@@ -186,6 +187,12 @@ public class Person implements UserDetails {
         this.email = personForm.getEmail();
         this.password = personForm.getPassword();
         this.login = personForm.getLogin();
+        this.roles = new HashSet<>();
+
+        for (String str : personForm.getRoles()) {
+            Role en = Role.valueOf(str);
+            this.roles.add(en);
+        }
     }
 
     @Override

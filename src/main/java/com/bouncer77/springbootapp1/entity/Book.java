@@ -33,7 +33,6 @@ public class Book {
     @Column(name = "description", length = 120)
     private String description;
 
-    //@Transient
     @ManyToMany
     @JoinTable(
             name = "author_book",
@@ -41,7 +40,6 @@ public class Book {
             inverseJoinColumns = @JoinColumn(name = "author_id"))
     private Set<Author> authors = new HashSet<>();
 
-    //@Transient
     @ManyToMany
     @JoinTable(
             name = "tag_book",
@@ -49,16 +47,20 @@ public class Book {
             inverseJoinColumns = @JoinColumn(name = "tag_id"))
     private Set<Tag> tags = new HashSet<>();
 
-    //@Transient
     @ManyToMany(mappedBy = "books")
     Set<ReadingCourse> readingCourses = new HashSet<>();
 
-    //@Transient
     @OneToMany(mappedBy = "book")
-    Set<BookStep> bookSteps;
+    Set<BookStep> bookSteps = new HashSet<>();
 
 
     protected Book() {
+    }
+
+    public Book(String name, String description, int lastPage) {
+        this.name = name;
+        this.description = description;
+        this.lastPage = lastPage;
     }
 
     public Book(String name, Integer lastPage, Author author, Tag tag) {

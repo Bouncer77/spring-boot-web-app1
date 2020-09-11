@@ -82,6 +82,7 @@ public class WebsiteController {
         PersonForm personForm = new PersonForm(person.getLogin(), person.getEmail(), person.getName(), person.getSurname());
         model.addAttribute("personForm", personForm);
         model.addAttribute("id", id);
+        model.addAttribute("roles", Role.values());
 
         return "/person/editPerson";
     }
@@ -102,6 +103,9 @@ public class WebsiteController {
         Optional<Person> optionalPerson = personRepository.findById(id);
         if (optionalPerson.isPresent()) {
             Person person = optionalPerson.get();
+
+            System.out.println(personForm);
+
             personController.update(id, personForm);
         }
 

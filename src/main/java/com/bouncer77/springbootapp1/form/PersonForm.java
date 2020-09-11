@@ -1,7 +1,11 @@
 package com.bouncer77.springbootapp1.form;
 
+import com.bouncer77.springbootapp1.util.Colour;
 import lombok.Getter;
 import lombok.Setter;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author Kosenkov Ivan
@@ -18,6 +22,7 @@ public class PersonForm {
     private String confirmPassword;
     private String name;
     private String surname;
+    private List<String> roles = new ArrayList<>();
 
     public PersonForm() {}
 
@@ -26,5 +31,18 @@ public class PersonForm {
         this.email = email;
         this.name = name;
         this.surname = surname;
+    }
+
+    @Override
+    public String toString() {
+        return Colour.red( "PersonForm{" +
+                "login='" + login + '\'' +
+                ", email='" + email + '\'' +
+                ", password='" + password + '\'' +
+                ", confirmPassword='" + confirmPassword + '\'' +
+                ", name='" + name + '\'' +
+                ", surname='" + surname + '\'' +
+                ", roles=" + roles +
+                '}');
     }
 }

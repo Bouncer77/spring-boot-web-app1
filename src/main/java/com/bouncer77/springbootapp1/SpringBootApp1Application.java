@@ -40,12 +40,12 @@ public class SpringBootApp1Application {
             // save a few persons
             // anna = person 1
 
-            String annaPassword = "123";
+            String annaPassword = "1";
             // Шифрование
             annaPassword = bCryptPasswordEncoder.encode(annaPassword);
 
-            Person anna = new Person("AnnaLogin", "annaEmail@google.com", annaPassword,
-                    "Anna", "Goncharova");
+            Person anna = new Person("a", "admin@google.com", annaPassword,
+                    "Админ", "Админов");
             anna.setActive(true);
             //anna.setRoles(Collections.singleton(Role.STUDENT));
             Set<Role> annaRoleSet = new HashSet<>(Arrays.asList(Role.STUDENT, Role.TEACHER, Role.ADMIN));
