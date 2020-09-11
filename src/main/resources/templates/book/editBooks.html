@@ -18,7 +18,7 @@
     </div>
     <div class="row">
         <div class="col-md-6">
-            <a class="btn btn-info" href="#" th:href="@{/book/books}"> Back to All Books </a>
+            <a class="btn btn-info" href="#" th:href="@{/books/all}"> Back to All Books </a>
             <form action="#" class="form-horizontal"
                   th:action="@{/books/save}"
                   th:object="${form}"
@@ -31,14 +31,18 @@
                     <table class="table">
                         <thead>
                         <tr>
+                            <th></th>
                             <th> Title</th>
                             <th> Author</th>
                         </tr>
                         </thead>
                         <tbody>
-                        <tr th:each="book, itemStat : *{books}">
-                            <td><input th:placeholder="Title + ' ' + ${itemStat.count}" th:field="*{books[__${itemStat.index}__].title}" required/></td>
-                            <td><input th:placeholder="Author + ' ' + ${itemStat.count}" th:field="*{books[__${itemStat.index}__].author}" required/></td>
+                        <tr th:each="book, itemStat : ${form.books}">
+                            <td><input hidden th:name="|books[${itemStat.index}].id|" th:value="${book.getId()}"/></td>
+                            <td><input th:placeholder="Title + ' ' + ${itemStat.count}" th:name="|books[${itemStat.index}].title|" th:value="${book.getTitle()}"
+                                       required/></td>
+                            <td><input th:placeholder="Author + ' ' + ${itemStat.count}" th:name="|books[${itemStat.index}].author|"
+                                       th:value="${book.getAuthor()}" required/></td>
                         </tr>
                         </tbody>
                     </table>
