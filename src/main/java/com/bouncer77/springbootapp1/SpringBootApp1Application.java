@@ -65,7 +65,8 @@ public class SpringBootApp1Application {
             Person dima = new Person("DimaLogin", "dimaEmail@google.com", dimaPassword,
                     "Dima", "Ivanov");
             dima.setActive(true);
-            dima.setRoles(Collections.singleton(Role.STUDENT));
+            Set<Role> dimaRoleSet = new HashSet<>(Arrays.asList(Role.STUDENT, Role.TEACHER));
+            dima.setRoles(dimaRoleSet);
             Passport passportDima = new Passport("222", "456555");
             dima.setPassport(passportDima);
             Phone phoneDima1 = new Phone("89681110201");

@@ -1,7 +1,6 @@
 package com.bouncer77.springbootapp1.config;
 
-import com.bouncer77.springbootapp1.service.WebsitePersonService;
-import com.bouncer77.springbootapp1.service.WebsitePersonServiceImpl;
+import com.bouncer77.springbootapp1.service.CustomPersonDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -17,13 +16,14 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
  */
 
 @Configuration
-@EnableWebSecurity
+@EnableWebSecurity(debug = true)
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
 
     //TODO прикрепить DI через интерфейс (DI через интерфейс не работает)
     @Autowired
-    WebsitePersonServiceImpl websitePersonService;
+    CustomPersonDetailsService personDetailsService;
+
 
     @Bean
     public BCryptPasswordEncoder bCryptPasswordEncoder() {
@@ -36,9 +36,24 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                     .authorizeRequests()
 
                 // Сайт с авторизацией
-                    //.antMatchers("/", "/login", "/addPerson", "/authors/**").permitAll()
-                    .antMatchers("/", "/addPerson").permitAll()
-                    .antMatchers("/*.css", "/images/bouncer77.png").permitAll()
+
+
+                    // Новая версия
+                    /*.antMatchers("/addPerson").anonymous()
+                    .antMatchers("/personList").hasAnyRole("STUDENT", "TEACHER", "ADMIN")
+                    .antMatchers("/", "/index", "/applications", "/contact", "/about_cpm",
+                    "/css/**", "/js/**", "/images/**", "/*.css").permitAll()
+                    .antMatchers("/**").hasRole("ADMIN")*/
+
+                    // Старая версия
+                .antMatchers("/editPerson*").hasRole("ADMIN")
+                .antMatchers("/web/books").hasAnyRole("ADMIN, TEACHER")
+                .antMatchers("/addPerson").anonymous()
+                .antMatchers("/", "/index", "/applications", "/contact", "/about",
+        "/js/**", "/images/**", "/css/**").permitAll()
+                .antMatchers("/**").hasRole("ADMIN")
+
+
 
                     // Postman (без авторизации) + сайт без авторизации
                     //.antMatchers("/**").permitAll()
@@ -64,7 +79,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(websitePersonService)
+        auth.userDetailsService(personDetailsService)
                 .passwordEncoder(bCryptPasswordEncoder());
                 //.passwordEncoder(NoOpPasswordEncoder.getInstance());
     }

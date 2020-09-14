@@ -145,7 +145,7 @@ div {
 }
 
 body {
-    background-image: url("images/bouncer77.png"); /* путь относительно css файла */
+    background-image: url("../images/bouncer77.png"); /* путь относительно css файла */
     width: 1024px;
     height: 500px;
     background-color: #323232;

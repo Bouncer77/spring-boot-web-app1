@@ -4,8 +4,11 @@ import com.bouncer77.springbootapp1.repository.PersonRepository;
 import com.bouncer77.springbootapp1.form.PersonForm;
 import com.bouncer77.springbootapp1.entity.Person;
 import com.bouncer77.springbootapp1.entity.Role;
+import com.bouncer77.springbootapp1.util.Colour;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -174,9 +177,17 @@ public class WebsiteController {
         return "/person/addPerson";
     }
 
-    @GetMapping("/about_cpm")
-    public String showAboutCPM() {
-        return "/about_cpm";
+    @GetMapping("/about")
+    public String showAbout(Authentication authentication) {
+
+
+        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+        System.out.println(userDetails);
+        Person person = personRepository.findByLogin(userDetails.getUsername());
+        System.out.println(Colour.purple(person.toString()));
+        System.out.println(Colour.green(person.getRoles().toString()));
+
+        return "/about";
     }
 
     @GetMapping("/contact")
