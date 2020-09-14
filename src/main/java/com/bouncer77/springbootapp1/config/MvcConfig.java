@@ -9,7 +9,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
  * Created by Kosenkov Ivan on 03.09.2020
  */
 
-@Configuration
+/*@Configuration
 public class MvcConfig implements WebMvcConfigurer {
 
     public void addViewControllers(ViewControllerRegistry registry) {
@@ -17,4 +17,4 @@ public class MvcConfig implements WebMvcConfigurer {
     }
 
 
-}
+}*/
