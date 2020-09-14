@@ -36,21 +36,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                     .authorizeRequests()
 
                 // Сайт с авторизацией
-
-
-                    // Новая версия
-                    /*.antMatchers("/addPerson").anonymous()
-                    .antMatchers("/personList").hasAnyRole("STUDENT", "TEACHER", "ADMIN")
-                    .antMatchers("/", "/index", "/applications", "/contact", "/about_cpm",
-                    "/css/**", "/js/**", "/images/**", "/*.css").permitAll()
-                    .antMatchers("/**").hasRole("ADMIN")*/
-
-                    // Старая версия
-                .antMatchers("/editPerson*").hasRole("ADMIN")
-                .antMatchers("/web/books").hasAnyRole("ADMIN, TEACHER")
+                .antMatchers("/web/books", "/personList", "/web/books/**").hasAnyRole("ADMIN, TEACHER, MODERATOR")
                 .antMatchers("/addPerson").anonymous()
+                .antMatchers("/deletePerson", "/editPerson*", "/persons/**").hasRole("MODERATOR")
                 .antMatchers("/", "/index", "/applications", "/contact", "/about",
-        "/js/**", "/images/**", "/css/**").permitAll()
+                "/js/**", "/images/**", "/css/**").permitAll()
                 .antMatchers("/**").hasRole("ADMIN")
 
 
@@ -58,9 +48,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                     // Postman (без авторизации) + сайт без авторизации
                     //.antMatchers("/**").permitAll()
 
-                    //.antMatchers("/*.css", "/images/bouncer77.png").hasRole("STUDENT")
-                    //.antMatchers("/**").hasRole("ADMIN")
-                    //.antMatchers("/**").permitAll()
                     .anyRequest().authenticated()
                 .and()
                     .formLogin()
@@ -71,7 +58,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                     .permitAll(); // Сайт с авторизацией
 
                 // Postman (без авторизации)
-                // Для работы POSTMAN-а, при этом отваливается авторизация на сайте
+                // Для работы POSTMAN-а
                 /*.and()
                     .csrf().disable()//; // содержит уязвимости
                     .formLogin().disable(); // отключает форму авторизации по умолчанию*/

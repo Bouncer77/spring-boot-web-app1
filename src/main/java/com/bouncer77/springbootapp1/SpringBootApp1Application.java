@@ -47,7 +47,6 @@ public class SpringBootApp1Application {
             Person anna = new Person("a", "admin@google.com", annaPassword,
                     "Админ", "Админов");
             anna.setActive(true);
-            //anna.setRoles(Collections.singleton(Role.STUDENT));
             Set<Role> annaRoleSet = new HashSet<>(Arrays.asList(Role.STUDENT, Role.TEACHER, Role.ADMIN));
             anna.setRoles(annaRoleSet);
             Passport passportAnna = new Passport("111", "456789");
@@ -71,7 +70,7 @@ public class SpringBootApp1Application {
             dima.setPassport(passportDima);
             Phone phoneDima1 = new Phone("89681110201");
             Set<Phone> phoneSetDima= new HashSet<>(Collections.singletonList(phoneDima1));
-            anna.setPhones(phoneSetDima);
+            dima.setPhones(phoneSetDima);
 
             // alex = person 3
 
@@ -86,9 +85,25 @@ public class SpringBootApp1Application {
             alex.setPassport(passportAlex);
             Phone phoneAlex1 = new Phone("89681110301");
             Set<Phone> phoneSetAlex = new HashSet<>(Collections.singletonList(phoneAlex1));
-            anna.setPhones(phoneSetAlex);
+            alex.setPhones(phoneSetAlex);
 
-            List<Person> people = Arrays.asList(anna, dima, alex);
+            // marina = person 4
+
+            String marinaPassword = "4455";
+            // Шифрование
+            marinaPassword = bCryptPasswordEncoder.encode(marinaPassword);
+
+            Person marina = new Person("MarinaLogin", "marinaEmail@gmail.com", marinaPassword, "Marina", "Brejneva");
+            marina.setActive(true);
+            Set<Role> marinaRoleSet = new HashSet<>(Arrays.asList(Role.STUDENT, Role.MODERATOR));
+            marina.setRoles(marinaRoleSet);
+            Passport passportMarina = new Passport("123", "456004");
+            marina.setPassport(passportMarina);
+            Phone phoneMarina1 = new Phone("89681110402");
+            Set<Phone> phoneSetMarina = new HashSet<>(Collections.singletonList(phoneMarina1));
+            marina.setPhones(phoneSetMarina);
+
+            List<Person> people = Arrays.asList(anna, dima, alex, marina);
             personRepository.saveAll(people);
 
             // fetch all persons
