@@ -52,7 +52,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                     .permitAll()
                 .and()
                     .logout().logoutUrl("/logout")
-                    .permitAll()// ; // Сайт с авторизацией
+                    .permitAll()//; // Сайт с авторизацией
                 //.and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS) // отключить сессии (не обязательно)
                 .and().rememberMe().tokenValiditySeconds(86400).key("hackMan77"); // 24 часа
 

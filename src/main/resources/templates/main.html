@@ -1,6 +1,7 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+      <!--xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3">-->sec:authorize всегда выводит
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <title>CPM</title>
@@ -18,14 +19,24 @@
         <a th:href="@{/about}">News</a>
         <a th:href="@{/contact}">Contact</a>
         <a th:href="@{/about}">About</a>
-        <div sec:authorize="${isAuthenticated()}">
-            <a th:href="@{/logout}">Log out</a>
+
+
+        <!--<div sec:authorize="${isAuthenticated()}">-->
+        <!--<div sec:authorize="isFullyAuthenticated()">-->
+        <div sec:authorize="isAuthenticated()">
+            <a th:href="@{/logout}">Logout</a>
         </div>
-        <div sec:authorize="${isAnonymous()}">
-            <a th:href="@{/login}">Log in</a>
+
+        <!--<div sec:authorize="${isAnonymous()}">-->
+        <!--<div sec:authorize="!isFullyAuthenticated()">-->
+        <div sec:authorize="isAnonymous()">
+            <a th:href="@{/login}">Login</a> <!--тут должна быть ссылка на профиль-->
+            <a th:href="@{/addPerson}">Register</a>
         </div>
+
+
         <!--<div id="greeting" th:inline="text" th:object="person">
-            Hello, <a th:href="@{'/persons/' + ${person.id}}">[[${#httpServletRequest.remoteUser}]]!</a>
+            Hello, <a  th:href="@{'/persons/' + ${person.id}}">[[${#httpServletRequest.remoteUser}]]!</a>
         </div>-->
     </div>
 
@@ -57,6 +68,12 @@
         <div class="supermsg">CourseProgressMaestro</div>
 
         <h1 th:inline="text">Hello, [[${#httpServletRequest.remoteUser}]]!</h1>
+
+        <div sec:authorize="hasAuthority('USER')" > Has Authority USER </div>
+        <div sec:authorize="hasAuthority('ADMIN')" > Has Authority USER </div>
+        <div sec:authorize="hasAuthority('MODERATOR')" > Has Authority USER </div>
+        <div sec:authorize="hasAuthority('TEACHER')" > Has Authority USER </div>
+        <div sec:authorize="hasAuthority('ANONIMUS')" > Has Authority USER </div>
     </div>
 </body>
 
