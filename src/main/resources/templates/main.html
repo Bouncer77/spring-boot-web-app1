@@ -12,6 +12,23 @@
 
 <body>
 
+    <!--.. https://html5css.ru/howto/howto_js_topnav.php-->
+    <div class="topnav">
+        <a class="active">Home</a>
+        <a th:href="@{/about}">News</a>
+        <a th:href="@{/contact}">Contact</a>
+        <a th:href="@{/about}">About</a>
+        <div sec:authorize="${isAuthenticated()}">
+            <a th:href="@{/logout}">Log out</a>
+        </div>
+        <div sec:authorize="${isAnonymous()}">
+            <a th:href="@{/login}">Log in</a>
+        </div>
+        <!--<div id="greeting" th:inline="text" th:object="person">
+            Hello, <a th:href="@{'/persons/' + ${person.id}}">[[${#httpServletRequest.remoteUser}]]!</a>
+        </div>-->
+    </div>
+
     <!-- Side navigation -->
     <div class="sidenav">
 
@@ -39,10 +56,7 @@
     <div class="main cpm_top_center">
         <div class="supermsg">CourseProgressMaestro</div>
 
-        <h1 th:inline="text">Hello [[${#httpServletRequest.remoteUser}]]!</h1>
-        <form th:action="@{/logout}" method="post">
-            <input type="submit" value="Sign Out"/>
-        </form>
+        <h1 th:inline="text">Hello, [[${#httpServletRequest.remoteUser}]]!</h1>
     </div>
 </body>
 

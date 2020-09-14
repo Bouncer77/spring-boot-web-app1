@@ -9,13 +9,11 @@ import javax.persistence.*;
  * Created by Kosenkov Ivan on 07.09.2020
  */
 
-@SuppressWarnings("PMD")
+// @SuppressWarnings("PMD")
+@NoArgsConstructor
+@Data
 @Entity
 @Table(name = "book_step")
-@Getter
-@Setter
-@EqualsAndHashCode
-@ToString
 public class BookStep {
 
     @EmbeddedId

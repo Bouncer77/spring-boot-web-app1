@@ -1,8 +1,6 @@
 package com.bouncer77.springbootapp1.entity;
 
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
@@ -14,10 +12,9 @@ import java.time.LocalDate;
  * Created by Kosenkov Ivan on 07.09.2020
  */
 
+@NoArgsConstructor
+@Data
 @Embeddable
-@Getter
-@Setter
-@EqualsAndHashCode
 public class BookStepPk implements Serializable {
 
     @Column(name = "person_id")
@@ -28,7 +25,4 @@ public class BookStepPk implements Serializable {
 
     @Column(name = "reg_date")
     private LocalDate regDate = LocalDate.now();
-
-    protected BookStepPk() {
-    }
 }

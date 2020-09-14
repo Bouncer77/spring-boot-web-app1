@@ -39,7 +39,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/addPerson").hasAnyRole("MODERATOR", "ADMIN", "ANONYMOUS")
                 .antMatchers("/deletePerson", "/editPerson*", "/persons/**").hasRole("MODERATOR")
                 .antMatchers("/", "/index", "/applications", "/contact", "/about",
-                "/js/**", "/images/**", "/css/**", "/login*", "/logout").permitAll()
+                "/js/**", "/images/**", "/css/**", "/login*", "/logout*").permitAll()
                 .antMatchers("/**").hasRole("ADMIN")
 
                 // Postman (без авторизации) + сайт без авторизации
@@ -47,13 +47,13 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
                     .anyRequest().authenticated()
                 .and()
-                    .formLogin()
+                    .formLogin().loginProcessingUrl("/login")
                     //.loginPage("/login") // Добавить свою страницу аутентификации
                     .permitAll()
                 .and()
-                    .logout()
+                    .logout().logoutUrl("/logout")
                     .permitAll()// ; // Сайт с авторизацией
-                .and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS) // отключить сессии (не обязательно)
+                //.and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS) // отключить сессии (не обязательно)
                 .and().rememberMe().tokenValiditySeconds(86400).key("hackMan77"); // 24 часа
 
                 // Postman (без авторизации)

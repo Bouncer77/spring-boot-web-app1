@@ -1,8 +1,6 @@
 package com.bouncer77.springbootapp1.entity;
 
-import lombok.Getter;
-import lombok.NonNull;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.HashSet;
@@ -13,10 +11,10 @@ import java.util.Set;
  * Created by Kosenkov Ivan on 07.09.2020
  */
 
+@NoArgsConstructor
+@Data
 @Entity
 @Table(name = "book")
-@Getter
-@Setter
 public class Book {
 
     @Id
@@ -52,10 +50,6 @@ public class Book {
 
     @OneToMany(mappedBy = "book")
     Set<BookStep> bookSteps = new HashSet<>();
-
-
-    public Book() {
-    }
 
     public Book(String name, String description, int lastPage) {
         this.name = name;

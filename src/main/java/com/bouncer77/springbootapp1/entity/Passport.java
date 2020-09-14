@@ -1,8 +1,6 @@
 package com.bouncer77.springbootapp1.entity;
 
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -12,11 +10,10 @@ import java.io.Serializable;
  * Created by Kosenkov Ivan on 07.09.2020
  */
 
+@NoArgsConstructor
+@Data
 @Entity
 @Table(name = "passports")
-@EqualsAndHashCode
-@Getter
-@Setter
 public class Passport implements Serializable {
 
     @Id
@@ -34,10 +31,6 @@ public class Passport implements Serializable {
 
     @OneToOne(mappedBy = "passport", cascade = CascadeType.ALL)
     private Person person;
-
-
-    protected Passport() {
-    }
 
     public Passport(String series, String number) {
         this.series = series;

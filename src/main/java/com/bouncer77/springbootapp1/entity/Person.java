@@ -1,7 +1,9 @@
 package com.bouncer77.springbootapp1.entity;
 
 import com.bouncer77.springbootapp1.form.PersonForm;
+import lombok.Data;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -18,10 +20,10 @@ import java.util.*;
  * Created by Kosenkov Ivan on 27.08.2020
  */
 
+@NoArgsConstructor
+@Data
 @Entity
 @Table(name = "persons")
-@Getter
-@Setter
 public class Person implements UserDetails {
 
     /**
@@ -119,9 +121,6 @@ public class Person implements UserDetails {
     //@Transient
     @OneToMany(mappedBy = "person")
     Set<BookStep> bookSteps;
-
-    public Person() {
-    }
 
     public Person(String login, String email, String password, String name, String surname) {
         this.login = login;

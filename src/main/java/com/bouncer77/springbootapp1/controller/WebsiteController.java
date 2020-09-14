@@ -45,11 +45,25 @@ public class WebsiteController {
     private String personExists;
 
     @GetMapping(value = { "/", "/index" })
-    public String index(Model model) {
+    public String index(Authentication authentication, Model model) {
 
         model.addAttribute("message", message);
 
-        //return "index";
+
+        if (authentication != null) {
+            UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+            if(Objects.nonNull(userDetails)) {
+                System.out.println(userDetails);
+            }
+
+            Person person = personRepository.findByLogin(userDetails.getUsername());
+            if (Objects.nonNull(person)) {
+                System.out.println(Colour.purple(person.toString()));
+                System.out.println(Colour.green(person.getRoles().toString()));
+                model.addAttribute("person", person);
+            }
+        }
+
         return "main";
     }
 
