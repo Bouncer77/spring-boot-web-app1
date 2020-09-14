@@ -8,6 +8,7 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 /**
@@ -19,8 +20,6 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 @EnableWebSecurity(debug = true)
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
-
-    //TODO прикрепить DI через интерфейс (DI через интерфейс не работает)
     @Autowired
     CustomPersonDetailsService personDetailsService;
 
@@ -37,25 +36,25 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
                 // Сайт с авторизацией
                 .antMatchers("/web/books", "/personList", "/web/books/**").hasAnyRole("ADMIN, TEACHER, MODERATOR")
-                .antMatchers("/addPerson").anonymous()
+                .antMatchers("/addPerson").hasAnyRole("MODERATOR", "ADMIN", "ANONYMOUS")
                 .antMatchers("/deletePerson", "/editPerson*", "/persons/**").hasRole("MODERATOR")
                 .antMatchers("/", "/index", "/applications", "/contact", "/about",
-                "/js/**", "/images/**", "/css/**").permitAll()
+                "/js/**", "/images/**", "/css/**", "/login*", "/logout").permitAll()
                 .antMatchers("/**").hasRole("ADMIN")
 
-
-
-                    // Postman (без авторизации) + сайт без авторизации
-                    //.antMatchers("/**").permitAll()
+                // Postman (без авторизации) + сайт без авторизации
+                //.antMatchers("/**").permitAll()
 
                     .anyRequest().authenticated()
                 .and()
                     .formLogin()
-                    //.loginPage("/login")
+                    //.loginPage("/login") // Добавить свою страницу аутентификации
                     .permitAll()
                 .and()
                     .logout()
-                    .permitAll(); // Сайт с авторизацией
+                    .permitAll()// ; // Сайт с авторизацией
+                .and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS) // отключить сессии (не обязательно)
+                .and().rememberMe().tokenValiditySeconds(86400).key("hackMan77"); // 24 часа
 
                 // Postman (без авторизации)
                 // Для работы POSTMAN-а

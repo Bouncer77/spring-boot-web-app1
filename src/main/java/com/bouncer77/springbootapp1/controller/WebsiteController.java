@@ -182,10 +182,14 @@ public class WebsiteController {
 
 
         UserDetails userDetails = (UserDetails) authentication.getPrincipal();
-        System.out.println(userDetails);
+        if(Objects.nonNull(userDetails))
+            System.out.println(userDetails);
+
         Person person = personRepository.findByLogin(userDetails.getUsername());
-        System.out.println(Colour.purple(person.toString()));
-        System.out.println(Colour.green(person.getRoles().toString()));
+        if (Objects.nonNull(person)) {
+            System.out.println(Colour.purple(person.toString()));
+            System.out.println(Colour.green(person.getRoles().toString()));
+        }
 
         return "/about";
     }
