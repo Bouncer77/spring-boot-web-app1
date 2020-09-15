@@ -17,6 +17,8 @@ public interface PersonRepository extends JpaRepository<Person, Long> {
 
     List<Person> findByName(String name);
 
+    List<Person> findBySurname(String surname);
+
     @Query("select p from Person p order by p.name")
     List<Person> findAllOrderedByFirstName();
 }

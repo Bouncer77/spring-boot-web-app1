@@ -10,5 +10,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface PassportRepository extends JpaRepository<Passport, Integer> {
 
-    Passport findByNumber(String number);
+    Passport findBySeriesAndNumber(String series, String number);
 }

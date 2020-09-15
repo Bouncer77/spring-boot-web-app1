@@ -41,16 +41,18 @@ public class SpringBootApp1Application {
                                   TagRepository tagRepository) {
         return (args) -> {
             // save a few persons
+            // ivan = person 1
             Person ivan = Person.builder()
                     .active(true)
                     .name("Ivan")
                     .surname("Kosenkov")
-                    .role(Role.ADMIN)
+                    .roles(Arrays.asList(Role.STUDENT, Role.TEACHER, Role.ADMIN))
                     .email("ivan@gmail.com")
                     .login("i")
                     .password(bCryptPasswordEncoder.encode("123"))
                     .build();
 
+            // anton = person 2
             Person anton = Person.builder()
                     .active(true)
                     .name("Anton")
@@ -60,79 +62,60 @@ public class SpringBootApp1Application {
                     .login("antonLogin")
                     .password(bCryptPasswordEncoder.encode("123"))
                     .build();
-            //personRepository.save(ivan);
-            List<Person> people = Arrays.asList(ivan, anton);
-            personRepository.saveAll(people);
-            //System.out.println(Colour.red(ivan.toString()));
 
+            // anna = person 3
+            Person anna = Person.builder()
+                    .active(true)
+                    .name("Anna")
+                    .surname("Petrova")
+                    .roles(Arrays.asList(Role.STUDENT, Role.TEACHER, Role.ADMIN))
+                    .email("anna@gmail.com")
+                    .login("a")
+                    .password(bCryptPasswordEncoder.encode("1"))
+                    .phones(Arrays.asList(new Phone("89681110101"), new Phone("89681110102")))
+                    .passport(new Passport("111", "456789"))
+                    .build();
 
+            // dima = person 4
+            Person dima = Person.builder()
+                    .active(true)
+                    .name("Dima")
+                    .surname("Ivanov")
+                    .roles(Arrays.asList(Role.STUDENT, Role.TEACHER))
+                    .email("dimaEmail@gmail.com")
+                    .login("DimaLogin")
+                    .password(bCryptPasswordEncoder.encode("654321"))
+                    .phone(new Phone("89681110201"))
+                    .passport(new Passport("222", "456555"))
+                    .build();
 
-            /*// anna = person 1
+            // alex = person 5
+            Person alex = Person.builder()
+                    .active(true)
+                    .name("Alex")
+                    .surname("Andreev")
+                    .role(Role.STUDENT)
+                    .email("alexEmail@gmail.com")
+                    .login("AlexLogin")
+                    .password(bCryptPasswordEncoder.encode("321"))
+                    .phone(new Phone("89681110301"))
+                    .passport(new Passport("111", "456000"))
+                    .build();
 
-            String annaPassword = "1";
-            // Шифрование
-            annaPassword = bCryptPasswordEncoder.encode(annaPassword);
+            // marina = person 6
+            Person marina = Person.builder()
+                    .active(true)
+                    .name("Marina")
+                    .surname("Brejneva")
+                    .roles(Arrays.asList(Role.STUDENT, Role.MODERATOR))
+                    .email("marinaEmail@gmail.com")
+                    .login("MarinaLogin")
+                    .password(bCryptPasswordEncoder.encode("123"))
+                    .phone(new Phone("89681110402"))
+                    .passport(new Passport("123", "456004"))
+                    .build();
 
-            Person anna = new Person("a", "admin@google.com", annaPassword,
-                    "Админ", "Админов");
-            anna.setActive(true);
-            Set<Role> annaRoleSet = new HashSet<>(Arrays.asList(Role.STUDENT, Role.TEACHER, Role.ADMIN));
-            anna.setRoles(annaRoleSet);
-            Passport passportAnna = new Passport("111", "456789");
-            anna.setPassport(passportAnna);
-            Phone phoneAnna1 = new Phone("89681110101");
-            Phone phoneAnna2 = new Phone("89681110102");
-            Set<Phone> phoneSetAnna = new HashSet<>(Arrays.asList(phoneAnna1, phoneAnna2));
-            anna.setPhones(phoneSetAnna);
-            // dima = person 2
-
-            String dimaPassword = "654321";
-            // Шифрование
-            dimaPassword = bCryptPasswordEncoder.encode(dimaPassword);
-
-            Person dima = new Person("DimaLogin", "dimaEmail@google.com", dimaPassword,
-                    "Dima", "Ivanov");
-            dima.setActive(true);
-            Set<Role> dimaRoleSet = new HashSet<>(Arrays.asList(Role.STUDENT, Role.TEACHER));
-            dima.setRoles(dimaRoleSet);
-            Passport passportDima = new Passport("222", "456555");
-            dima.setPassport(passportDima);
-            Phone phoneDima1 = new Phone("89681110201");
-            Set<Phone> phoneSetDima= new HashSet<>(Collections.singletonList(phoneDima1));
-            dima.setPhones(phoneSetDima);
-
-            // alex = person 3
-
-            String alexPassword = "321";
-            // Шифрование
-            alexPassword = bCryptPasswordEncoder.encode(alexPassword);
-
-            Person alex = new Person("AlexLogin", "alexEmail@gmail.com", alexPassword, "Alex", "Andreev");
-            alex.setActive(true);
-            alex.setRoles(Collections.singleton(Role.STUDENT));
-            Passport passportAlex = new Passport("111", "456000");
-            alex.setPassport(passportAlex);
-            Phone phoneAlex1 = new Phone("89681110301");
-            Set<Phone> phoneSetAlex = new HashSet<>(Collections.singletonList(phoneAlex1));
-            alex.setPhones(phoneSetAlex);
-
-            // marina = person 4
-
-            String marinaPassword = "4455";
-            // Шифрование
-            marinaPassword = bCryptPasswordEncoder.encode(marinaPassword);
-
-            Person marina = new Person("MarinaLogin", "marinaEmail@gmail.com", marinaPassword, "Marina", "Brejneva");
-            marina.setActive(true);
-            Set<Role> marinaRoleSet = new HashSet<>(Arrays.asList(Role.STUDENT, Role.MODERATOR));
-            marina.setRoles(marinaRoleSet);
-            Passport passportMarina = new Passport("123", "456004");
-            marina.setPassport(passportMarina);
-            Phone phoneMarina1 = new Phone("89681110402");
-            Set<Phone> phoneSetMarina = new HashSet<>(Collections.singletonList(phoneMarina1));
-            marina.setPhones(phoneSetMarina);
-
-            List<Person> people = Arrays.asList(anna, dima, alex, marina);
+            List<Person> people = Arrays.asList(ivan, anton, anna, dima, alex, marina);
             personRepository.saveAll(people);
 
             // fetch all persons
@@ -173,7 +156,7 @@ public class SpringBootApp1Application {
             Book headFirstJava = new Book("Изучаем Java", 690, authorSet, tagSet);
 
             List<Book> bookList = Arrays.asList(completeGuideJava, warAndPeace, turbineDays, headFirstJava);
-            bookRepository.saveAll(bookList);*/
+            bookRepository.saveAll(bookList);
         };
     }
 }
