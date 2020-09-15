@@ -18,7 +18,6 @@
     <div th:if="${opDelete}">
         Person deleted successfully<br>
         <div th:utext="${deletedPerson}">Информация о пользователе</div>
-        <div th:utext="${deletedPersonRequest}">Ответ Restfull контроллера</div>
     </div>
 
     <div th:if="${isError}">

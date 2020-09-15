@@ -27,7 +27,7 @@
         </div>
 
         <div sec:authorize="isAuthenticated()">
-            <a th:href="@{'/persons/'+ ${person.id}}">Hello, [[${#httpServletRequest.remoteUser}]]!</a>
+            <a th:href="@{'/persons/'+ ${personId}}">Hello, [[${#httpServletRequest.remoteUser}]]!</a>
         </div>
     </div>
 

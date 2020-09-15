@@ -37,7 +37,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 // Сайт с авторизацией
                 .antMatchers("/web/books", "/personList", "/web/books/**", "/persons", "/persons/*").hasAnyRole("ADMIN, TEACHER, MODERATOR")
                 .antMatchers("/addPerson").hasAnyRole("MODERATOR", "ADMIN", "ANONYMOUS")
-                .antMatchers("/deletePerson", "/editPerson*", "/persons/**").hasRole("MODERATOR")
+                .antMatchers("/deletePerson*", "/editPerson*", "/persons/**").hasAnyRole("MODERATOR", "ADMIN")
                 .antMatchers("/", "/index", "/applications", "/contact", "/about",
                 "/js/**", "/images/**", "/css/**", "/login*", "/logout*").permitAll()
                 .antMatchers("/**").hasRole("ADMIN")

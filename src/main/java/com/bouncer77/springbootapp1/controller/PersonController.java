@@ -27,10 +27,7 @@ public class PersonController {
     @PostMapping
     public ResponseEntity<?> create(@RequestBody PersonForm personForm) {
 
-        Person person = new Person(personForm.getLogin(), personForm.getEmail(), personForm.getPassword(),
-                personForm.getName(), personForm.getSurname());
-        person.setActive(true);
-        personService.create(person);
+        personService.create(personForm);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 

@@ -12,10 +12,6 @@ import java.util.List;
 
 public interface EntityCrudService<T, S> {
 
-    default List<T> findAll() {
-        return readAll();
-    }
-
     default void saveAll(List<T> eList) {
         for (T e : eList) {
             create(e);

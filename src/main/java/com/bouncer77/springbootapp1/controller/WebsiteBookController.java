@@ -48,7 +48,7 @@ public class WebsiteBookController {
 
         bookService.saveAll(form.getBooks());
 
-        model.addAttribute("books", bookService.findAll());
+        model.addAttribute("books", bookService.readAll());
         return "book/all";
     }
 }
