@@ -18,7 +18,7 @@ import java.util.List;
  */
 
 @RestController
-@RequestMapping("/books")
+@RequestMapping("/json/books")
 public class BookController {
 
     @Autowired

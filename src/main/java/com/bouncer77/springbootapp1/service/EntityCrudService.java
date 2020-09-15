@@ -12,7 +12,7 @@ import java.util.List;
 
 public interface EntityCrudService<T, S> {
 
-    default void saveAll(List<T> eList) {
+    default void createAll(List<T> eList) {
         for (T e : eList) {
             create(e);
         }

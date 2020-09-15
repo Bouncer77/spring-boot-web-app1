@@ -30,7 +30,7 @@ public class BookStep {
     private Book book;
 
     @NonNull
-    private int page;
+    private Integer page;
 
     private String comment;
 }

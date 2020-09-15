@@ -1,17 +1,15 @@
 package com.bouncer77.springbootapp1.entity;
 
 import com.bouncer77.springbootapp1.form.PersonForm;
-import lombok.Data;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
-import java.lang.annotation.RetentionPolicy;
 import java.time.LocalDateTime;
-import java.util.*;
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * Простой JavaBean объект представляет Пользователя
@@ -20,8 +18,10 @@ import java.util.*;
  * Created by Kosenkov Ivan on 27.08.2020
  */
 
-@NoArgsConstructor
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder(toBuilder = true)
 @Entity
 @Table(name = "persons")
 public class Person implements UserDetails {
@@ -37,48 +37,47 @@ public class Person implements UserDetails {
     /**
      * Login
      */
+    @NonNull
     @Column(unique = true, nullable = false)
     private String login;
 
     /**
      * Password
      */
+    @NonNull
     @Column(name = "password", nullable = false)
     private String password;
 
     /**
      * Person status
      */
+    @Builder.Default
     @Column(name = "active", nullable = false)
-    private boolean active = true;
+    private Boolean active = true;
 
     /**
      * Date and Time of registration person
      */
+    @Builder.Default
     @Column(name = "regdatetime")
     private LocalDateTime regDateTime = LocalDateTime.now();
 
+    @NonNull
     @Column(unique = true)
     private String email;
 
+    @NonNull
     @Column(name = "surname", nullable = false)
     private String surname;
 
+    @NonNull
     @Column(name = "name", nullable = false)
     private String name;
 
     /**
-     * Passport
-     */
-    //@Transient
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JoinColumn(name = "passport_id", referencedColumnName = "id")
-    private Passport passport;
-
-    /**
      * Roles of current person
      */
-    //@Transient
+    @Singular
     @ElementCollection(targetClass = Role.class, fetch = FetchType.EAGER)
     @CollectionTable(name = "person_roles", joinColumns = @JoinColumn(name = "person_id"))
     @Enumerated(EnumType.STRING)
@@ -87,70 +86,49 @@ public class Person implements UserDetails {
     /**
      * Registration for the course
      */
-    //@Transient
+    @Singular("instanceCourseStudent")
     @ManyToMany
     @JoinTable(name = "icourse_student",
             joinColumns = @JoinColumn(name = "person_id"),
             inverseJoinColumns = @JoinColumn(name = "icourse_id")
     )
-    private Set<InstanceCourse> instanceCoursesStudent = new HashSet<>();
+    private Set<InstanceCourse> instanceCoursesStudent;
 
     /**
      * Knowledge of subjects
      */
-    //@Transient
+    @Singular
     @ManyToMany
     @JoinTable(name = "tag_person",
             joinColumns = @JoinColumn(name = "person_id"),
             inverseJoinColumns = @JoinColumn(name = "tag_id")
     )
-    private Set<Tag> tags = new HashSet<>();
+    private Set<Tag> tags;
 
-    //@Transient
+    @Singular("instanceCourseTeacher")
     @ManyToMany
     @JoinTable(name = "icourse_teacher",
             joinColumns = @JoinColumn(name = "person_id"),
             inverseJoinColumns = @JoinColumn(name = "icourse_id")
     )
-    private Set<InstanceCourse> instanceCoursesTeacher = new HashSet<>();
-    //@Transient
+    private Set<InstanceCourse> instanceCoursesTeacher;
+
+    @Singular
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "person_id")
     private Set<Phone> phones;
 
-    //@Transient
+    @Singular
     @OneToMany(mappedBy = "person")
     Set<BookStep> bookSteps;
 
-    public Person(String login, String email, String password, String name, String surname) {
-        this.login = login;
-        this.email = email;
-        this.password = password;
-        this.name = name;
-        this.surname = surname;
-        this.regDateTime = LocalDateTime.now();
-    }
-
-    // Копирующий конструктор
-    public Person(Person person) {
-        this.id = person.getId();
-        this.login = person.getLogin();
-        this.email = person.getEmail();
-        this.password = person.getPassword();
-        this.name = person.getName();
-        this.surname = person.getSurname();
-        this.roles = new HashSet<>(person.getRoles());
-        this.active = person.isActive();
-        this.regDateTime = person.getRegDateTime();
-
-        // TODO Дописать
-        this.tags = null;
-        this.phones = null;
-        this.passport = null;
-        this.instanceCoursesStudent = null;
-        this.instanceCoursesTeacher = null;
-        this.bookSteps = null;
-    }
+    /**
+     * Passport
+     */
+    @Builder.Default
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinColumn(name = "passport_id", referencedColumnName = "id")
+    private Passport passport = new Passport();
 
     public boolean isActive() {
         return active;
@@ -224,3 +202,4 @@ public class Person implements UserDetails {
         return isActive();
     }
 }
+

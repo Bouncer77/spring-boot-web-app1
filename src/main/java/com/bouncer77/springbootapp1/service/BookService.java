@@ -2,6 +2,7 @@ package com.bouncer77.springbootapp1.service;
 
 import com.bouncer77.springbootapp1.entity.Book;
 import com.bouncer77.springbootapp1.form.BookForm;
+import com.bouncer77.springbootapp1.form.PersonForm;
 
 /**
  * @author Kosenkov Ivan
@@ -9,4 +10,6 @@ import com.bouncer77.springbootapp1.form.BookForm;
  */
 
 public interface BookService extends EntityCrudService<Book, BookForm> {
+
+    void create(BookForm bookForm);
 }

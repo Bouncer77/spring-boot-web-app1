@@ -66,4 +66,11 @@ public class BookServiceImpl implements BookService {
 
         return false;
     }
+
+    @Override
+    public void create(BookForm bookForm) {
+
+        Book book = new Book(bookForm.getName(), bookForm.getDescription(), bookForm.getLastPage());
+        this.create(book);
+    }
 }

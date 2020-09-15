@@ -39,7 +39,6 @@ public class PersonController {
         List<Person> personsCopy = new ArrayList<>(persons);
         personsCopy.forEach(person -> {
             person.setBookSteps(null);
-            person.setPassport(null);
             person.setInstanceCoursesStudent(null);
             person.setInstanceCoursesTeacher(null);
             person.setPhones(null);
@@ -57,7 +56,9 @@ public class PersonController {
         final Person person = personService.read(id);
 
         if (Objects.nonNull(person)) {
-            Person personCopy = new Person(person);
+            //TODO проверка Builder
+            //Person personCopy = new Person(person);
+            Person personCopy = new Person();
             return new ResponseEntity<>(personCopy, HttpStatus.OK); // 200 OK
         }
 

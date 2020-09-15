@@ -26,7 +26,7 @@ public class Passport implements Serializable {
     private String series;
 
     // TODO seria + number is unique
-    @Column(unique = true, nullable = false)
+    //@Column(unique = true, nullable = false)
     private String number;
 
     @OneToOne(mappedBy = "passport", cascade = CascadeType.ALL)

@@ -38,20 +38,22 @@ public class PersonServiceImpl implements PersonService {
         if (email != null && email.length() > 0 && email.matches("\\w+@\\w+\\.\\w+")//
                 && password != null && password.length() > 0) {
 
-            Person person = new Person(login, email, password, name, surname);
+            //Person person = new Person(login, email, password, name, surname);
+            Person person = Person.builder()
+                    .login(login)
+                    .email(email)
+                    .password(password)
+                    .name(name)
+                    .surname(surname)
+                    .build();
+
             person.setActive(true);
             person.setRoles(Collections.singleton(Role.STUDENT));
 
             // Шифрование пароля
             person.setPassword(bCryptPasswordEncoder.encode(person.getPassword()));
-            personRepository.save(person);
-        }
-    }
 
-    @Override
-    public void saveAll(List<Person> persons) {
-        for (Person p : persons) {
-            create(p);
+            this.create(person);
         }
     }
 

@@ -5,6 +5,7 @@ import com.bouncer77.springbootapp1.repository.AuthorRepository;
 import com.bouncer77.springbootapp1.repository.BookRepository;
 import com.bouncer77.springbootapp1.repository.PersonRepository;
 import com.bouncer77.springbootapp1.repository.TagRepository;
+import com.bouncer77.springbootapp1.util.Colour;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +15,9 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
+import java.awt.*;
 import java.util.*;
+import java.util.List;
 
 @SpringBootApplication
 public class SpringBootApp1Application {
@@ -38,7 +41,33 @@ public class SpringBootApp1Application {
                                   TagRepository tagRepository) {
         return (args) -> {
             // save a few persons
-            // anna = person 1
+            Person ivan = Person.builder()
+                    .active(true)
+                    .name("Ivan")
+                    .surname("Kosenkov")
+                    .role(Role.ADMIN)
+                    .email("ivan@gmail.com")
+                    .login("i")
+                    .password(bCryptPasswordEncoder.encode("123"))
+                    .build();
+
+            Person anton = Person.builder()
+                    .active(true)
+                    .name("Anton")
+                    .surname("Petrov")
+                    .role(Role.STUDENT)
+                    .email("anton@gmail.com")
+                    .login("antonLogin")
+                    .password(bCryptPasswordEncoder.encode("123"))
+                    .build();
+            //personRepository.save(ivan);
+            List<Person> people = Arrays.asList(ivan, anton);
+            personRepository.saveAll(people);
+            //System.out.println(Colour.red(ivan.toString()));
+
+
+
+            /*// anna = person 1
 
             String annaPassword = "1";
             // Шифрование
@@ -144,7 +173,7 @@ public class SpringBootApp1Application {
             Book headFirstJava = new Book("Изучаем Java", 690, authorSet, tagSet);
 
             List<Book> bookList = Arrays.asList(completeGuideJava, warAndPeace, turbineDays, headFirstJava);
-            bookRepository.saveAll(bookList);
+            bookRepository.saveAll(bookList);*/
         };
     }
 }

@@ -5,10 +5,7 @@ import com.bouncer77.springbootapp1.entity.Role;
 import com.bouncer77.springbootapp1.form.PersonForm;
 import com.bouncer77.springbootapp1.service.PersonService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.ResponseEntity;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -34,6 +31,31 @@ public class WebPersonController {
     @Value("${error.message.person.exists}")
     String personExists;
 
+    // Create
+    @GetMapping("/add")
+    public String addPersonGet(Model model) {
+
+        PersonForm personForm = new PersonForm();
+        model.addAttribute("personForm", personForm);
+
+        return "/person/addPerson";
+    }
+
+    @PostMapping("/add")
+    public String addPersonPut(Model model,
+                            @ModelAttribute("personForm") PersonForm personForm) {
+
+        Person personDb = personService.read(personForm.getLogin());
+        if (Objects.nonNull(personDb)) {
+            model.addAttribute("errorMessage", personExists);
+            return "/person/addPerson";
+        } else {
+            personService.create(personForm);
+            return "redirect:" + "/persons";
+        }
+    }
+
+    // Read
     @GetMapping(value = "/{id}")
     public String showPerson(@PathVariable(name = "id") long id,
                                  Model model) {
@@ -59,25 +81,10 @@ public class WebPersonController {
         }
 
         model.addAttribute("persons", persons);
-        return "/person/personList";
+        return "/person/showAllPersons";
     }
 
-    @GetMapping("/delete")
-    public String deletePerson(@RequestParam(name = "id") long id,
-                               Model model) {
-
-        Person person = personService.read(id);
-        if (Objects.nonNull(person)) {
-            personService.delete(id);
-            model.addAttribute("opDelete", true);
-            model.addAttribute("deletedPerson", person);
-        } else {
-            model.addAttribute("opDelete", false);
-        }
-
-        return showAllPersons("", model);
-    }
-
+    // Update
     @GetMapping("/edit")
     public String editPersonGet(@RequestParam(name = "id") long id,
                                 Model model) {
@@ -104,34 +111,27 @@ public class WebPersonController {
 
         if (personService.update(id, personForm)) {
             return "redirect:" + "/persons";
-            //return showAllPersons("", model);
         } else {
             model.addAttribute("errorMessage", errorMessage);
             return "/person/editPerson";
         }
     }
 
-    @GetMapping("/add")
-    public String showAddPersonPage(Model model) {
+    // Delete
+    @GetMapping("/delete")
+    public String deletePerson(@RequestParam(name = "id") long id,
+                               Model model) {
 
-        PersonForm personForm = new PersonForm();
-        model.addAttribute("personForm", personForm);
-
-        return "/person/addPerson";
-    }
-
-    @PostMapping("/add")
-    public String addPerson(Model model,
-                            @ModelAttribute("personForm") PersonForm personForm) {
-
-        Person personDb = personService.read(personForm.getLogin());
-        if (Objects.nonNull(personDb)) {
-            model.addAttribute("errorMessage", personExists);
-            return "/person/addPerson";
+        Person person = personService.read(id);
+        if (Objects.nonNull(person)) {
+            personService.delete(id);
+            model.addAttribute("opDelete", true);
+            model.addAttribute("deletedPerson", person);
         } else {
-            personService.create(personForm);
-            return "redirect:" + "/person/personList";
+            model.addAttribute("opDelete", false);
         }
+
+        return "redirect:" + "/persons";
     }
 }
 
