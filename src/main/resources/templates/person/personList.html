@@ -1,6 +1,6 @@
 <!DOCTYPE html>
-<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org"
-      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <title>All Persons</title>
@@ -49,12 +49,12 @@
                 <!--<td th:utext="${person.password}">...</td>-->
                 <td th:utext="${person.roles}">...</td>
                 <td> <a th:href="@{'/persons/'+ ${person.id}}">show</a> </td>
-                <td> <a th:href="@{'/deletePerson'(id=${person.id})}">delete</a> </td>
-                <td> <a th:href="@{'/editPerson'(id=${person.id})}">edit</a> </td>
+                <td> <a th:href="@{'/persons/delete'(id=${person.id})}">delete</a> </td>
+                <td> <a th:href="@{'/persons/edit'(id=${person.id})}">edit</a> </td>
         </table>
     </div>
 
-    <form method="get" action="/personList">
+    <form method="get" action="/persons">
         <label>
             <input type="text" name="filter">
             <button type="submit">Найти по имени</button>

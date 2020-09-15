@@ -18,7 +18,7 @@ import java.util.Objects;
  */
 
 @RestController
-@RequestMapping("/persons")
+@RequestMapping("/json/persons")
 public class PersonController {
 
     @Autowired

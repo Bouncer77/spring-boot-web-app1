@@ -4,17 +4,14 @@ import com.bouncer77.springbootapp1.entity.Person;
 import com.bouncer77.springbootapp1.entity.Role;
 import com.bouncer77.springbootapp1.form.PersonForm;
 import com.bouncer77.springbootapp1.service.PersonService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Objects;
@@ -25,25 +22,47 @@ import java.util.Objects;
  */
 
 @Controller
-// @RequestMapping("/person")
+@RequestMapping("/persons")
+@RequiredArgsConstructor
 public class WebPersonController {
 
-    @Autowired
-    private PersonService personService;
-
-    @Autowired
-    BCryptPasswordEncoder bCryptPasswordEncoder;
-
-    // Вводится (inject) из application.properties.
-
+    private final PersonService personService;
 
     @Value("${error.message}")
-    private String errorMessage;
+    String errorMessage;
 
     @Value("${error.message.person.exists}")
-    private String personExists;
+    String personExists;
 
-    @GetMapping("/deletePerson")
+    @GetMapping(value = "/{id}")
+    public String showPerson(@PathVariable(name = "id") long id,
+                                 Model model) {
+
+        Person person = personService.read(id);
+        if (Objects.nonNull(person)) {
+            model.addAttribute("person", person);
+        } else {
+            model.addAttribute("errorMsg", "Person did not found");
+        }
+        return "/person/showPerson";
+    }
+
+    @GetMapping
+    public String showAllPersons(@RequestParam(required = false) String filter,
+                                 Model model) {
+
+        List<Person> persons;
+        if (filter != null && !filter.isEmpty()) {
+            persons = personService.readsByName(filter);
+        } else {
+            persons = personService.readAll();
+        }
+
+        model.addAttribute("persons", persons);
+        return "/person/personList";
+    }
+
+    @GetMapping("/delete")
     public String deletePerson(@RequestParam(name = "id") long id,
                                Model model) {
 
@@ -59,8 +78,7 @@ public class WebPersonController {
         return showAllPersons("", model);
     }
 
-    // /editPerson?id={}
-    @GetMapping("/editPerson")
+    @GetMapping("/edit")
     public String editPersonGet(@RequestParam(name = "id") long id,
                                 Model model) {
 
@@ -80,34 +98,20 @@ public class WebPersonController {
         return "/person/editPerson";
     }
 
-    @PostMapping("/editPerson")
+    @PostMapping("/edit")
     public String editPersonPut(@RequestParam(name = "id") long id, Model model,
                                 @ModelAttribute("personForm") PersonForm personForm) {
 
         if (personService.update(id, personForm)) {
-            return showAllPersons("", model);
+            return "redirect:" + "/persons";
+            //return showAllPersons("", model);
         } else {
             model.addAttribute("errorMessage", errorMessage);
             return "/person/editPerson";
         }
     }
 
-    @GetMapping("/personList")
-    public String showAllPersons(@RequestParam(required = false) String filter,
-                                 Model model) {
-
-        List<Person> persons;
-        if (filter != null && !filter.isEmpty()) {
-            persons = personService.readsByName(filter);
-        } else {
-            persons = personService.readAll();
-        }
-
-        model.addAttribute("persons", persons);
-        return "/person/personList";
-    }
-
-    @GetMapping("/addPerson")
+    @GetMapping("/add")
     public String showAddPersonPage(Model model) {
 
         PersonForm personForm = new PersonForm();
@@ -116,7 +120,7 @@ public class WebPersonController {
         return "/person/addPerson";
     }
 
-    @PostMapping("/addPerson")
+    @PostMapping("/add")
     public String addPerson(Model model,
                             @ModelAttribute("personForm") PersonForm personForm) {
 
@@ -126,7 +130,8 @@ public class WebPersonController {
             return "/person/addPerson";
         } else {
             personService.create(personForm);
-            return "redirect:/personList";
+            return "redirect:" + "/person/personList";
         }
     }
 }
+

@@ -22,8 +22,8 @@
         </div>
 
         <div sec:authorize="isAnonymous()">
-            <a th:href="@{/personList}">Login</a> <!--тут должна быть ссылка на профиль-->
-            <a th:href="@{/addPerson}">Register</a>
+            <a th:href="@{/persons}">Login</a> <!--тут должна быть ссылка на профиль-->
+            <a th:href="@{/persons/add}">Register</a>
         </div>
 
         <div sec:authorize="isAuthenticated()">
@@ -35,8 +35,8 @@
     <div class="sidenav">
 
             <div class="heading_of_sidenav">Course Progress Maestro</div>
-            <a th:href="@{/addPerson}">Registration</a>
-            <a th:href="@{/personList}">All Users</a>
+            <a th:href="@{/persons/add}">Registration</a>
+            <a th:href="@{/persons}">All Users</a>
             <a th:href="@{/about}">About</a>
             <div class="heading_of_sidenav">See also</div>
             <a th:href="@{/contact}">Contact</a>

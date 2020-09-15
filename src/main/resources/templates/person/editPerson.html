@@ -1,6 +1,6 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <title>Edit Person</title>
@@ -8,7 +8,7 @@
 <body>
 <h1>Edit Person</h1>
 
-    <form th:action="@{'/editPerson'(id=${id})}"
+    <form th:action="@{'/persons/edit'(id=${id})}"
           th:object="${personForm}" method="post">
         Login:
         <input type="text" th:field="*{login}" th:value="${personForm.login}"/>
@@ -32,9 +32,7 @@
         <input type="hidden" name="_csrf" value="${_csrf.token}"/>
         <input type="submit" value="Update"/>
         <br/>
-        <!--<div th:each="role:${roles}">
-            <label><input type="checkbox" name="${role}" th:checked="*{personForm.roles.add}"  th:utext="${role}"></label>
-        </div>-->
+
         <ul>
             <li th:each="role : ${roles}">
                 <input type="checkbox" name="${role}" th:value="${role}"/>
