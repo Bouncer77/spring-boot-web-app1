@@ -1,43 +1,34 @@
 <!DOCTYPE html>
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
-      <!--xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3">-->sec:authorize всегда выводит
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <title>CPM</title>
     <link th:href="@{css/main.css}" href="../static/css/main.css" rel="stylesheet" type="text/css"/>
     <script type="text/javascript" src="../static/js/jquery-3.5.1.min.js"></script>
     <!--<script type="text/javascript" src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>-->
-    <!--<script type="text/javascript" src="../static/js/script.js"></script>-->
 </head>
 
 <body>
 
-    <!--.. https://html5css.ru/howto/howto_js_topnav.php-->
     <div class="topnav">
         <a class="active">Home</a>
         <a th:href="@{/about}">News</a>
         <a th:href="@{/contact}">Contact</a>
         <a th:href="@{/about}">About</a>
 
-
-        <!--<div sec:authorize="${isAuthenticated()}">-->
-        <!--<div sec:authorize="isFullyAuthenticated()">-->
         <div sec:authorize="isAuthenticated()">
             <a th:href="@{/logout}">Logout</a>
         </div>
 
-        <!--<div sec:authorize="${isAnonymous()}">-->
-        <!--<div sec:authorize="!isFullyAuthenticated()">-->
         <div sec:authorize="isAnonymous()">
-            <a th:href="@{/login}">Login</a> <!--тут должна быть ссылка на профиль-->
+            <a th:href="@{/personList}">Login</a> <!--тут должна быть ссылка на профиль-->
             <a th:href="@{/addPerson}">Register</a>
         </div>
 
-
-        <!--<div id="greeting" th:inline="text" th:object="person">
-            Hello, <a  th:href="@{'/persons/' + ${person.id}}">[[${#httpServletRequest.remoteUser}]]!</a>
-        </div>-->
+        <div sec:authorize="isAuthenticated()">
+            <a th:href="@{'/persons/'+ ${person.id}}">Hello, [[${#httpServletRequest.remoteUser}]]!</a>
+        </div>
     </div>
 
     <!-- Side navigation -->

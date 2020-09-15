@@ -162,6 +162,7 @@ body {
 .topnav {
     background-color: #333;
     overflow: hidden;
+    padding-left: 160px;
 }
 
 /* Style the links inside the navigation bar */
@@ -187,7 +188,7 @@ body {
 }
 
 #greeting {
-
+    color: white;
 }
 
 /*-----------------------https://html5css.ru/howto/howto_css_fixed_sidebar.php---------------------->
