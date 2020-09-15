@@ -1,7 +1,11 @@
 package com.bouncer77.springbootapp1.form;
 
+import com.bouncer77.springbootapp1.entity.Author;
+import com.bouncer77.springbootapp1.entity.Tag;
 import lombok.Getter;
 import lombok.Setter;
+
+import java.util.Set;
 
 /**
  * @author Kosenkov Ivan
@@ -15,6 +19,8 @@ public class BookForm {
     private String name;
     private int lastPage;
     private String description;
+    private Set<Author> authors;
+    private Set<Tag> tags;
 
     public BookForm() {}
 

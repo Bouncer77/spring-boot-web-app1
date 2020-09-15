@@ -70,7 +70,13 @@ public class BookServiceImpl implements BookService {
     @Override
     public void create(BookForm bookForm) {
 
-        Book book = new Book(bookForm.getName(), bookForm.getDescription(), bookForm.getLastPage());
+        Book book = Book.builder()
+                .name(bookForm.getName())
+                .lastPage(bookForm.getLastPage())
+                .description(bookForm.getDescription())
+                .authors(bookForm.getAuthors())
+                .tags(bookForm.getTags())
+                .build();
         this.create(book);
     }
 }

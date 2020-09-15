@@ -147,13 +147,40 @@ public class SpringBootApp1Application {
             List<Tag> tagList = Arrays.asList(classicLiteratureTag, javaTag, progTag);
             tagRepository.saveAll(tagList);
 
-            Book completeGuideJava = new Book("Java 8. Полное руководство.", 1377, schildt, javaTag);
-            Book warAndPeace = new Book("Война и мир", 1300, dostoevsky, classicLiteratureTag);
-            Book turbineDays = new Book("Дни Трубиных", 224, bulgakov, classicLiteratureTag);
+            //Book completeGuideJava = new Book("Java 8. Полное руководство.", 1377, schildt, javaTag);
+            Book completeGuideJava = Book.builder()
+                    .name("Java 8. Полное руководство")
+                    .lastPage(1377)
+                    .author(schildt)
+                    .tag(javaTag)
+                    .build();
 
-            Set<Author> authorSet = new HashSet<>(Arrays.asList(bates, sierra));
+            // Book warAndPeace = new Book("Война и мир", 1300, dostoevsky, classicLiteratureTag);
+            Book warAndPeace = Book.builder()
+                    .name("Война и мир")
+                    .lastPage(1300)
+                    .author(dostoevsky)
+                    .tag(classicLiteratureTag)
+                    .build();
+
+            //Book turbineDays = new Book("Дни Трубиных", 224, bulgakov, classicLiteratureTag);
+            Book turbineDays = Book.builder()
+                    .name("Дни Трубиных")
+                    .lastPage(244)
+                    .author(bulgakov)
+                    .tag(classicLiteratureTag)
+                    .build();
+
+
+            /*Set<Author> authorSet = new HashSet<>(Arrays.asList(bates, sierra));
             Set<Tag> tagSet = new HashSet<>(Arrays.asList(progTag, javaTag));
-            Book headFirstJava = new Book("Изучаем Java", 690, authorSet, tagSet);
+            Book headFirstJava = new Book("Изучаем Java", 690, authorSet, tagSet);*/
+            Book headFirstJava = Book.builder()
+                    .name("Изучаем Java")
+                    .lastPage(690)
+                    .authors(Arrays.asList(bates, sierra))
+                    .tags(Arrays.asList(progTag, javaTag))
+                    .build();
 
             List<Book> bookList = Arrays.asList(completeGuideJava, warAndPeace, turbineDays, headFirstJava);
             bookRepository.saveAll(bookList);

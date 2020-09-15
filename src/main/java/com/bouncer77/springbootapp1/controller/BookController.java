@@ -35,9 +35,7 @@ public class BookController {
     @PostMapping
     public ResponseEntity<?> create(@RequestBody BookForm bookForm) {
 
-        //TODO Добавить tags and authors
-        Book book = new Book(bookForm.getName(), bookForm.getDescription(), bookForm.getLastPage());
-        bookService.create(book);
+        bookService.create(bookForm);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
