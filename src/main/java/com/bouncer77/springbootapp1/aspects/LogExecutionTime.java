@@ -1,4 +1,6 @@
-package com.bouncer77.springbootapp1.annotation;
+package com.bouncer77.springbootapp1.aspects;
+
+import org.springframework.stereotype.Component;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

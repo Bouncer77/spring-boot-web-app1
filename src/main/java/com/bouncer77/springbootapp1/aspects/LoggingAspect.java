@@ -1,6 +1,5 @@
 package com.bouncer77.springbootapp1.aspects;
 
-import com.bouncer77.springbootapp1.annotation.LogExecutionTime;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.*;
@@ -32,12 +31,12 @@ public class LoggingAspect {
     }
 
     // Задаем pointcut прямо в Advice
-    @AfterReturning(pointcut = "execution(public String com.bouncer77.springbootapp1.service.PersonServiceImpl.create())", returning = "result")
+    @AfterReturning(pointcut = "execution(public !void com.bouncer77.springbootapp1.service.PersonServiceImpl.*(..))", returning = "result")
     public void logAfterReturning(JoinPoint joinPoint, Object result) {
         logger.log(Level.INFO, "возвращенное значение: " + result.toString());
     }
 
-    /*@Around("@annotation(LogExecutionTime)")
+    @Around("@annotation(LogExecutionTime)")
     public Object logExecutionTime(ProceedingJoinPoint joinPoint) throws Throwable {
         long start = System.currentTimeMillis();
 
@@ -47,5 +46,5 @@ public class LoggingAspect {
 
         logger.log(Level.INFO, joinPoint.getSignature() + " выполнен за " + executionTime + "мс");
         return proceed;
-    }*/
+    }
 }
