@@ -1,5 +1,6 @@
 package com.bouncer77.springbootapp1.service;
 
+import com.bouncer77.springbootapp1.annotation.LogExecutionTime;
 import com.bouncer77.springbootapp1.entity.Person;
 import com.bouncer77.springbootapp1.entity.Role;
 import com.bouncer77.springbootapp1.form.PersonForm;
@@ -63,6 +64,7 @@ public class PersonServiceImpl implements PersonService {
     }
 
     @Override
+    @LogExecutionTime
     public List<Person> readAll() {
         return personRepository.findAll();
     }

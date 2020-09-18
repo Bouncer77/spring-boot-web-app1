@@ -17,7 +17,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
  */
 
 @Configuration
-@EnableWebSecurity(debug = true)
+@EnableWebSecurity//(debug = true)
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
@@ -35,8 +35,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                     .authorizeRequests()
 
                 // Сайт с авторизацией
-                .antMatchers("/web/books", "/personList", "/web/books/**", "/persons/*").hasAnyRole("ADMIN, TEACHER, MODERATOR")
-                .antMatchers("/addPerson").hasAnyRole("MODERATOR", "ADMIN", "ANONYMOUS")
+                .antMatchers("/persons/add", "/profile").hasAnyRole("MODERATOR", "ADMIN", "ANONYMOUS")
+                .antMatchers("/books", "/books/**", "/persons", "/persons/*").hasAnyRole("ADMIN, TEACHER, MODERATOR")
                 .antMatchers("/deletePerson*", "/editPerson*", "/persons/**").hasAnyRole("MODERATOR", "ADMIN")
                 .antMatchers("/", "/index", "/applications", "/contact", "/about",
                 "/js/**", "/images/**", "/css/**", "/login*", "/logout*").permitAll()

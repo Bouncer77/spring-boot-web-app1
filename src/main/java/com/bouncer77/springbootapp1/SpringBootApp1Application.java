@@ -5,7 +5,6 @@ import com.bouncer77.springbootapp1.repository.AuthorRepository;
 import com.bouncer77.springbootapp1.repository.BookRepository;
 import com.bouncer77.springbootapp1.repository.PersonRepository;
 import com.bouncer77.springbootapp1.repository.TagRepository;
-import com.bouncer77.springbootapp1.util.Colour;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,13 +12,14 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
-import java.awt.*;
-import java.util.*;
+import java.util.Arrays;
 import java.util.List;
 
 @SpringBootApplication
+@EnableAspectJAutoProxy
 public class SpringBootApp1Application {
 
     private static final Logger log = LoggerFactory.getLogger(SpringBootApp1Application.class);
@@ -119,25 +119,25 @@ public class SpringBootApp1Application {
             personRepository.saveAll(people);
 
             // fetch all persons
-            log.info("Persons found with findAll():");
+            /*log.info("Persons found with findAll():");
             log.info("-------------------------------");
             for (Person person : personRepository.findAll()) {
                 log.info(person.toString());
             }
-            log.info("");
+            log.info("");*/
 
-            Author dostoevsky = new Author("Федор",  "Достоевский");
-            Author bulgakov = new Author("Михаил",  "Булгаков");
-            Author tolstoy = new Author("Лев",  "Толстой");
-            Author pushkin = new Author("Александр",  "Пушкин");
-            Author gogol = new Author("Николай",  "Гоголь");
-            Author schildt = new Author("Герберт",  "Шилдт");
+            Author dostoevsky = new Author("Федор", "Достоевский");
+            Author bulgakov = new Author("Михаил", "Булгаков");
+            Author tolstoy = new Author("Лев", "Толстой");
+            Author pushkin = new Author("Александр", "Пушкин");
+            Author gogol = new Author("Николай", "Гоголь");
+            Author schildt = new Author("Герберт", "Шилдт");
 
             // Для тестирования на удаление
-            Author deleteTestAuthor = new Author("Иван",  "Удалятович");
+            Author deleteTestAuthor = new Author("Иван", "Удалятович");
 
-            Author bates = new Author("Берт",  "Бэйтс");
-            Author sierra = new Author("Кэти",  "Сьерра");
+            Author bates = new Author("Берт", "Бэйтс");
+            Author sierra = new Author("Кэти", "Сьерра");
             List<Author> authorList = Arrays.asList(dostoevsky, bulgakov, tolstoy, pushkin, gogol, schildt, bates, sierra, deleteTestAuthor);
             authorRepository.saveAll(authorList);
 

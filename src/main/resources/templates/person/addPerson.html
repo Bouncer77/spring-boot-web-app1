@@ -8,7 +8,7 @@
 <body>
     <h1>Create Person</h1>
 
-    <form th:action="@{/addPerson}"
+    <form th:action="@{/persons/add}"
           th:object="${personForm}" method="post">
         Login:
         <input type="text" th:field="*{login}"/>

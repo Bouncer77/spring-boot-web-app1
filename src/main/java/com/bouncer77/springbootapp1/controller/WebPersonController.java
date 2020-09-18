@@ -10,6 +10,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.util.List;
 import java.util.Objects;
 
@@ -42,16 +44,17 @@ public class WebPersonController {
     }
 
     @PostMapping("/add")
-    public String addPersonPut(Model model,
-                            @ModelAttribute("personForm") PersonForm personForm) {
+    public String addPersonPost(Model model,
+                                @ModelAttribute("personForm") PersonForm personForm) {
 
         Person personDb = personService.read(personForm.getLogin());
         if (Objects.nonNull(personDb)) {
+            System.out.println(personDb.toString());
             model.addAttribute("errorMessage", personExists);
             return "/person/addPerson";
         } else {
             personService.create(personForm);
-            return "redirect:" + "/persons";
+            return "redirect:" + "/";
         }
     }
 
@@ -67,6 +70,19 @@ public class WebPersonController {
             model.addAttribute("errorMsg", "Person did not found");
         }
         return "/person/showPerson";
+    }
+
+    @GetMapping(value = "/profile")
+    public String profilePerson(HttpServletRequest request, Model model) {
+
+        // #httpServletRequest.remoteUser}
+        Person person = personService.read(request.getRemoteUser());
+        if (Objects.nonNull(person)) {
+            model.addAttribute("person", person);
+        } else {
+            model.addAttribute("errorMsg", "Person did not found");
+        }
+        return "/person/profilePerson";
     }
 
     @GetMapping
