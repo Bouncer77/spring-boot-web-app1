@@ -162,14 +162,16 @@ public class Person implements UserDetails {
         this.name = personForm.getName();
         this.surname = personForm.getSurname();
         this.email = personForm.getEmail();
-        this.password = personForm.getPassword();
+        //this.password = personForm.getPassword();
         this.login = personForm.getLogin();
-        this.roles = new HashSet<>();
+        // this.roles = new HashSet<>();
 
-        for (String str : personForm.getRoles()) {
+        this.roles = personForm.getRoles();
+
+        /*for (String str : personForm.getRoles()) {
             Role en = Role.valueOf(str);
             this.roles.add(en);
-        }
+        }*/
     }
 
     @Override

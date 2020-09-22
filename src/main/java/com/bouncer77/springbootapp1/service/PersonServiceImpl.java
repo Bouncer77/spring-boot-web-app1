@@ -5,6 +5,7 @@ import com.bouncer77.springbootapp1.entity.Person;
 import com.bouncer77.springbootapp1.entity.Role;
 import com.bouncer77.springbootapp1.form.PersonForm;
 import com.bouncer77.springbootapp1.repository.PersonRepository;
+import com.bouncer77.springbootapp1.util.Colour;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -87,12 +88,13 @@ public class PersonServiceImpl implements PersonService {
     @Override
     public boolean update(long id, PersonForm personForm) {
 
-        // Если пароли не совпали
-        if (!personForm.getPassword().equals(personForm.getConfirmPassword())) {
-            return false;
-        } else {
+//        // Если пароли не совпали
+//        if (!personForm.getPassword().equals(personForm.getConfirmPassword())) {
+//            System.out.println("personForm.getPassword()" + Colour.green());
+//            return false;
+//        } else {
             // Шифрование пароля
-            personForm.setPassword(passwordEncoder.encode(personForm.getPassword()));
+            //personForm.setPassword(passwordEncoder.encode(personForm.getPassword()));
 
             Optional<Person> personRepOptional = personRepository.findById(id);
             if (personRepOptional.isPresent()) {
@@ -103,7 +105,7 @@ public class PersonServiceImpl implements PersonService {
             } else {
                 return false;
             }
-        }
+        //}
     }
 
     @Override

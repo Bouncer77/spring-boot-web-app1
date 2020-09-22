@@ -17,30 +17,34 @@
         <input type="text" th:field="*{email}" th:value="${personForm.email}"/>
         <br/>
         <br/>
-        Password:
-        <input type="password" th:field="*{password}"/>
-        <br/>
-        Confirm Password:
-        <input type="password" th:field="*{confirmPassword}"/>
-        <br/>
         Name:
         <input type="text" th:field="*{name}" th:value="${personForm.name}"/>
         <br/>
         Surname:
         <input type="text" th:field="*{surname}" th:value="${personForm.surname}"/>
-        <br/>
-        <input type="hidden" name="_csrf" value="${_csrf.token}"/>
-        <input type="submit" value="Update"/>
-        <br/>
-
+        <!--<br/>
+        Password:
+        <input type="password" th:field="*{password}"/>
+        <br/>-->
         <ul>
-            <li th:each="role : ${roles}">
-                <input type="checkbox" name="${role}" th:value="${role}"/>
-                <label th:text="${role}"></label>
+            <li th:each="role : ${allRoles}">
+                <!--<input type="checkbox" name="${role}" th:value="${role}" th:checked="true" />
+                <label th:text="${role}" th:field="${role}"></label>-->
+
+                <input type="checkbox" th:field="*{roles}" th:value="${role}" />
+                <label th:for="${#ids.prev('roles')}"
+                       th:text="${role}">Heating</label>
+                <!--th:text="#{${'seedstarter.feature.' + role}}">Heating</label>-->
+
+
                 <!--<label th:for="${#ids.prev('personForm.roles')}"
                        th:text="#{${'seedstarter.personForm.roles.' + role}}">Heating</label>-->
             </li>
         </ul>
+        <input type="hidden" name="_csrf" value="${_csrf.token}"/>
+        <input type="submit" value="Update"/>
+        <br/>
+
     </form>
 
     <!-- Check if errorMessage is not null and not empty -->

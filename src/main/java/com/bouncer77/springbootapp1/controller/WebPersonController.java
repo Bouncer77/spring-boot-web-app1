@@ -4,14 +4,17 @@ import com.bouncer77.springbootapp1.entity.Person;
 import com.bouncer77.springbootapp1.entity.Role;
 import com.bouncer77.springbootapp1.form.PersonForm;
 import com.bouncer77.springbootapp1.service.PersonService;
+import com.bouncer77.springbootapp1.util.Colour;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
 
@@ -22,6 +25,7 @@ import java.util.Objects;
 
 @Controller
 @RequestMapping("/persons")
+@PreAuthorize("hasAnyRole('ADMIN', 'MODERATOR', 'TEACHER')")
 @RequiredArgsConstructor
 public class WebPersonController {
 
@@ -114,18 +118,32 @@ public class WebPersonController {
         }
 
         PersonForm personForm = new PersonForm(person.getLogin(), person.getEmail(), person.getName(), person.getSurname());
+        model.addAttribute("roles", new HashSet<Role>());
+        model.addAttribute("person", person);
         model.addAttribute("personForm", personForm);
         model.addAttribute("id", id);
-        model.addAttribute("roles", Role.values());
+        model.addAttribute("allRoles", Role.values());
 
         return "/person/editPerson";
     }
 
     @PostMapping("/edit")
+    //public String editPersonPut(@PathVariable Person person, Model model,
     public String editPersonPut(@RequestParam(name = "id") long id, Model model,
                                 @ModelAttribute("personForm") PersonForm personForm) {
 
-        if (personService.update(id, personForm)) {
+        Person person = personService.read(id);
+
+        if (Objects.nonNull(person.getRoles())) {
+            System.out.println(Colour.green("Roles: " + person.getRoles()));
+        } else {
+            System.out.println(Colour.red("Roles is null : " + person));
+        }
+
+        model.addAttribute("personForm", personForm);
+        model.addAttribute("id", id);
+        model.addAttribute("allRoles", Role.values());
+        if (personService.update(person.getId(), personForm)) {
             return "redirect:" + "/persons";
         } else {
             model.addAttribute("errorMessage", errorMessage);
@@ -149,8 +167,8 @@ public class WebPersonController {
 
         //return "redirect:" + "/persons"; // не выводит удаленного
         // return "/person/showAllPersons"; // не выводит всех остальных
-        // TODO не применяются css к странице
         return showAllPersons("", model); // /persons/delete?id=2 - не применяет css к таблице
+
     }
 }
 

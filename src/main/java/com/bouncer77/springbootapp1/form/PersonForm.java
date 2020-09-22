@@ -6,7 +6,9 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 /**
  * @author Kosenkov Ivan
@@ -23,8 +25,9 @@ public class PersonForm {
     private String confirmPassword;
     private String name;
     private String surname;
-    private List<String> roles = new ArrayList<>();
-    //private List<Role> roles = new ArrayList<>();
+    private List<String> roleList = new ArrayList<>();
+    private Set<Role> roles = new HashSet<>();
+    private Boolean[] rolesMas = new Boolean[4];
 
     public PersonForm() {}
 
