@@ -6,7 +6,7 @@ import com.bouncer77.springbootapp1.entity.Role;
 import com.bouncer77.springbootapp1.form.PersonForm;
 import com.bouncer77.springbootapp1.repository.PersonRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.Collections;
@@ -25,7 +25,7 @@ public class PersonServiceImpl implements PersonService {
     PersonRepository personRepository;
 
     @Autowired
-    BCryptPasswordEncoder bCryptPasswordEncoder;
+    PasswordEncoder passwordEncoder;
 
     @Override
     public void create(PersonForm personForm) {
@@ -52,7 +52,7 @@ public class PersonServiceImpl implements PersonService {
             person.setRoles(Collections.singleton(Role.STUDENT));
 
             // Шифрование пароля
-            person.setPassword(bCryptPasswordEncoder.encode(person.getPassword()));
+            person.setPassword(passwordEncoder.encode(person.getPassword()));
 
             this.create(person);
         }
@@ -92,7 +92,7 @@ public class PersonServiceImpl implements PersonService {
             return false;
         } else {
             // Шифрование пароля
-            personForm.setPassword(bCryptPasswordEncoder.encode(personForm.getPassword()));
+            personForm.setPassword(passwordEncoder.encode(personForm.getPassword()));
 
             Optional<Person> personRepOptional = personRepository.findById(id);
             if (personRepOptional.isPresent()) {

@@ -13,7 +13,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.util.Arrays;
 import java.util.List;
@@ -29,7 +29,7 @@ public class SpringBootApp1Application {
     }
 
     @Autowired
-    BCryptPasswordEncoder bCryptPasswordEncoder;
+    PasswordEncoder passwordEncoder;
 
     /**
      * Метод возвращает CommandLineRunnerкомпонент , который автоматически запускает код при запуске приложения.
@@ -49,7 +49,7 @@ public class SpringBootApp1Application {
                     .roles(Arrays.asList(Role.STUDENT, Role.TEACHER, Role.ADMIN))
                     .email("ivan@gmail.com")
                     .login("i")
-                    .password(bCryptPasswordEncoder.encode("123"))
+                    .password(passwordEncoder.encode("123"))
                     .build();
 
             // anton = person 2
@@ -60,7 +60,7 @@ public class SpringBootApp1Application {
                     .role(Role.STUDENT)
                     .email("anton@gmail.com")
                     .login("antonLogin")
-                    .password(bCryptPasswordEncoder.encode("123"))
+                    .password(passwordEncoder.encode("123"))
                     .build();
 
             // anna = person 3
@@ -71,7 +71,7 @@ public class SpringBootApp1Application {
                     .roles(Arrays.asList(Role.STUDENT, Role.TEACHER, Role.ADMIN))
                     .email("anna@gmail.com")
                     .login("a")
-                    .password(bCryptPasswordEncoder.encode("1"))
+                    .password(passwordEncoder.encode("1"))
                     .phones(Arrays.asList(new Phone("89681110101"), new Phone("89681110102")))
                     .passport(new Passport("111", "456789"))
                     .build();
@@ -84,7 +84,7 @@ public class SpringBootApp1Application {
                     .roles(Arrays.asList(Role.STUDENT, Role.TEACHER))
                     .email("dimaEmail@gmail.com")
                     .login("DimaLogin")
-                    .password(bCryptPasswordEncoder.encode("654321"))
+                    .password(passwordEncoder.encode("654321"))
                     .phone(new Phone("89681110201"))
                     .passport(new Passport("222", "456555"))
                     .build();
@@ -97,7 +97,7 @@ public class SpringBootApp1Application {
                     .role(Role.STUDENT)
                     .email("alexEmail@gmail.com")
                     .login("AlexLogin")
-                    .password(bCryptPasswordEncoder.encode("321"))
+                    .password(passwordEncoder.encode("321"))
                     .phone(new Phone("89681110301"))
                     .passport(new Passport("111", "456000"))
                     .build();
@@ -110,7 +110,7 @@ public class SpringBootApp1Application {
                     .roles(Arrays.asList(Role.STUDENT, Role.MODERATOR))
                     .email("marinaEmail@gmail.com")
                     .login("MarinaLogin")
-                    .password(bCryptPasswordEncoder.encode("123"))
+                    .password(passwordEncoder.encode("123"))
                     .phone(new Phone("89681110402"))
                     .passport(new Passport("123", "456004"))
                     .build();

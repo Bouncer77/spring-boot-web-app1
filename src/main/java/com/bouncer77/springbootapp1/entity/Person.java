@@ -23,7 +23,7 @@ import java.util.Set;
 @AllArgsConstructor
 @Builder(toBuilder = true)
 @Entity
-@Table(name = "persons")
+@Table(name = "person")
 public class Person implements UserDetails {
 
     /**

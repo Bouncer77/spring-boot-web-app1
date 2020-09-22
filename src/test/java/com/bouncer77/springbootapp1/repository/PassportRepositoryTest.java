@@ -4,14 +4,13 @@ import com.bouncer77.springbootapp1.entity.Passport;
 import com.bouncer77.springbootapp1.entity.Person;
 import com.bouncer77.springbootapp1.entity.Phone;
 import com.bouncer77.springbootapp1.entity.Role;
-import com.bouncer77.springbootapp1.util.Colour;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.util.Arrays;
@@ -31,7 +30,7 @@ class PassportRepositoryTest {
     PassportRepository passportRepository;
 
     @Autowired
-    BCryptPasswordEncoder bCryptPasswordEncoder;
+    PasswordEncoder passwordEncoder;
 
     private final String TEST_LOGIN_1 = "TestLogin1";
 
@@ -44,7 +43,7 @@ class PassportRepositoryTest {
                 .roles(Arrays.asList(Role.STUDENT, Role.TEACHER))
                 .email("test1@gmail.com")
                 .login(TEST_LOGIN_1)
-                .password(bCryptPasswordEncoder.encode("123"))
+                .password(passwordEncoder.encode("123"))
                 .phone(new Phone("89681119999"))
                 .passport(new Passport("777", "123321"))
                 .build();
@@ -66,8 +65,6 @@ class PassportRepositoryTest {
         List<Passport> passports = passportRepository.findAll();
         assertThat(people.size()).isEqualTo(passports.size());
         int peopleCountBefore = people.size();
-        people = null;
-        passports = null;
 
         Passport passport = passportRepository.findBySeriesAndNumber("777", "123321");
         passportRepository.delete(passport);

@@ -147,7 +147,10 @@ public class WebPersonController {
             model.addAttribute("opDelete", false);
         }
 
-        return "redirect:" + "/persons";
+        //return "redirect:" + "/persons"; // не выводит удаленного
+        // return "/person/showAllPersons"; // не выводит всех остальных
+        // TODO не применяются css к странице
+        return showAllPersons("", model); // /persons/delete?id=2 - не применяет css к таблице
     }
 }
 

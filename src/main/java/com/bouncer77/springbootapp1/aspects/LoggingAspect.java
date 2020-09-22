@@ -5,6 +5,7 @@ import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.*;
 import org.springframework.stereotype.Component;
 
+import java.util.Objects;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -33,7 +34,8 @@ public class LoggingAspect {
     // Задаем pointcut прямо в Advice
     @AfterReturning(pointcut = "execution(public !void com.bouncer77.springbootapp1.service.PersonServiceImpl.*(..))", returning = "result")
     public void logAfterReturning(JoinPoint joinPoint, Object result) {
-        logger.log(Level.INFO, "возвращенное значение: " + result.toString());
+        if (Objects.nonNull(result))
+            logger.log(Level.INFO, "возвращенное значение: " + result.toString());
     }
 
     @Around("@annotation(LogExecutionTime)")
