@@ -75,6 +75,10 @@ public class Person implements UserDetails {
     @Column(name = "name", nullable = false)
     private String name;
 
+    @Builder.Default
+    @Column(name = "avatar")
+    private String avatar = "default_avatar.jpg";
+
     /**
      * Roles of current person
      */

@@ -39,6 +39,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
 
                 // Сайт с авторизацией
+                //.antMatchers("/static/**").permitAll()
                 .antMatchers("/registration").anonymous()
                 .antMatchers("/profile").authenticated()
                 //.antMatchers("/persons/add", "/profile").hasAnyRole("MODERATOR", "ADMIN", "ANONYMOUS")
@@ -46,6 +47,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 //.antMatchers("/deletePerson*", "/editPerson*", "/persons/**", "/books", "/books/**").hasAnyRole("MODERATOR", "ADMIN")
                 .antMatchers("/", "/index", "/applications", "/contact", "/about",
                         "/js/**", "/images/**", "/css/**", "/login*", "/logout*").permitAll()
+                //.antMatchers("/", "/index", "/applications", "/contact", "/about", "/login*", "/logout*").permitAll()
                 .antMatchers("/**").hasRole("ADMIN")
 
                 // Postman (без авторизации) + сайт без авторизации
