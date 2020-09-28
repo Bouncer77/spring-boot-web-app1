@@ -13,11 +13,11 @@
 
 <body>
 
-    <script type="text/javascript">
+    <!--<script type="text/javascript">
         $(document).ready(function(){
             alert(jQuery.fn.jquery);
         });
-    </script>
+    </script>-->
 
     <div class="topnav">
         <a class="active">Home</a>
@@ -31,7 +31,8 @@
 
         <div sec:authorize="isAnonymous()">
             <a th:href="@{/persons}">Login</a> <!--тут должна быть ссылка на профиль-->
-            <a th:href="@{/persons/add}">Register</a>
+            <!--<a th:href="@{/persons/add}">Register</a>-->
+            <a th:href="@{/registration}">Register</a>
         </div>
 
         <div sec:authorize="isAuthenticated()">
@@ -44,13 +45,19 @@
     <div class="sidenav">
 
             <div class="heading_of_sidenav">Course Progress Maestro</div>
-            <a th:href="@{/persons/add}">Registration</a>
-            <a th:href="@{/persons}">All Users</a>
+
+            <div sec:authorize="hasRole('ROLE_ADMIN')">
+                <a th:href="@{/persons}">All Users</a>
+            </div>
+
             <a th:href="@{/about}">About</a>
             <div class="heading_of_sidenav">See also</div>
             <a th:href="@{/contact}">Contact</a>
             <a th:href="@{/applications}">Applications</a>
-            <a th:href="@{/thymeleaf/}">Thymeleaf Examples</a>
+
+            <div sec:authorize="hasRole('ROLE_ADMIN')">
+                <a th:href="@{/thymeleaf/}">Thymeleaf Examples</a>
+            </div>
 
             <!-- Load font awesome icons -->
             <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">

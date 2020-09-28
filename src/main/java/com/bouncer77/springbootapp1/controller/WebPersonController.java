@@ -13,8 +13,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
-import java.util.HashSet;
+import javax.validation.Valid;
 import java.util.List;
 import java.util.Objects;
 
@@ -43,6 +42,7 @@ public class WebPersonController {
 
         PersonForm personForm = new PersonForm();
         model.addAttribute("personForm", personForm);
+        model.addAttribute("allRoles", Role.values());
 
         return "/person/addPerson";
     }
@@ -76,19 +76,6 @@ public class WebPersonController {
         return "/person/showPerson";
     }
 
-    @GetMapping(value = "/profile")
-    public String profilePerson(HttpServletRequest request, Model model) {
-
-        // #httpServletRequest.remoteUser}
-        Person person = personService.read(request.getRemoteUser());
-        if (Objects.nonNull(person)) {
-            model.addAttribute("person", person);
-        } else {
-            model.addAttribute("errorMsg", "Person did not found");
-        }
-        return "/person/profilePerson";
-    }
-
     @GetMapping
     public String showAllPersons(@RequestParam(required = false) String filter,
                                  Model model) {
@@ -118,7 +105,7 @@ public class WebPersonController {
         }
 
         PersonForm personForm = new PersonForm(person.getLogin(), person.getEmail(), person.getName(), person.getSurname());
-        model.addAttribute("roles", new HashSet<Role>());
+        model.addAttribute("roles", person.getRoles());
         model.addAttribute("person", person);
         model.addAttribute("personForm", personForm);
         model.addAttribute("id", id);
@@ -129,8 +116,9 @@ public class WebPersonController {
 
     @PostMapping("/edit")
     //public String editPersonPut(@PathVariable Person person, Model model,
-    public String editPersonPut(@RequestParam(name = "id") long id, Model model,
-                                @ModelAttribute("personForm") PersonForm personForm) {
+    public String editPersonPut(@RequestParam(name = "id") long id,
+                                @Valid @ModelAttribute("personForm") PersonForm personForm,
+                                Model model) {
 
         Person person = personService.read(id);
 

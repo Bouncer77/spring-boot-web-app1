@@ -31,6 +31,15 @@
         Surname:
         <input type="text" th:field="*{surname}"/>
         <br/>
+
+        <ul>
+            <li th:each="role : ${allRoles}">
+                <input type="checkbox" checked="checked" th:field="*{roles}" th:value="${role}" />
+                <label th:for="${#ids.prev('roles')}"
+                       th:text="${role}">Heating</label>
+            </li>
+        </ul>
+
         <input type="hidden" name="_csrf" value="${_csrf.token}"/>
         <input type="submit" value="Create"/>
     </form>

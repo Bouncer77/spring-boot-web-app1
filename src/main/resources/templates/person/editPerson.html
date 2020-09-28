@@ -31,7 +31,7 @@
                 <!--<input type="checkbox" name="${role}" th:value="${role}" th:checked="true" />
                 <label th:text="${role}" th:field="${role}"></label>-->
 
-                <input type="checkbox" th:field="*{roles}" th:value="${role}" />
+                <input type="checkbox" checked="checked" th:field="*{roles}" th:value="${role}" />
                 <label th:for="${#ids.prev('roles')}"
                        th:text="${role}">Heating</label>
                 <!--th:text="#{${'seedstarter.feature.' + role}}">Heating</label>-->

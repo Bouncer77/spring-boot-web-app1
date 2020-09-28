@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.Objects;
 
 /**
@@ -54,5 +55,18 @@ public class WebMainController {
     @GetMapping("/applications")
     public String showApplications() {
         return "/applications";
+    }
+
+    @GetMapping(value = "/profile")
+    public String profilePerson(HttpServletRequest request, Model model) {
+
+        // #httpServletRequest.remoteUser}
+        Person person = personService.read(request.getRemoteUser());
+        if (Objects.nonNull(person)) {
+            model.addAttribute("person", person);
+        } else {
+            model.addAttribute("errorMsg", "Person did not found");
+        }
+        return "/profilePerson";
     }
 }

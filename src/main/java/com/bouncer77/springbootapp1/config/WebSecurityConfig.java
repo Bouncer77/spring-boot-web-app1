@@ -39,9 +39,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
 
                 // Сайт с авторизацией
-                .antMatchers("/persons/add", "/profile").hasAnyRole("MODERATOR", "ADMIN", "ANONYMOUS")
-                .antMatchers("/books", "/books/**", "/persons", "/persons/*").hasAnyRole("ADMIN, TEACHER, MODERATOR")
-                .antMatchers("/deletePerson*", "/editPerson*", "/persons/**").hasAnyRole("MODERATOR", "ADMIN")
+                .antMatchers("/registration").anonymous()
+                .antMatchers("/profile").authenticated()
+                //.antMatchers("/persons/add", "/profile").hasAnyRole("MODERATOR", "ADMIN", "ANONYMOUS")
+                //.antMatchers("/books", "/books/**", "/persons", "/persons/*").hasAnyRole("ADMIN, TEACHER, MODERATOR")
+                //.antMatchers("/deletePerson*", "/editPerson*", "/persons/**", "/books", "/books/**").hasAnyRole("MODERATOR", "ADMIN")
                 .antMatchers("/", "/index", "/applications", "/contact", "/about",
                         "/js/**", "/images/**", "/css/**", "/login*", "/logout*").permitAll()
                 .antMatchers("/**").hasRole("ADMIN")
