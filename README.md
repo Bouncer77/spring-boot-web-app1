@@ -1,147 +1,46 @@
 # Course Progress Maestro
 
-## Second
+<!-- MarkdownTOC autolink="true" -->
 
-### Third
+- [Назначение приложения](#%D0%9D%D0%B0%D0%B7%D0%BD%D0%B0%D1%87%D0%B5%D0%BD%D0%B8%D0%B5-%D0%BF%D1%80%D0%B8%D0%BB%D0%BE%D0%B6%D0%B5%D0%BD%D0%B8%D1%8F)
+- [Стэк технологий](#%D0%A1%D1%82%D1%8D%D0%BA-%D1%82%D0%B5%D1%85%D0%BD%D0%BE%D0%BB%D0%BE%D0%B3%D0%B8%D0%B9)
+- [Как запустить приложение](#%D0%9A%D0%B0%D0%BA-%D0%B7%D0%B0%D0%BF%D1%83%D1%81%D1%82%D0%B8%D1%82%D1%8C-%D0%BF%D1%80%D0%B8%D0%BB%D0%BE%D0%B6%D0%B5%D0%BD%D0%B8%D0%B5)
 
-#### Fourth
+<!-- /MarkdownTOC -->
 
-##### Fifth
+## Назначение приложения
 
-###### Sixth
+Онлайн сервис для учета прочитанных книг, сбора статистики по количеству прочитанных страниц, выдачи персональных рекомендаций.
+
+Планируется реализовать возможность общения между пользователями текстовыми сообщениями внутри сервиса, возможность вывода лидеров,
+возможность тестирования на определение действительно ли была прочитана книга или глава.
+
+## Стэк технологий 
+
+Full stack приложение с использованием стека технологий:
+
+1. PostgresSQL в качестве РСУБД
+2. JPA - взаимодействие с РСУБД PostgresSQL
+3. Spring Boot 2 с MVC - поднимает веб сервер на tomcat
+4. thymeleaf - шаблонизатор
+
 Для тестирования RESTful через Postman требуется в исходнике WebSecurityConfig включить опции для Postman (см комментрарии)
 
+## Как запустить приложение
 
-One<br/>
-Two
+1. Перед запуском приложения необходимо установить PostgresSQL
+2. Создать базу данных с именем `bookreadermaestro_db` и схему в `jpa` в этой базе данных
 
-
-- first
-- second
-    - тут1
-    - тут2
-- third
-* new first
-
-1. тут1
-2. тут2
-    5. другая нумерация с единицы
-        - новый элемент
-    2. markdown сам нумерует списки
-3. тут3
-
-
-гиперссылки
-some text [link](https://google.com)
-[link_to_help.md](./HELP.md)
-
-
-много много текста много много текстамного много текстамного много текстамного много текстамного много текста
-много много текстамного [Markdown](https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet) 
-много текста много много [MardownPro][1] текстамного много текстамного много текстамного много текстамного много текстамного много текста
-много много текстамного много текстамного много текстамного много текстамного много текста
-много много текстамного много текстаммного много текста
-
-[1]: (https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet)
-
-
-![markdown_logo](https://upload.wikimedia.org/wikipedia/commons/4/48/Markdown-mark.svg "Logo Title Text 1")
-
-
-Reference-style: 
-![alt text][logo]
-
-[logo]: https://raw.githubusercontent.com/adam-p/markdown-here/master/src/common/images/icon48.png "Logo Title Text 2"
-
-Подсветка синтаксиса (дискорд, слак, телега)<br/>
-Попробуй запустить `git pull`
-
-`$git pull
-$git checkout -b somebranch`
-
-```javascript
-function someFunction() {
-    return 2 + 1;
-}
+```bash
+psql -U postgres
+  # пароль от пользователя postgres
+```
+```postgresql
+CREATE DATABASE bookreadermaestro_db;
+\c bookreadermaestro_db
+CREATE SCHEMA jpa;
 ```
 
-```java
-import com.bouncer77.springbootapp1.entity;
-
-public class Main {
-    public static void main(String[] args){
-        new Person();
-    }
-}
-```
-
-```javascript
-var s = "JavaScript syntax highlighting";
-alert(s);
-```
- 
-```python
-s = "Python syntax highlighting"
-print s
-```
- 
-```
-No language indicated, so no syntax highlighting. 
-But let's throw in a <b>tag</b>.
-```
-
-Таблички
-
-`---:` - форматирование по правому краю
-`:---:` - форматирование по центру
-
-first | second | third
---- | ---: | :---:
-*name1* | 123 | description1
-**name2** | 234 | description2
-*name3* | 345 | description3
-
-Куча какого-то текста Куча какого-то текста Куча какого-то текста Куча какого-то текста Куча какого-то текста Куча какого-то текста Куча какого-то текста Куча какого-то текста Куча какого-то текста 
-Куча какого-то текста Куча какого-то текста Куча какого-то текста Куча какого-то текста Куча какого-то текста Куча какого-то текста Куча какого-то текста 
-Куча какого-то текста Куча какого-то текста Куча какого-то текста Куча какого-то текста Куча какого-то текста Куча какого-то текста 
-> Шибко умная мысль1 <br/>
-> Шибко умная мысль2 (цитата)
-
-Куча какого-то текста Куча какого-то текста Куча какого-то текста Куча какого-то текста Куча какого-то текста Куча какого-то текста 
-Куча какого-то текста Куча какого-то текста Куча какого-то текста Куча какого-то текста Куча какого-то текста 
-Куча какого-то текста Куча какого-то текста Куча какого-то текста Куча какого-то текста Куча какого-то текста 
-Куча какого-то текста Куча какого-то текста Куча какого-то текста 
-
-
-
-fsadf  ***жирный курсив*** **жирный** __курсив__ **один _и_ два** ~~тут~~
-
-Курсив: *курсив1* _курсив2_
-Жирный текст: **жирный1** __жирный2__
-Комбинирование: **жирный и _жирно-курсивный_**
-Зачеркнутый: ~~зачеркнутый~~
-
-HTML:
-
-<dl>
-  <dt>Definition list</dt>
-  <dd>Is something people use sometimes.</dd>
-
-  <dt>Markdown in HTML</dt>
-  <dd>Does *not* work **very** well. Use HTML <em>tags</em>.</dd>
-</dl>
-
-Устройство URI запросов:
-* /person
-* /person/{id}
-* /person/courses
-* /person/courses/{id}
-* /person/book
-* /book
-* /book/{id}
-
-<a href="http://www.youtube.com/watch?feature=player_embedded&v=YOUTUBE_VIDEO_ID_HERE
-" target="_blank"><img src="https://www.youtube.com/watch?v=6YeCbrtU15s" 
-alt="IMAGE ALT TEXT HERE" width="240" height="180" border="10" /></a>
-
-[![IMAGE ALT TEXT HERE](http://img.youtube.com/vi/YOUTUBE_VIDEO_ID_HERE/0.jpg)](https://www.youtube.com/watch?v=6YeCbrtU15s)
+2. Ввести свой логин и пароль от PostgresSQL в файле `src/main/resources/application.properties`
+3. Запустить проект (`SpringBootApp1Application.java`)
+4. Зайти на сайт [Course Progress Maestro](http://localhost:8080/)
