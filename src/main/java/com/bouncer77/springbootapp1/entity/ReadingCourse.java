@@ -31,6 +31,15 @@ public class ReadingCourse {
     )
     private Set<Book> books = new HashSet<>();
 
+    // 2 +
+    @ManyToMany
+    @JoinTable(name = "rcourse_course",
+            joinColumns = @JoinColumn(name = "rcourse_id"),
+            inverseJoinColumns = @JoinColumn(name = "course_id")
+    )
+    Set<InstanceCourse> courses = new HashSet<>();
+
+    // 1 -
     /*@ManyToMany(mappedBy = "readingCourses")
     Set<InstanceCourse> instanceCourses = new HashSet<>();*/
 

@@ -5,13 +5,12 @@ import com.bouncer77.springbootapp1.entity.Person;
 import com.bouncer77.springbootapp1.entity.Phone;
 import com.bouncer77.springbootapp1.entity.Role;
 import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.util.Arrays;
@@ -27,7 +26,7 @@ class PersonRepositoryTest {
     PersonRepository personRepository;
 
     @Autowired
-    BCryptPasswordEncoder bCryptPasswordEncoder;
+    PasswordEncoder passwordEncoder;
 
     private final String TEST_LOGIN_1 = "TestLogin1";
     private final String TEST_LOGIN_2 = "TestLogin2";
@@ -41,7 +40,7 @@ class PersonRepositoryTest {
                 .roles(Arrays.asList(Role.STUDENT, Role.TEACHER))
                 .email("test1@gmail.com")
                 .login(TEST_LOGIN_1)
-                .password(bCryptPasswordEncoder.encode("123"))
+                .password(passwordEncoder.encode("123"))
                 .phone(new Phone("89681119999"))
                 .passport(new Passport("777", "123321"))
                 .build();
@@ -53,7 +52,7 @@ class PersonRepositoryTest {
                 .role(Role.STUDENT)
                 .email("test2@gmail.com")
                 .login(TEST_LOGIN_2)
-                .password(bCryptPasswordEncoder.encode("123"))
+                .password(passwordEncoder.encode("123"))
                 .phone(new Phone("89681110909"))
                 .passport(new Passport("888", "123322"))
                 .build();

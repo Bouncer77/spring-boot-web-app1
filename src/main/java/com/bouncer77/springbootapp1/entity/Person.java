@@ -6,6 +6,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.HashSet;
@@ -23,7 +24,7 @@ import java.util.Set;
 @AllArgsConstructor
 @Builder(toBuilder = true)
 @Entity
-@Table(name = "persons")
+@Table(name = "person")
 public class Person implements UserDetails {
 
     /**
@@ -73,6 +74,10 @@ public class Person implements UserDetails {
     @NonNull
     @Column(name = "name", nullable = false)
     private String name;
+
+    @Builder.Default
+    @Column(name = "avatar")
+    private String avatar = "default_avatar.jpg";
 
     /**
      * Roles of current person
@@ -162,14 +167,16 @@ public class Person implements UserDetails {
         this.name = personForm.getName();
         this.surname = personForm.getSurname();
         this.email = personForm.getEmail();
-        this.password = personForm.getPassword();
+        //this.password = personForm.getPassword();
         this.login = personForm.getLogin();
-        this.roles = new HashSet<>();
+        // this.roles = new HashSet<>();
 
-        for (String str : personForm.getRoles()) {
+        this.roles = personForm.getRoles();
+
+        /*for (String str : personForm.getRoles()) {
             Role en = Role.valueOf(str);
             this.roles.add(en);
-        }
+        }*/
     }
 
     @Override

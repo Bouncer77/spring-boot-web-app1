@@ -1,11 +1,13 @@
 package com.bouncer77.springbootapp1.service;
 
+import com.bouncer77.springbootapp1.aspects.LogExecutionTime;
 import com.bouncer77.springbootapp1.entity.Person;
 import com.bouncer77.springbootapp1.entity.Role;
 import com.bouncer77.springbootapp1.form.PersonForm;
 import com.bouncer77.springbootapp1.repository.PersonRepository;
+import com.bouncer77.springbootapp1.util.Colour;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.Collections;
@@ -24,7 +26,7 @@ public class PersonServiceImpl implements PersonService {
     PersonRepository personRepository;
 
     @Autowired
-    BCryptPasswordEncoder bCryptPasswordEncoder;
+    PasswordEncoder passwordEncoder;
 
     @Override
     public void create(PersonForm personForm) {
@@ -51,7 +53,7 @@ public class PersonServiceImpl implements PersonService {
             person.setRoles(Collections.singleton(Role.STUDENT));
 
             // Шифрование пароля
-            person.setPassword(bCryptPasswordEncoder.encode(person.getPassword()));
+            person.setPassword(passwordEncoder.encode(person.getPassword()));
 
             this.create(person);
         }
@@ -63,6 +65,7 @@ public class PersonServiceImpl implements PersonService {
     }
 
     @Override
+    @LogExecutionTime
     public List<Person> readAll() {
         return personRepository.findAll();
     }
@@ -85,12 +88,13 @@ public class PersonServiceImpl implements PersonService {
     @Override
     public boolean update(long id, PersonForm personForm) {
 
-        // Если пароли не совпали
-        if (!personForm.getPassword().equals(personForm.getConfirmPassword())) {
-            return false;
-        } else {
+//        // Если пароли не совпали
+//        if (!personForm.getPassword().equals(personForm.getConfirmPassword())) {
+//            System.out.println("personForm.getPassword()" + Colour.green());
+//            return false;
+//        } else {
             // Шифрование пароля
-            personForm.setPassword(bCryptPasswordEncoder.encode(personForm.getPassword()));
+            //personForm.setPassword(passwordEncoder.encode(personForm.getPassword()));
 
             Optional<Person> personRepOptional = personRepository.findById(id);
             if (personRepOptional.isPresent()) {
@@ -101,7 +105,7 @@ public class PersonServiceImpl implements PersonService {
             } else {
                 return false;
             }
-        }
+        //}
     }
 
     @Override

@@ -5,11 +5,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 /**
  * @author Kosenkov Ivan
@@ -17,47 +18,54 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
  */
 
 @Configuration
-@EnableWebSecurity(debug = true)
+@EnableWebSecurity//(debug = true)
+@EnableGlobalMethodSecurity(prePostEnabled = true) // вкл @PreAuthorize("hasAuthority('ADMIN')")
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
-    CustomPersonDetailsService personDetailsService;
+    private CustomPersonDetailsService personDetailsService;
 
+    //@Autowired
+    private PasswordEncoder passwordEncoder;
 
     @Bean
-    public BCryptPasswordEncoder bCryptPasswordEncoder() {
-        return new BCryptPasswordEncoder();
+    public PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder(8); // надежность ключа шифрования = 8
     }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
-                    .authorizeRequests()
+                .authorizeRequests()
 
                 // Сайт с авторизацией
-                .antMatchers("/web/books", "/personList", "/web/books/**", "/persons/*").hasAnyRole("ADMIN, TEACHER, MODERATOR")
-                .antMatchers("/addPerson").hasAnyRole("MODERATOR", "ADMIN", "ANONYMOUS")
-                .antMatchers("/deletePerson*", "/editPerson*", "/persons/**").hasAnyRole("MODERATOR", "ADMIN")
+                //.antMatchers("/static/**").permitAll()
+                .antMatchers("/registration").anonymous()
+                .antMatchers("/profile").authenticated()
+                //.antMatchers("/persons/add", "/profile").hasAnyRole("MODERATOR", "ADMIN", "ANONYMOUS")
+                //.antMatchers("/books", "/books/**", "/persons", "/persons/*").hasAnyRole("ADMIN, TEACHER, MODERATOR")
+                //.antMatchers("/deletePerson*", "/editPerson*", "/persons/**", "/books", "/books/**").hasAnyRole("MODERATOR", "ADMIN")
                 .antMatchers("/", "/index", "/applications", "/contact", "/about",
-                "/js/**", "/images/**", "/css/**", "/login*", "/logout*").permitAll()
+                        "/js/**", "/images/**", "/css/**", "/login*", "/logout*").permitAll()
+                //.antMatchers("/", "/index", "/applications", "/contact", "/about", "/login*", "/logout*").permitAll()
                 .antMatchers("/**").hasRole("ADMIN")
 
                 // Postman (без авторизации) + сайт без авторизации
                 //.antMatchers("/**").permitAll()
 
-                    .anyRequest().authenticated()
+                .anyRequest().authenticated()
                 .and()
-                    .formLogin().loginProcessingUrl("/login")
-                    //.loginPage("/login") // Добавить свою страницу аутентификации
-                    .permitAll()
+                .formLogin().loginProcessingUrl("/login")
+                //.loginPage("/login") // Добавить свою страницу аутентификации
+                .permitAll()
                 .and()
-                    .logout().logoutUrl("/logout")
-                    .permitAll()//; // Сайт с авторизацией
+                .logout().logoutUrl("/logout")
+                .permitAll()//; // Сайт с авторизацией
                 //.and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS) // отключить сессии (не обязательно)
                 .and().rememberMe().tokenValiditySeconds(86400).key("hackMan77"); // 24 часа
 
-                // Postman (без авторизации)
-                // Для работы POSTMAN-а
+        // Postman (без авторизации)
+        // Для работы POSTMAN-а
                 /*.and()
                     .csrf().disable()//; // содержит уязвимости
                     .formLogin().disable(); // отключает форму авторизации по умолчанию*/
@@ -66,8 +74,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(personDetailsService)
-                .passwordEncoder(bCryptPasswordEncoder());
-                //.passwordEncoder(NoOpPasswordEncoder.getInstance());
+                .passwordEncoder(passwordEncoder());
+        //.passwordEncoder(NoOpPasswordEncoder.getInstance());
     }
 }
 

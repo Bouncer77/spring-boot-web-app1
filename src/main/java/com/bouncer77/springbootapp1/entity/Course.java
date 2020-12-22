@@ -24,15 +24,20 @@ public class Course {
     @NonNull
     private String name;
 
-    @ManyToMany
+    // 1 -
+    /*@ManyToMany
     @JoinTable(name = "rcourse_course",
             joinColumns = @JoinColumn(name = "course_id"),
             inverseJoinColumns = @JoinColumn(name = "rcourse_id")
     )
+    private Set<ReadingCourse> readingCourses = new HashSet<>();*/
+
+    // 2 +
+    @ManyToMany(mappedBy = "courses")
     private Set<ReadingCourse> readingCourses = new HashSet<>();
 
-    /*@ManyToMany(mappedBy = "courses")
-    Set<InstanceCourse> instanceCourses = new HashSet<>();*/
+    @ManyToMany(mappedBy = "courses")
+    Set<InstanceCourse> instanceCourses = new HashSet<>();
 
     public Course(String name) {
         this.name = name;
